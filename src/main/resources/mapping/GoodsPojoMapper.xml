@@ -16,25 +16,31 @@
     g_id, s_id, g_name, g_price, g_costing, g_author, g_specification, g_remark, g_status
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from t_goods
     where g_id = #{gId,jdbcType=VARCHAR}
   </select>
+
+  <select id="getAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from t_goods
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_goods
     where g_id = #{gId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.GoodsPojo" >
-    insert into t_goods (g_id, s_id, g_name, 
-      g_price, g_costing, g_author, 
-      g_specification, g_remark, g_status
-      )
-    values (#{gId,jdbcType=VARCHAR}, #{sId,jdbcType=INTEGER}, #{gName,jdbcType=VARCHAR}, 
+   INSERT INTO t_goods (g_id,s_id ,g_name,g_price,g_costing,g_author,g_specification,g_remark,g_status)
+    VALUES ( CONCAT( DATE_FORMAT(CURDATE(),'%Y%m%d'), RIGHT(CONCAT('0000', LAST_INSERT_ID(LAST_INSERT_ID()+1)),4 ) ) ,
+     #{sId,jdbcType=INTEGER}, #{gName,jdbcType=VARCHAR},
       #{gPrice,jdbcType=REAL}, #{gCosting,jdbcType=REAL}, #{gAuthor,jdbcType=VARCHAR}, 
-      #{gSpecification,jdbcType=VARCHAR}, #{gRemark,jdbcType=VARCHAR}, #{gStatus,jdbcType=VARCHAR}
-      )
+      #{gSpecification,jdbcType=VARCHAR}, #{gRemark,jdbcType=VARCHAR}, #{gStatus,jdbcType=VARCHAR})
   </insert>
+
   <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.GoodsPojo" >
     insert into t_goods
     <trim prefix="(" suffix=")" suffixOverrides="," >
