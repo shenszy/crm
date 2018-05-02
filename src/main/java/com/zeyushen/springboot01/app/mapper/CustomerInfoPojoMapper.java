@@ -10,7 +10,7 @@ public interface CustomerInfoPojoMapper {
 //
 //    int insert(CustomerInfoPojo record);
 //
-//    int insertSelective(CustomerInfoPojo record);
+    int insertOneCustomer(CustomerInfoPojo record);
 //
 //    CustomerInfoPojo selectByPrimaryKey(Integer cId);
 //

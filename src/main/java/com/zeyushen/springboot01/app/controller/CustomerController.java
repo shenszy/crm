@@ -1,14 +1,22 @@
 package com.zeyushen.springboot01.app.controller;
 
+import com.zeyushen.springboot01.app.model.AddressPojo;
 import com.zeyushen.springboot01.app.model.CustomerInfoPojo;
+import com.zeyushen.springboot01.app.services.AddressServices;
 import com.zeyushen.springboot01.app.services.CustomerServices;
+import com.zeyushen.springboot01.app.util.FileUtil;
 import com.zeyushen.springboot01.app.util.PagingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -16,6 +24,8 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     public CustomerServices customerServices;
+    @Autowired
+    private AddressServices addressServices;
 
     @RequestMapping("/allCustomer")
     public ModelAndView getAllCustomer(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
@@ -26,5 +36,26 @@ public class CustomerController {
         PagingUtil.paging("allCustomer",mv,pageNum,onlyData,path,()->customerServices.getAllCustomer());
         mv.addObject("customerList",customerList);
         return mv;
+    }
+
+    @RequestMapping("/adress")
+    public ModelAndView getDepAndAdress(String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/addCustomer.html") String path){
+        //三级联动
+        List<AddressPojo> address=addressServices.getArea(parentID);
+        ModelAndView mv = new ModelAndView(path);
+        mv.addObject("addresses",address);
+        return mv;
+    }
+
+
+    @PostMapping("/insert.html")
+    public String insertSelective(CustomerInfoPojo customerInfoPojo,@RequestParam("fileForPhoto") MultipartFile fileForPhoto, HttpServletRequest request){
+        if(!fileForPhoto.isEmpty()){
+            String fileName=fileForPhoto.getOriginalFilename();
+           // File targetPath=new File(fileForPhoto.getOriginalFilename());
+
+        }
+       // customerServices.insertOneCustomer(customerInfoPojo);
+        return "forward:/customer/allCustomer.html";
     }
 }

@@ -13,4 +13,6 @@ public class CustomerServices {
     private CustomerInfoPojoMapper customerInfoPojoMapper;
 
     public List<CustomerInfoPojo> getAllCustomer(){return customerInfoPojoMapper.getAllCustomer();}
+
+    public int insertOneCustomer(CustomerInfoPojo customerInfoPojo){return customerInfoPojoMapper.insertOneCustomer(customerInfoPojo);}
 }

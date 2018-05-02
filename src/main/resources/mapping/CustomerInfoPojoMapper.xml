@@ -27,6 +27,98 @@
         <include refid="Base_Column_List"/>
         from t_customerinfo
     </select>
+<!--插入一条数据-->
+    <insert id="insertOneCustomer" parameterType="com.zeyushen.springboot01.app.model.CustomerInfoPojo" >
+        insert into t_customerinfo
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="cId != null" >
+                c_id,
+            </if>
+            <if test="cName != null" >
+                c_name,
+            </if>
+            <if test="cSex != null" >
+                c_sex,
+            </if>
+            <if test="cAge != null" >
+                c_age,
+            </if>
+            <if test="cVocation != null" >
+                c_vocation,
+            </if>
+            <if test="cType != null" >
+                c_type,
+            </if>
+            <if test="cDegree != null" >
+                c_degree,
+            </if>
+            <if test="cLevel != null" >
+                c_level,
+            </if>
+            <if test="cEmail != null" >
+                c_email,
+            </if>
+            <if test="cRegion != null" >
+                c_region,
+            </if>
+            <if test="cAddress != null" >
+                c_address,
+            </if>
+            <if test="cDescribe != null" >
+                c_describe,
+            </if>
+            <if test="cPhoto != null" >
+                c_photo,
+            </if>
+            <if test="cPhone != null" >
+                c_phone,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="cId != null" >
+                #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="cName != null" >
+                #{cName,jdbcType=VARCHAR},
+            </if>
+            <if test="cSex != null" >
+                #{cSex,jdbcType=CHAR},
+            </if>
+            <if test="cAge != null" >
+                #{cAge,jdbcType=INTEGER},
+            </if>
+            <if test="cVocation != null" >
+                #{cVocation,jdbcType=VARCHAR},
+            </if>
+            <if test="cType != null" >
+                #{cType,jdbcType=VARCHAR},
+            </if>
+            <if test="cDegree != null" >
+                #{cDegree,jdbcType=VARCHAR},
+            </if>
+            <if test="cLevel != null" >
+                #{cLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="cEmail != null" >
+                #{cEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="cRegion != null" >
+                #{cRegion,jdbcType=VARCHAR},
+            </if>
+            <if test="cAddress != null" >
+                #{cAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="cDescribe != null" >
+                #{cDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="cPhoto != null" >
+                #{cPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="cPhone!=null">
+                #{cPhone,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -50,91 +142,7 @@
       #{cRegion,jdbcType=VARCHAR}, #{cAddress,jdbcType=VARCHAR}, #{cDescribe,jdbcType=VARCHAR}, 
       #{cPhoto,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.CustomerInfoPojo" >
-    insert into t_customerinfo
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="cId != null" >
-        c_id,
-      </if>
-      <if test="cName != null" >
-        c_name,
-      </if>
-      <if test="cSex != null" >
-        c_sex,
-      </if>
-      <if test="cAge != null" >
-        c_age,
-      </if>
-      <if test="cVocation != null" >
-        c_vocation,
-      </if>
-      <if test="cType != null" >
-        c_type,
-      </if>
-      <if test="cDegree != null" >
-        c_degree,
-      </if>
-      <if test="cLevel != null" >
-        c_level,
-      </if>
-      <if test="cEmail != null" >
-        c_email,
-      </if>
-      <if test="cRegion != null" >
-        c_region,
-      </if>
-      <if test="cAddress != null" >
-        c_address,
-      </if>
-      <if test="cDescribe != null" >
-        c_describe,
-      </if>
-      <if test="cPhoto != null" >
-        c_photo,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="cId != null" >
-        #{cId,jdbcType=INTEGER},
-      </if>
-      <if test="cName != null" >
-        #{cName,jdbcType=VARCHAR},
-      </if>
-      <if test="cSex != null" >
-        #{cSex,jdbcType=CHAR},
-      </if>
-      <if test="cAge != null" >
-        #{cAge,jdbcType=INTEGER},
-      </if>
-      <if test="cVocation != null" >
-        #{cVocation,jdbcType=VARCHAR},
-      </if>
-      <if test="cType != null" >
-        #{cType,jdbcType=VARCHAR},
-      </if>
-      <if test="cDegree != null" >
-        #{cDegree,jdbcType=VARCHAR},
-      </if>
-      <if test="cLevel != null" >
-        #{cLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="cEmail != null" >
-        #{cEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="cRegion != null" >
-        #{cRegion,jdbcType=VARCHAR},
-      </if>
-      <if test="cAddress != null" >
-        #{cAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="cDescribe != null" >
-        #{cDescribe,jdbcType=VARCHAR},
-      </if>
-      <if test="cPhoto != null" >
-        #{cPhoto,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
+
   <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.CustomerInfoPojo" >
     update t_customerinfo
     <set >

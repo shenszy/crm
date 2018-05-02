@@ -45,13 +45,6 @@
                         <div id="addmodal_div"></div>
                     </li>
 
-                    <li>
-                        <div class="btn-group" style="margin-right: 200px">
-                            <button type="button" class="btn  btn-warning btn-md" onclick="onAdd(this)">
-                                <i class="glyphicon glyphicon-plus"></i>批量下载
-                            </button>
-                        </div>
-                    </li>
                 </ul>
             </div>
         </div>
@@ -67,7 +60,12 @@
             <th>客户类型</th>
             <th>重要程度</th>
             <th>客户级别</th>
-            <th></th>
+            <th>客户邮箱</th>
+            <th>联系方式</th>
+            <th>客户地区</th>
+            <th>客户地址</th>
+            <th>客户描述</th>
+            <th>客户照片</th>
         </tr>
         </thead>
         <tbody>
@@ -80,160 +78,33 @@
             <td th:text="${allCustomer.cType}"></td>
             <td th:text="${allCustomer.cDegree}"></td>
             <td th:text="${allCustomer.cLevel}"></td>
-            <td><a href="#aaa11" class="nav-header collapsed" data-toggle="collapse">
-                <span class="pull-right glyphicon glyphicon-chevron-down"></span></a></td>
-        </tr>
-        <tr>
-            <td colspan="9" class="hide">
-                <div id="aaa11" class="nav nav-list collapse " style="height: 0px;">
-                    <table class="table table-hover table-striped table-bordered">
-                        <tr>
-                            <th>客户邮箱</th>
-                            <td th:text="${allCustomer.cEmail}"></td>
-                            <th>联系方式</th>
-                            <td th:text="${allCustomer.cPhone}"></td>
-                            <th>客户地区</th>
-                            <td th:text="${allCustomer.cRegion}"></td>
-                            <th>客户地址</th>
-                            <td th:text="${allCustomer.cAddress}"></td>
-                        </tr>
-                        <tr>
-                            <th colspan="2">客户描述</th>
-                            <td th:text="${allCustomer.cDescribe}" colspan="2"></td>
-                            <th colspan="2">客户照片</th>
-                            <td th:text="${allCustomer.cPhoto}" colspan="2"></td>
-                        </tr>
-                    </table>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>奥巴马</td>
-            <td>999</td>
-            <td>男</td>
-            <td>55</td>
-            <td>开发部</td>
-            <td>JAVA</td>
-            <td>110120119</td>
-            <td>aobama@email.com</td>
-            <td><a href="#aaa22" class="nav-header collapsed" data-toggle="collapse">
-                <span class="pull-right glyphicon glyphicon-chevron-down"></span></a></td>
-        </tr>
-        <tr>
-            <td colspan="9" class="hide">
-                <div id="aaa22" class="nav nav-list collapse " style="height: 0px;">
-                    <table class="table table-hover table-striped table-bordered">
-                        <tr>
-                            <th>工资卡银行</th>
-                            <td>交通银行</td>
-                            <th>卡号</th>
-                            <td>5215456165165565445</td>
-                            <th>缴金情况</th>
-                            <td>没有</td>
-                            <th>试用期工资总额</th>
-                            <td>9999</td>
-                        </tr>
-                        <tr>
-                            <th>转正工资总额</th>
-                            <td>154548元</td>
-                            <th>话补</th>
-                            <td>12</td>
-                            <th>交通补</th>
-                            <td>300</td>
-                            <th>绩效</th>
-                            <td>优</td>
-                        </tr>
-                        <tr>
-                            <th>文化程度</th>
-                            <td>大专</td>
-                            <th>专业</th>
-                            <td>美容美发</td>
-                            <th>毕业院校</th>
-                            <td>新东方美容美发专修学校</td>
-                            <th>毕业时间</th>
-                            <td>2014年</td>
-                        </tr>
-                        <tr>
-                            <th>进入公司时间</th>
-                            <td>2018年1月1日</td>
-                            <th>转正日</th>
-                            <td>2018年2月2日</td>
-                            <th>司龄</th>
-                            <td>8年</td>
-                            <th>用工状态</th>
-                            <td>在职</td>
-                        </tr>
-                        <tr>
-                            <th>转正预警</th>
-                            <td>有危险</td>
-                            <th>提前享受转正工资</th>
-                            <td>是</td>
-                            <th>身份证号码</th>
-                            <td>6101111119891111</td>
-                            <th>出生日期</th>
-                            <td>1989年11月11日</td>
-                        </tr>
-                        <tr>
-                            <th>籍贯</th>
-                            <td>陕西</td>
-                            <th>户别</th>
-                            <td>非农</td>
-                            <th>民族</th>
-                            <td>汉</td>
-                            <th>户口所在地</th>
-                            <td>雁塔派出所大雁塔分局</td>
-                        </tr>
-                        <tr>
-                            <th>婚姻状况</th>
-                            <td>已婚</td>
-                            <th>子女情况</th>
-                            <td>3女5子</td>
-                            <th>子女出生日期</th>
-                            <td>2001,2002,2003,2004,2005</td>
-                            <th>档案缺失资料</th>
-                            <td>无</td>
-                        </tr>
-                        <tr>
-                            <th>备注</th>
-                            <td>此人百项全能</td>
-                            <th>紧急联系人</th>
-                            <td>
-                                <table class="table table-hover ">
-                                    <tr>
-                                        <td>紧急联系人姓名</td><td>王大锤</td>
-                                    </tr>
-                                    <tr>
-                                        <td>紧急联系人关系</td><td>父亲</td>
-                                    </tr>
-                                    <tr>
-                                        <td>紧急联系人电话</td><td>1101201121995</td>
-                                    </tr>
-
-                                </table>
-                            </td>
-
-                            <th>掌握的技能和经验</th>
-                            <td>JAVA,C/C++,HTML,汇编</td>
-                        </tr>
-                    </table>
-                </div>
-            </td>
+            <td th:text="${allCustomer.cEmail}"></td>
+            <td th:text="${allCustomer.cPhone}"></td>
+            <td th:text="${allCustomer.cRegion}"></td>
+            <td th:text="${allCustomer.cAddress}"></td>
+            <td th:text="${allCustomer.cDescribe}"></td>
+            <td th:text="${allCustomer.cPhoto}"></td>
         </tr>
         </tbody>
     </table>
     <div class="text-right">
         <ul class="pager " style="text-align: right">
-            <li><a href="#"> <span class="glyphicon glyphicon-fast-backward"></span></a></li>
-            <li><a href="#"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
-            <li>当前第4页</li>
-            <li><a href="#"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-            <li><a href="#"> <span class="glyphicon glyphicon-fast-forward"></span></a></li>
+            <li><a onclick="page(0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
+            <li><a th:onclick="'page('+${pageNum-1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+            <li><a  th:text="${pageNum}+'/'+${pages}"></a></li>
+            <li><a  th:onclick="'page('+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+            <li><a id="endPage" onclick="page(9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
         </ul>
     </div>
 </div>
 <script>
+    function page(pageNum) {
+        $("#table_paging").load("/staff/allStaff.html",data={pageNum:pageNum,onlyData:true});
+    }
+
+
     function onAdd(a) {
-        $(a).parent().next().load("hrm/emp/add.html", function () {
+        $(a).parent().next().load("/customer/adress", function () {
             $(a).parent().next().find("#addModal").modal({keyboard: true});
         });
 

@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<script>
-    $(function () {
-        $("#depOfStaff")
-    })
-</script>
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content text-center">
@@ -46,7 +41,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">住址</label>
                         <div class="col-sm-8">
-                            <div class="row">
+                        <div class="row">
                             <select id="province" class="col-md-4">
                                 <option>--省--</option>
                                 <option th:each="province:${addresses}" th:id="${province.currentID}" th:text="${province.address}"></option>
@@ -59,12 +54,12 @@
                                 <option>--区、县--</option>
                                 <option th:each="area:${addresses}" th:id="${area.currentID}" th:text="${area.address}"></option>
                             </select>
-                            </div>
-                            <input id="street" class="form-control" type="text" placeholder="街道" >
-                            <input hidden="hidden" type="text" name="tAddress" id="address">
-
-
                         </div>
+                        <input id="street" class="form-control" type="text" placeholder="街道" >
+                        <input hidden="hidden" type="text" name="tAddress" id="address">
+
+
+                    </div>
                     </div>
 
                 </form>
@@ -98,14 +93,14 @@
                 $("#province").change(function () {
                     var parentID=$("#province").find("option:selected").attr("id");
                     if(parentID!=""){
-                        $("#city").load("/staff/depAndAdress",data={parentID:parentID,path:"/filemanagement/addStaff ::#city"})
+                        $("#city").load("/staff/depAndAdress",data={parentID:parentID,path:"/filemanagement/staff/addStaff ::#city"})
                     }
                 })
                 //市联动区、县
                 $("#city").change(function () {
                     var parentID=$("#city").find("option:selected").attr("id");
                     if(parentID!=""){
-                        $("#area").load("/staff/depAndAdress",data={parentID:parentID,path:"/filemanagement/addStaff ::#area"})
+                        $("#area").load("/staff/depAndAdress",data={parentID:parentID,path:"/filemanagement/staff/addStaff ::#area"})
                     }
                 })
 
@@ -131,8 +126,6 @@
                 $("#add_asset_form").ajaxSubmit(function (d) {
                         alert("创建成功");
                         $("#addModal").modal('hide')
-                        // $("#main_table tbody").html("");
-                        //$("#员工档案管理").load("/staff/allStaff.html")
                     });
 
             });</script>
