@@ -1,7 +1,9 @@
 package com.zeyushen.springboot01.app.mapper;
 
 import com.zeyushen.springboot01.app.model.ContractTemplatePojo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface ContractTemplatePojoMapper {
     int deleteByPrimaryKey(Integer ctId);
 

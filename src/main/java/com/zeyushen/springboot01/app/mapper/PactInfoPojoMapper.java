@@ -1,7 +1,9 @@
 package com.zeyushen.springboot01.app.mapper;
 
 import com.zeyushen.springboot01.app.model.PactInfoPojo;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface PactInfoPojoMapper {
     int deleteByPrimaryKey(Integer pId);
 
