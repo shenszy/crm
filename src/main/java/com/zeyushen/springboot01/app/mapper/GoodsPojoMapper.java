@@ -1,7 +1,11 @@
 package com.zeyushen.springboot01.app.mapper;
 
 import com.zeyushen.springboot01.app.model.GoodsPojo;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface GoodsPojoMapper {
     int deleteByPrimaryKey(String gId);
 
@@ -14,4 +18,6 @@ public interface GoodsPojoMapper {
     int updateByPrimaryKeySelective(GoodsPojo record);
 
     int updateByPrimaryKey(GoodsPojo record);
+
+    List<GoodsPojo> getAll();
 }
