@@ -1,0 +1,18 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/crm
+    username: root
+    password: root
+mybatis:
+  mapper-locations: classpath*:/mapping/*.xml
+  type-aliases-package: com.zeyushen.springboot01.app.model
+logging.level.com.zeyushen.springboot01.app.mapper: debug
+#分页插件
+#pagehelper:
+#  helper-dialect: mysql
+#  reasonable: true
+#  support-methods-arguments: true
+#  params: count=countSql

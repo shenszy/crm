@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zeyushen.springboot01.app.mapper.StaffPojoMapper" >
+  <resultMap id="BaseResultMap" type="com.zeyushen.springboot01.app.model.StaffPojo" >
+    <id column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="d_id" property="dId" jdbcType="INTEGER" />
+    <result column="s_tname" property="sTname" jdbcType="VARCHAR" />
+    <result column="t_phone" property="tPhone" jdbcType="VARCHAR" />
+    <result column="t_address" property="tAddress" jdbcType="VARCHAR" />
+    <result column="s_level" property="sLevel" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    s_id, d_id, s_tname, t_phone, t_address,s_level
+  </sql>
+    <!--查询所有-->
+    <select id="getAllStaff" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_staff
+    </select>
+    <!--插入-->
+    <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.StaffPojo" >
+        insert into t_staff
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="sId != null" >
+                s_id,
+            </if>
+            <if test="dId != null" >
+                d_id,
+            </if>
+            <if test="sTname != null" >
+                s_tname,
+            </if>
+            <if test="tPhone != null" >
+                t_phone,
+            </if>
+            <if test="tAddress != null" >
+                t_address,
+            </if>
+            <if test="sLevel !=null">
+                s_level
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="sId != null" >
+                #{sId,jdbcType=INTEGER},
+            </if>
+            <if test="dId != null" >
+                #{dId,jdbcType=INTEGER},
+            </if>
+            <if test="sTname != null" >
+                #{sTname,jdbcType=VARCHAR},
+            </if>
+            <if test="tPhone != null" >
+                #{tPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="tAddress != null" >
+                #{tAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="sLevel != null" >
+                #{sLevel,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!--删除-->
+    <delete id="deleteBySId" parameterType="java.lang.Integer" >
+    delete from t_staff
+    where s_id = #{sId,jdbcType=INTEGER}
+    </delete>
+    <!--通过id查询单条数据-->
+  <select id="selectBySId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_staff
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+<!--通过id修改单条数据-->
+    <update id="updateBySId" parameterType="com.zeyushen.springboot01.app.model.StaffPojo" >
+        update t_staff
+        <set >
+            <if test="dId != null" >
+                d_id = #{dId,jdbcType=INTEGER},
+            </if>
+            <if test="sTname != null" >
+                s_tname = #{sTname,jdbcType=VARCHAR},
+            </if>
+            <if test="tPhone != null" >
+                t_phone = #{tPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="tAddress != null" >
+                t_address = #{tAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="sLevel != null" >
+                s_level=#{sLevel,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where s_id = #{sId,jdbcType=INTEGER}
+    </update>
+<!--按条件查询-->
+    <select id="getStaffByTerm" resultMap="BaseResultMap">
+        SELECT  <include refid="Base_Column_List"/>
+        FROM (SELECT *,getPY(t_staff.s_tname) AS spell FROM t_staff ) AS t_spell
+        WHERE (t_spell.s_tname LIKE CONCAT('%',#{sName},'%') OR t_spell.spell LIKE CONCAT('%',#{spell},'%'))
+        <if test="dId!=0">
+            AND t_spell.d_id=#{dId}
+        </if>
+    </select>
+    
+    
+  <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.StaffPojo" >
+    insert into t_staff (s_id, d_id, s_tname, t_phone,
+      t_address)
+    values (#{sId,jdbcType=INTEGER}, #{dId,jdbcType=INTEGER}, #{sTname,jdbcType=VARCHAR}, #{tPhone,jdbcType=VARCHAR},
+      #{tAddress,jdbcType=VARCHAR})
+  </insert>
+
+
+  <update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.StaffPojo" >
+    update t_staff
+    set d_id = #{dId,jdbcType=INTEGER},
+      s_tname = #{sTname,jdbcType=VARCHAR},
+      t_phone = #{tPhone,jdbcType=VARCHAR},
+      t_address = #{tAddress,jdbcType=VARCHAR}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+</mapper>

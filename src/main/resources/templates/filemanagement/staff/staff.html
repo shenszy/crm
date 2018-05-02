@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    .main_table {
+        background: whitesmoke;
+    }
+</style>
+<div class="main_table">
+    <nav id="table_nav" class="navbar navbar-default" style="margin: 0">
+        <div class="container-fluid">
+            <div>
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <span>姓名 : </span>
+                        <input type="text" class="form-control" id="sNameToText">
+                    </div>
+
+                    <div class="form-group">
+                        <span>部门 : </span>
+                        <select class="form-control" id="dIdToSelect">
+                            <option value="0">所有</option>
+                            <option th:each="depInfoPojoList:${depInfoPojoList}" th:value="${depInfoPojoList.dId}" th:text="${depInfoPojoList.dName}"></option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px" id="querySubmit" onclick="selectSubmit()">
+                        <i class="glyphicon glyphicon-search"></i>查询
+                    </button>
+                </form>
+                <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
+                    <li>
+                        <div class="btn-group" style="margin-right: 10px">
+                            <button type="button" class="btn  btn-primary btn-md" onclick="onAdd(this)">
+                                <i class="glyphicon glyphicon-plus"></i>增加
+                            </button>
+                        </div>
+                        <div id="addmodal_div"></div>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="table_paging">
+    <table id="main_table" class="table table-hover table-striped table-bordered">
+        <thead>
+        <tr class="success">
+            <th>姓名</th>
+            <th>编号</th>
+            <th>部门</th>
+            <th>职务名称</th>
+            <th>电话</th>
+            <th>住址</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="staff:${allStaff}" th:id="${staff.sId}">
+            <td th:text="${staff.sTname}"></td>
+            <td th:text="${staff.sId}"></td>
+            <td th:text="${staff.dId}"></td>
+            <td th:text="${staff.sLevel}"></td>
+            <td th:text="${staff.tPhone}"></td>
+            <td th:text="${staff.tAddress}"></td>
+            <td>
+                <a th:onclick="${'alterToStaff('+staff.sId+')'}">修改</a>&nbsp;&nbsp;
+                <a  th:onclick="${'deleteToStaff('+staff.sId+')'}">删除</a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+    <div class="text-right">
+        <ul class="pager " style="text-align: right">
+            <li><a onclick="page(0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
+            <li><a th:onclick="'page('+${pageNum-1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+            <li><a  th:text="${pageNum}+'/'+${pages}"></a></li>
+            <li><a  th:onclick="'page('+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+            <li><a id="endPage" onclick="page(9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+<script>
+    function selectSubmit() {
+      //  var value = $("form").serialize();
+        var dId=$("#dIdToSelect").val();
+        var sName=$("#sNameToText").val();
+        var sId=$("#dIdToSelect").val();
+        $("#table_paging").load("/staff/getStaffByTerm.html",data={sName:sName,sId:sId,dId:dId,onlyData:true})
+    }
+
+   function deleteToStaff(sId) {
+       $("#员工档案管理").load("/staff/delete.html",data={sId:sId},function () {
+           alert("删除成功！")
+       })
+   }
+
+   function alterToStaff(sId) {
+       $("#addmodal_div").load("/staff/getOneForAlter",data={sId:sId},function () {
+           $("#addmodal_div").find("#alterModal").modal({keyboard: true});
+       })
+   }
+
+    function page(pageNum) {
+        $("#table_paging").load("/staff/allStaff.html",data={pageNum:pageNum,onlyData:true});
+    }
+    
+    
+    function onAdd(a) {
+        $(a).parent().next().load("/staff/depAndAdress", function () {
+            $(a).parent().next().find("#addModal").modal({keyboard: true});
+        });
+
+    }
+
+
+</script>

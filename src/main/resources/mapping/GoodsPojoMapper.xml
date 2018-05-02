@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zeyushen.springboot01.app.mapper.GoodsPojoMapper" >
+  <resultMap id="BaseResultMap" type="com.zeyushen.springboot01.app.model.GoodsPojo" >
+    <id column="g_id" property="gId" jdbcType="VARCHAR" />
+    <result column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="g_name" property="gName" jdbcType="VARCHAR" />
+    <result column="g_price" property="gPrice" jdbcType="REAL" />
+    <result column="g_costing" property="gCosting" jdbcType="REAL" />
+    <result column="g_author" property="gAuthor" jdbcType="VARCHAR" />
+    <result column="g_specification" property="gSpecification" jdbcType="VARCHAR" />
+    <result column="g_remark" property="gRemark" jdbcType="VARCHAR" />
+    <result column="g_status" property="gStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    g_id, s_id, g_name, g_price, g_costing, g_author, g_specification, g_remark, g_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_goods
+    where g_id = #{gId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_goods
+    where g_id = #{gId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.GoodsPojo" >
+    insert into t_goods (g_id, s_id, g_name, 
+      g_price, g_costing, g_author, 
+      g_specification, g_remark, g_status
+      )
+    values (#{gId,jdbcType=VARCHAR}, #{sId,jdbcType=INTEGER}, #{gName,jdbcType=VARCHAR}, 
+      #{gPrice,jdbcType=REAL}, #{gCosting,jdbcType=REAL}, #{gAuthor,jdbcType=VARCHAR}, 
+      #{gSpecification,jdbcType=VARCHAR}, #{gRemark,jdbcType=VARCHAR}, #{gStatus,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.GoodsPojo" >
+    insert into t_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gId != null" >
+        g_id,
+      </if>
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="gName != null" >
+        g_name,
+      </if>
+      <if test="gPrice != null" >
+        g_price,
+      </if>
+      <if test="gCosting != null" >
+        g_costing,
+      </if>
+      <if test="gAuthor != null" >
+        g_author,
+      </if>
+      <if test="gSpecification != null" >
+        g_specification,
+      </if>
+      <if test="gRemark != null" >
+        g_remark,
+      </if>
+      <if test="gStatus != null" >
+        g_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gId != null" >
+        #{gId,jdbcType=VARCHAR},
+      </if>
+      <if test="sId != null" >
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="gName != null" >
+        #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gPrice != null" >
+        #{gPrice,jdbcType=REAL},
+      </if>
+      <if test="gCosting != null" >
+        #{gCosting,jdbcType=REAL},
+      </if>
+      <if test="gAuthor != null" >
+        #{gAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="gSpecification != null" >
+        #{gSpecification,jdbcType=VARCHAR},
+      </if>
+      <if test="gRemark != null" >
+        #{gRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="gStatus != null" >
+        #{gStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.GoodsPojo" >
+    update t_goods
+    <set >
+      <if test="sId != null" >
+        s_id = #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="gName != null" >
+        g_name = #{gName,jdbcType=VARCHAR},
+      </if>
+      <if test="gPrice != null" >
+        g_price = #{gPrice,jdbcType=REAL},
+      </if>
+      <if test="gCosting != null" >
+        g_costing = #{gCosting,jdbcType=REAL},
+      </if>
+      <if test="gAuthor != null" >
+        g_author = #{gAuthor,jdbcType=VARCHAR},
+      </if>
+      <if test="gSpecification != null" >
+        g_specification = #{gSpecification,jdbcType=VARCHAR},
+      </if>
+      <if test="gRemark != null" >
+        g_remark = #{gRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="gStatus != null" >
+        g_status = #{gStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where g_id = #{gId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.GoodsPojo" >
+    update t_goods
+    set s_id = #{sId,jdbcType=INTEGER},
+      g_name = #{gName,jdbcType=VARCHAR},
+      g_price = #{gPrice,jdbcType=REAL},
+      g_costing = #{gCosting,jdbcType=REAL},
+      g_author = #{gAuthor,jdbcType=VARCHAR},
+      g_specification = #{gSpecification,jdbcType=VARCHAR},
+      g_remark = #{gRemark,jdbcType=VARCHAR},
+      g_status = #{gStatus,jdbcType=VARCHAR}
+    where g_id = #{gId,jdbcType=VARCHAR}
+  </update>
+</mapper>

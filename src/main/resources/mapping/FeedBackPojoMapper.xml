@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zeyushen.springboot01.app.mapper.FeedBackPojoMapper" >
+  <resultMap id="BaseResultMap" type="com.zeyushen.springboot01.app.model.FeedBackPojo" >
+    <id column="f_id" property="fId" jdbcType="INTEGER" />
+    <result column="c_id" property="cId" jdbcType="INTEGER" />
+    <result column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="f_title" property="fTitle" jdbcType="VARCHAR" />
+    <result column="f_type" property="fType" jdbcType="VARCHAR" />
+    <result column="f_descript" property="fDescript" jdbcType="VARCHAR" />
+    <result column="f_addtime" property="fAddtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    f_id, c_id, s_id, f_title, f_type, f_descript, f_addtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_feedback
+    where f_id = #{fId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_feedback
+    where f_id = #{fId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.FeedBackPojo" >
+    insert into t_feedback (f_id, c_id, s_id, 
+      f_title, f_type, f_descript, 
+      f_addtime)
+    values (#{fId,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, #{sId,jdbcType=INTEGER}, 
+      #{fTitle,jdbcType=VARCHAR}, #{fType,jdbcType=VARCHAR}, #{fDescript,jdbcType=VARCHAR}, 
+      #{fAddtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.FeedBackPojo" >
+    insert into t_feedback
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fId != null" >
+        f_id,
+      </if>
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="fTitle != null" >
+        f_title,
+      </if>
+      <if test="fType != null" >
+        f_type,
+      </if>
+      <if test="fDescript != null" >
+        f_descript,
+      </if>
+      <if test="fAddtime != null" >
+        f_addtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fId != null" >
+        #{fId,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null" >
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="sId != null" >
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="fTitle != null" >
+        #{fTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="fType != null" >
+        #{fType,jdbcType=VARCHAR},
+      </if>
+      <if test="fDescript != null" >
+        #{fDescript,jdbcType=VARCHAR},
+      </if>
+      <if test="fAddtime != null" >
+        #{fAddtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.FeedBackPojo" >
+    update t_feedback
+    <set >
+      <if test="cId != null" >
+        c_id = #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="sId != null" >
+        s_id = #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="fTitle != null" >
+        f_title = #{fTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="fType != null" >
+        f_type = #{fType,jdbcType=VARCHAR},
+      </if>
+      <if test="fDescript != null" >
+        f_descript = #{fDescript,jdbcType=VARCHAR},
+      </if>
+      <if test="fAddtime != null" >
+        f_addtime = #{fAddtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where f_id = #{fId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.FeedBackPojo" >
+    update t_feedback
+    set c_id = #{cId,jdbcType=INTEGER},
+      s_id = #{sId,jdbcType=INTEGER},
+      f_title = #{fTitle,jdbcType=VARCHAR},
+      f_type = #{fType,jdbcType=VARCHAR},
+      f_descript = #{fDescript,jdbcType=VARCHAR},
+      f_addtime = #{fAddtime,jdbcType=TIMESTAMP}
+    where f_id = #{fId,jdbcType=INTEGER}
+  </update>
+</mapper>

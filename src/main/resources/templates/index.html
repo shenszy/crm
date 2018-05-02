@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>伴雍斋画廊客户关系管理系统</title>
+    <link rel="stylesheet" href="/css/bootstrap.css"/>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/jquery.form.js"></script>
+    <script src="/js/index.js"></script>
+    <link rel="stylesheet" href="/css/index.css"/>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
+
+</head>
+<body>
+<!--顶栏导航-->
+<header>
+    <nav class="navbar navbar-default navbar-inverse navbar-fixed-top " role="navigation">
+        <div class="container">
+            <div class="row">
+                <!--顶栏标题-->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">伴雍斋画廊客户关系管理系统</a>
+                </div>
+                <!--顶栏选项-->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#">关于我们</a></li>
+                    </ul>
+
+                    <!--右边选项-->
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#">哈哈哈</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                欢迎您,,Admin<b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">设置</a></li>
+                                <li><a href="#">个人资料</a></li>
+                                <li><a href="#">账户中心</a></li>
+                                <li class="divider"></li>
+                                <li><a href="/logout"> 退出登录</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<main class="container-fluid">
+
+    <div class="row" style="background: #1b6d85;">
+        <div class="col-md-2 col-sm-2 col-xs-2 left_nav"     >
+            <ul id="main_nav" class="nav nav-tabs nav-stacked" >
+                <li>
+                    <a href="#AssetsMent" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-credit-card"></i>
+                        档案管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="AssetsMent" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                        <li><a href="javascript:void(0);" onclick="onloada('/asset/solid.html',this)">
+                            <i class="glyphicon glyphicon-user"></i>个人档案管理</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('/staff/allStaff.html',this)">
+                            <i class="glyphicon glyphicon-print"></i>员工档案管理</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('/customer/allCustomer',this)">
+                            <i class="glyphicon glyphicon-home"></i>客户档案管理</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('/staff/allStaff.html',this)">
+                            <i class="glyphicon glyphicon-print"></i>产品档案管理</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#hrmManage" class="nav-header collapsed" data-toggle="collapse" >
+                        <i class="glyphicon glyphicon-user"></i>
+                        订单管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="hrmManage" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/notice.html',this)">
+                            <i class="fa fa-gift"></i>新建订单</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('hrm/emplist.html',this)">
+                            <i class="fa  fa-address-card-o"></i>我的订单</a></li>
+                        <li><a href="#hrmManage_cwa" class="nav-header collapsed" data-toggle="collapse">
+                            <i class="fa fa-clock-o"></i>我审核的订单
+                            <span class="pull-right glyphicon glyphicon-chevron-down"></span></a>
+                            <ul id="hrmManage_cwa" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                                <li><a href="javascript:void(0);" onclick="onloada('hrm/cwa/up.html',this)">
+                                    <i class="fa fa-file-text"></i>未审核订单</a></li>
+                                <li><a href="javascript:void(0);" onclick="onloada('hrm/cwa/down.html',this)">
+                                    <i class="fa fa-commenting"></i>已审核订单</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#empSetting" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-cog"></i>
+                        合同管理
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="empSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                        <li><a href="javascript:onload('/emp/emplist.html');"><i class="glyphicon glyphicon-user"></i>合同模板管理</a>
+                        </li>
+                        <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>合同信息管理</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#sellStatistics" class="nav-header collapsed" data-toggle="collapse">
+                        <i class="glyphicon glyphicon-calendar"></i>
+                        销售图表统计
+                        <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                    </a>
+                    <ul id="sellStatistics" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                        <li><a href="#">按产品统计销售</a></li>
+                        <li><a href="#">按员工统计销售</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="glyphicon glyphicon-fire"></i>
+                        关于系统
+                    </a>
+                </li>
+            </ul>
+            <script>
+                $("#main_nav ").append()
+            </script>
+            <div id="footer" class="row row-pb-md" style="margin: 0;">
+                <div class=" col-md-12 text-center copyright py-2 lead"
+                     style="margin-top: 40px;margin-bottom: 0;color: #383838">
+
+                    <span> Copyright © 2018 - 伴雍斋</span>
+                    <span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10  col-sm-10 col-xs-10" style="height: 100%;padding: 4px;">
+            <nav id="main_context_nav" class="navbar navbar-default" >
+                <div class="container-fluid">
+                    <div >
+                        <ul class="nav navbar-nav" >
+                            <!--<li>
+                                <div class="btn-group">
+                                    <button type="button" class="btn md">
+                                        <i class="glyphicon glyphicon-th-list"></i>人员编造
+                                    </button>
+                                    <button type="button" class="btn btn-warning">
+                                        <span class="glyphicon glyphicon-remove"></span></button>
+                                </div>
+                            </li>-->
+
+
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div id="main_context" class="main_context"  style=" ;width: 100%;"></div>
+
+        </div>
+    </div>
+
+</main>
+
+</body>
+
+<script> //onloada('hrm/emp/list.html',$("<a><i class=\"glyphicon glyphicon-user\"></i>个人档案管理</a>"))</script>
+</html>

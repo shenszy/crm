@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zeyushen.springboot01.app.mapper.ContractTemplatePojoMapper" >
+  <resultMap id="BaseResultMap" type="com.zeyushen.springboot01.app.model.ContractTemplatePojo" >
+    <id column="ct_id" property="ctId" jdbcType="INTEGER" />
+    <result column="ct_name" property="ctName" jdbcType="VARCHAR" />
+    <result column="ct_file" property="ctFile" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ct_id, ct_name, ct_file
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_contracttemplate
+    where ct_id = #{ctId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_contracttemplate
+    where ct_id = #{ctId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.ContractTemplatePojo" >
+    insert into t_contracttemplate (ct_id, ct_name, ct_file
+      )
+    values (#{ctId,jdbcType=INTEGER}, #{ctName,jdbcType=VARCHAR}, #{ctFile,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.ContractTemplatePojo" >
+    insert into t_contracttemplate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ctId != null" >
+        ct_id,
+      </if>
+      <if test="ctName != null" >
+        ct_name,
+      </if>
+      <if test="ctFile != null" >
+        ct_file,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ctId != null" >
+        #{ctId,jdbcType=INTEGER},
+      </if>
+      <if test="ctName != null" >
+        #{ctName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctFile != null" >
+        #{ctFile,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.ContractTemplatePojo" >
+    update t_contracttemplate
+    <set >
+      <if test="ctName != null" >
+        ct_name = #{ctName,jdbcType=VARCHAR},
+      </if>
+      <if test="ctFile != null" >
+        ct_file = #{ctFile,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ct_id = #{ctId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.ContractTemplatePojo" >
+    update t_contracttemplate
+    set ct_name = #{ctName,jdbcType=VARCHAR},
+      ct_file = #{ctFile,jdbcType=VARCHAR}
+    where ct_id = #{ctId,jdbcType=INTEGER}
+  </update>
+</mapper>

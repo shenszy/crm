@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zeyushen.springboot01.app.mapper.DepInfoPojoMapper" >
+  <resultMap id="BaseResultMap" type="com.zeyushen.springboot01.app.model.DepInfoPojo" >
+    <id column="d_id" property="dId" jdbcType="INTEGER" />
+    <result column="d_name" property="dName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    d_id, d_name
+  </sql>
+  <!--sql-->
+  <!--insert-->
+  <!--<insert id="addDep" parameterType="java.lang.String" useGeneratedKeys="true" keyProperty="d_id">-->
+      <!--insert into t_depinfo(d_name)-->
+      <!--values #{dName}-->
+  <!--</insert>-->
+  <!--delete-->
+  <!--<delete id="deleteById" parameterType="java.lang.Integer">-->
+      <!--delete from t_depinfo where d_id=#{dId}-->
+  <!--</delete>-->
+  <!--update-->
+  <!--<update id="updateById" parameterType="com.zeyushen.springboot01.app.model.DepInfoPojo">-->
+      <!--update t_depinfo set d_name=#{dName} where d_id=#{dId}-->
+  <!--</update>-->
+  <!--select-->
+  <select id="getAll" resultMap="BaseResultMap" >
+      select
+      <include refid="Base_Column_List"/>
+      from t_depinfo
+  </select>
+  <!---->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select
+    <include refid="Base_Column_List" />
+    from t_depinfo
+    where d_id = #{dId,jdbcType=INTEGER}
+  </select>
+  <!--<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >-->
+    <!--delete from t_depinfo-->
+    <!--where d_id = #{dId,jdbcType=INTEGER}-->
+  <!--</delete>-->
+  <!--<insert id="insert" parameterType="com.zeyushen.springboot01.app.model.DepInfoPojo" >-->
+    <!--insert into t_depinfo (d_id, d_name)-->
+    <!--values (#{dId,jdbcType=INTEGER}, #{dName,jdbcType=VARCHAR})-->
+  <!--</insert>-->
+  <!--<insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.DepInfoPojo" >-->
+    <!--insert into t_depinfo-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides="," >-->
+      <!--<if test="dId != null" >-->
+        <!--d_id,-->
+      <!--</if>-->
+      <!--<if test="dName != null" >-->
+        <!--d_name,-->
+      <!--</if>-->
+    <!--</trim>-->
+    <!--<trim prefix="values (" suffix=")" suffixOverrides="," >-->
+      <!--<if test="dId != null" >-->
+        <!--#{dId,jdbcType=INTEGER},-->
+      <!--</if>-->
+      <!--<if test="dName != null" >-->
+        <!--#{dName,jdbcType=VARCHAR},-->
+      <!--</if>-->
+    <!--</trim>-->
+  <!--</insert>-->
+  <!--<update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.DepInfoPojo" >-->
+    <!--update t_depinfo-->
+    <!--<set >-->
+      <!--<if test="dName != null" >-->
+        <!--d_name = #{dName,jdbcType=VARCHAR},-->
+      <!--</if>-->
+    <!--</set>-->
+    <!--where d_id = #{dId,jdbcType=INTEGER}-->
+  <!--</update>-->
+  <!--<update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.DepInfoPojo" >-->
+    <!--update t_depinfo-->
+    <!--set d_name = #{dName,jdbcType=VARCHAR}-->
+    <!--where d_id = #{dId,jdbcType=INTEGER}-->
+  <!--</update>-->
+</mapper>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zeyushen.springboot01.app.mapper.PactInfoPojoMapper" >
+  <resultMap id="BaseResultMap" type="com.zeyushen.springboot01.app.model.PactInfoPojo" >
+    <id column="p_id" property="pId" jdbcType="INTEGER" />
+    <result column="c_id" property="cId" jdbcType="INTEGER" />
+    <result column="s_id" property="sId" jdbcType="INTEGER" />
+    <result column="p_title" property="pTitle" jdbcType="VARCHAR" />
+    <result column="p_type" property="pType" jdbcType="VARCHAR" />
+    <result column="p_signingdate" property="pSigningdate" jdbcType="DATE" />
+    <result column="p_execdate" property="pExecdate" jdbcType="DATE" />
+    <result column="p_enddate" property="pEnddate" jdbcType="DATE" />
+    <result column="p_executeinfo" property="pExecuteinfo" jdbcType="VARCHAR" />
+    <result column="p_filepath" property="pFilepath" jdbcType="VARCHAR" />
+    <result column="p_remark" property="pRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    p_id, c_id, s_id, p_title, p_type, p_signingdate, p_execdate, p_enddate, p_executeinfo, 
+    p_filepath, p_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_pactinfo
+    where p_id = #{pId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_pactinfo
+    where p_id = #{pId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.PactInfoPojo" >
+    insert into t_pactinfo (p_id, c_id, s_id, 
+      p_title, p_type, p_signingdate, 
+      p_execdate, p_enddate, p_executeinfo, 
+      p_filepath, p_remark)
+    values (#{pId,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, #{sId,jdbcType=INTEGER}, 
+      #{pTitle,jdbcType=VARCHAR}, #{pType,jdbcType=VARCHAR}, #{pSigningdate,jdbcType=DATE}, 
+      #{pExecdate,jdbcType=DATE}, #{pEnddate,jdbcType=DATE}, #{pExecuteinfo,jdbcType=VARCHAR}, 
+      #{pFilepath,jdbcType=VARCHAR}, #{pRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.PactInfoPojo" >
+    insert into t_pactinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        p_id,
+      </if>
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="sId != null" >
+        s_id,
+      </if>
+      <if test="pTitle != null" >
+        p_title,
+      </if>
+      <if test="pType != null" >
+        p_type,
+      </if>
+      <if test="pSigningdate != null" >
+        p_signingdate,
+      </if>
+      <if test="pExecdate != null" >
+        p_execdate,
+      </if>
+      <if test="pEnddate != null" >
+        p_enddate,
+      </if>
+      <if test="pExecuteinfo != null" >
+        p_executeinfo,
+      </if>
+      <if test="pFilepath != null" >
+        p_filepath,
+      </if>
+      <if test="pRemark != null" >
+        p_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pId != null" >
+        #{pId,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null" >
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="sId != null" >
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="pTitle != null" >
+        #{pTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="pType != null" >
+        #{pType,jdbcType=VARCHAR},
+      </if>
+      <if test="pSigningdate != null" >
+        #{pSigningdate,jdbcType=DATE},
+      </if>
+      <if test="pExecdate != null" >
+        #{pExecdate,jdbcType=DATE},
+      </if>
+      <if test="pEnddate != null" >
+        #{pEnddate,jdbcType=DATE},
+      </if>
+      <if test="pExecuteinfo != null" >
+        #{pExecuteinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="pFilepath != null" >
+        #{pFilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="pRemark != null" >
+        #{pRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.PactInfoPojo" >
+    update t_pactinfo
+    <set >
+      <if test="cId != null" >
+        c_id = #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="sId != null" >
+        s_id = #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="pTitle != null" >
+        p_title = #{pTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="pType != null" >
+        p_type = #{pType,jdbcType=VARCHAR},
+      </if>
+      <if test="pSigningdate != null" >
+        p_signingdate = #{pSigningdate,jdbcType=DATE},
+      </if>
+      <if test="pExecdate != null" >
+        p_execdate = #{pExecdate,jdbcType=DATE},
+      </if>
+      <if test="pEnddate != null" >
+        p_enddate = #{pEnddate,jdbcType=DATE},
+      </if>
+      <if test="pExecuteinfo != null" >
+        p_executeinfo = #{pExecuteinfo,jdbcType=VARCHAR},
+      </if>
+      <if test="pFilepath != null" >
+        p_filepath = #{pFilepath,jdbcType=VARCHAR},
+      </if>
+      <if test="pRemark != null" >
+        p_remark = #{pRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.PactInfoPojo" >
+    update t_pactinfo
+    set c_id = #{cId,jdbcType=INTEGER},
+      s_id = #{sId,jdbcType=INTEGER},
+      p_title = #{pTitle,jdbcType=VARCHAR},
+      p_type = #{pType,jdbcType=VARCHAR},
+      p_signingdate = #{pSigningdate,jdbcType=DATE},
+      p_execdate = #{pExecdate,jdbcType=DATE},
+      p_enddate = #{pEnddate,jdbcType=DATE},
+      p_executeinfo = #{pExecuteinfo,jdbcType=VARCHAR},
+      p_filepath = #{pFilepath,jdbcType=VARCHAR},
+      p_remark = #{pRemark,jdbcType=VARCHAR}
+    where p_id = #{pId,jdbcType=INTEGER}
+  </update>
+</mapper>

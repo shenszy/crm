@@ -1,0 +1,32 @@
+
+header {
+    margin: 50px;
+}
+
+.main_context {
+    margin-top: 3px;
+    padding: 4px;
+    border-radius: 8px;
+    background: #c0c0c0;
+}
+.main_context div{
+    border-radius: 4px;
+}
+.left_nav {
+    margin-top: 3px;
+    padding: 8px;
+    border-radius: 12px;
+    background: #F0FBFF;
+}
+
+li > ul {
+    margin-left: 20px;
+}
+
+#main_context_nav{
+    margin: 0;
+    min-height: 30px;
+}
+#main_context_nav >div >div >ul{
+    margin-top: -1px;
+}
