@@ -15,13 +15,7 @@
                         <input type="text" class="form-control" id="sNameToText">
                     </div>
 
-                    <div class="form-group">
-                        <span>部门 : </span>
-                        <select class="form-control" id="dIdToSelect">
-                            <option value="0">所有</option>
-                            <option th:each="depInfoPojoList:${depInfoPojoList}" th:value="${depInfoPojoList.dId}" th:text="${depInfoPojoList.dName}"></option>
-                        </select>
-                    </div>
+                   
                     <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px" id="querySubmit" onclick="selectSubmit()">
                         <i class="glyphicon glyphicon-search"></i>查询
                     </button>
@@ -33,7 +27,6 @@
                                 <i class="glyphicon glyphicon-plus"></i>增加
                             </button>
                         </div>
-                        <div id="addmodal_div"></div>
                     </li>
 
 
@@ -47,6 +40,7 @@
             <tr class="success">
                 <th>作品批号</th>
                 <th>作品名称</th>
+                <th>作品单价</th>
                 <th>作品成本</th>
                 <th>书法作者</th>
                 <th>作品规格</th>
@@ -56,16 +50,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="staff:${allStaff}" th:id="${staff.sId}">
-                <td th:text="${staff.sTname}"></td>
-                <td th:text="${staff.sId}"></td>
-                <td th:text="${staff.dId}"></td>
-                <td th:text="${staff.sLevel}"></td>
-                <td th:text="${staff.tPhone}"></td>
-                <td th:text="${staff.tAddress}"></td>
+            <tr th:each="goods:${allGoods}" th:id="${goods.sId}">
+                <td th:text="${goods.gId}"></td>
+                <td th:text="${goods.gName}"></td>
+                <td th:text="${goods.gPrice}"></td>
+                <td th:text="${goods.gCosting}"></td>
+                <td th:text="${goods.gAuthor}"></td>
+                <td th:text="${goods.gSpecigcation}"></td>
+                <td th:text="${goods.gRemark}"></td>
+                <td th:text="${goods.gStatus}"></td>
                 <td>
-                    <a href="javascript:void(0);" th:onclick="${'alterToStaff('+staff.sId+')'}">修改</a>&nbsp;&nbsp;
-                    <a href="javascript:void(0);" th:onclick="${'deleteToStaff('+staff.sId+')'}">删除</a>
+                    <a href="javascript:void(0);" th:onclick="${'alterToStaff('+goods.gId+')'}">修改</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0);" th:onclick="${'deleteToStaff('+goods.gId+')'}">删除</a>
                 </td>
             </tr>
 
@@ -92,28 +88,28 @@
     }
 
     function deleteToStaff(sId) {
-        $("#员工档案管理").load("/staff/delete.html",data={sId:sId},function () {
+        $("#产品档案管理").load("/staff/delete.html",data={sId:sId},function () {
             alert("删除成功！")
         })
     }
 
-    function alterToStaff(sId) {
+  /*  function alterToStaff(sId) {
         $("#addmodal_div").load("/staff/getOneForAlter",data={sId:sId},function () {
             $("#addmodal_div").find("#alterModal").modal({keyboard: true});
         })
-    }
+    }*/
 
     function page(pageNum) {
-        $("#table_paging").load("/staff/allStaff.html",data={pageNum:pageNum,onlyData:true});
+        $("#产品档案管理").find("#table_paging").load("/staff/allStaff.html",data={pageNum:pageNum,onlyData:true});
     }
 
 
-    function onAdd(a) {
+   /* function onAdd(a) {
         $(a).parent().next().load("/staff/depAndAdress", function () {
             $(a).parent().next().find("#addModal").modal({keyboard: true});
         });
 
-    }
+    }*/
 
 
 </script>
