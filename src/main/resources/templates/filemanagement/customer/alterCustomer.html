@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="modal fade" id="alterCustomerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <button type="button" id="close" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-info" id="myModalLabel">修改客户档案</h4>
+            </div>
+
+            <div class="modal-body container-fluid">
+                <form id="add_asset_form" class="form-horizontal" action="/customer/insert.html" role="form" enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">客户姓名</label>
+                        <div class="col-sm-8">
+                            <input name="cName" type="text" class="form-control" th:value="${oneCustomer.cName}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">性别</label>
+                        <div class="col-sm-8">
+                            <select name="cSex" type="text" class="form-control">
+                                <option th:value="${oneCustomer.cSex}" th:text="${oneCustomer.cSex}"></option>
+                                <option>男</option>
+                                <option>女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">年龄</label>
+                        <div class="col-sm-8">
+                            <input name="cAge" type="text" class="form-control" th:value="${oneCustomer.cAge}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">所属行业</label>
+                        <div class="col-sm-8">
+                            <input name="cVocation" type="text" class="form-control" th:value="${oneCustomer.cVocation}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">客户类型</label>
+                        <div class="col-sm-8">
+                            <select name="cType" type="text" class="form-control" placeholder="客户类型">
+                                <option th:value="${oneCustomer.cType}" th:text="${oneCustomer.cType}"></option>
+                                <option>个人</option>
+                                <option>团体</option>
+                                <option>公司</option>
+                                <option>集体</option>
+                                <option>政府</option>
+                                <option>军队</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">重要程度</label>
+                        <div class="col-sm-8">
+                            <select name="cDegree" type="text" class="form-control" placeholder="重要程度">
+                                <option th:value="${oneCustomer.cDegree}" th:text="${oneCustomer.cDegree}"></option>
+                                <option>一般</option>
+                                <option>重要</option>
+                                <option>非常重要</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">客户级别</label>
+                        <div class="col-sm-8">
+                            <select name="cLevel" type="text" class="form-control" placeholder="客户级别">
+                                <option th:value="${oneCustomer.cLevel}" th:text="${oneCustomer.cLevel}"></option>
+                                <option>普通会员</option>
+                                <option>青铜会员</option>
+                                <option>白银会员</option>
+                                <option>黄金会员</option>
+                                <option>铂金会员</option>
+                                <option>钻石会员</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">邮箱</label>
+                        <div class="col-sm-8">
+                            <input name="cEmail" class="form-control" type="tel" th:value="${oneCustomer.cEmail}">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">联系方式</label>
+                        <div class="col-sm-8">
+                            <input name="cPhone" class="form-control" type="text"th:value="${oneCustomer.cPhone}">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">所属地区</label>
+                        <div class="col-sm-8">
+                            <select name="cRegion" type="text" class="form-control" placeholder="所属地区">
+                                <option th:value="${oneCustomer.cRegion}" th:text="${oneCustomer.cRegion}"></option>
+                                <option>东北</option>
+                                <option>华东</option>
+                                <option>华北</option>
+                                <option>华中</option>
+                                <option>华南</option>
+                                <option>西南</option>
+                                <option>西北</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">客户地址</label>
+                        <div class="col-sm-8">
+                            <div class="row">
+                                <select id="province" class="col-md-4">
+                                    <option>--省--</option>
+                                    <option th:each="province:${addresses}" th:id="${province.currentID}" th:text="${province.address}"></option>
+                                </select>
+                                <select id="city" class="col-md-4" >
+                                    <option>--市--</option>
+                                    <option th:each="city:${addresses}" th:id="${city.currentID}" th:text="${city.address}"></option>
+                                </select>
+                                <select id="area" class="col-md-4" >
+                                    <option>--区、县--</option>
+                                    <option th:each="area:${addresses}" th:id="${area.currentID}" th:text="${area.address}"></option>
+                                </select>
+                            </div>
+                            <input id="street" class="form-control" type="text" th:value="${oneCustomer.cAddress}">
+                            <input hidden="hidden" type="text" name="cAddress" id="address" th:value="${oneCustomer.cAddress}">
+
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">描述</label>
+                        <div class="col-sm-8">
+                            <input name="cDescribe" class="form-control" type="text" th:value="${oneCustomer.cDescribe}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">照片</label>
+                        <div class="col-sm-8">
+                            <input name="fileForPhoto" class="form-control" type="file" th:value="${oneCustomer.cPhoto}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button id="add_submit" type="button" class="btn btn-primary">提交</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <script>
+                //地址字符串拼接
+                $("#area").change(function () {
+                    var address=$("#address").val();
+                    var province=$("#province").val();
+                    var city=$("#city").val();
+                    var area=$("#area").val();
+                    if(address!=""){
+                        address="";
+                    }
+                    address=province+city+area;
+                    $("#address").val(address);
+                })
+                $("#street").change(function () {
+                    var address=$("#address").val();
+                    var street=$("#street").val();
+                    $("#address").val(address);
+                })
+                //三级联动
+                //省份联动市
+                $("#province").change(function () {
+                    var parentID=$("#province").find("option:selected").attr("id");
+                    if(parentID!=""){
+                        $("#city").load("/customer/address",data={parentID:parentID,path:"/filemanagement/customer/addCustomer ::#city"})
+                    }
+                })
+                //市联动区、县
+                $("#city").change(function () {
+                    var parentID=$("#city").find("option:selected").attr("id");
+                    if(parentID!=""){
+                        $("#area").load("/customer/address",data={parentID:parentID,path:"/filemanagement/customer/addCustomer ::#area"})
+                    }
+                })
+
+
+                /**
+                 * 异步提交,不刷新页面
+                 * */
+                $("#add_submit").click(function () {
+                    $("#add_asset_form").ajaxSubmit(function () {
+                        alert("修改成功");
+                        $("#addModal").modal('hide')
+                    });
+
+                });</script>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+
