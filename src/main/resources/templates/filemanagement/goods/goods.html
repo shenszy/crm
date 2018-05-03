@@ -23,7 +23,7 @@
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
                     <li>
                         <div class="btn-group" style="margin-right: 10px">
-                            <button type="button" class="btn  btn-primary btn-md" onclick="onAdd(this)">
+                            <button type="button" class="btn  btn-primary btn-md" onclick="onAdd('/goods/addGoods.html')">
                                 <i class="glyphicon glyphicon-plus"></i>增加
                             </button>
                         </div>
@@ -43,9 +43,10 @@
                 <th>作品单价</th>
                 <th>作品成本</th>
                 <th>书法作者</th>
+                <th>作品字体</th>
                 <th>作品规格</th>
-                <th>作品备注</th>
                 <th>作品状态</th>
+                <th>作品备注</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -56,9 +57,10 @@
                 <td th:text="${goods.gPrice}"></td>
                 <td th:text="${goods.gCosting}"></td>
                 <td th:text="${goods.gAuthor}"></td>
+                <td th:text="${goods.gTypeface}"></td>
                 <td th:text="${goods.gSpecification}"></td>
-                <td th:text="${goods.gRemark}"></td>
                 <td th:text="${goods.gStatus}"></td>
+                <td th:text="${goods.gRemark}"></td>
                 <td>
                     <a href="javascript:void(0);" th:onclick="${'alterToStaff('+goods.gId+')'}">修改</a>&nbsp;&nbsp;
                     <a href="javascript:void(0);" th:onclick="${'deleteToStaff('+goods.gId+')'}">删除</a>
@@ -87,11 +89,7 @@
         $("#table_paging").load("/staff/getStaffByTerm.html",data={sName:sName,sId:sId,dId:dId,onlyData:true})
     }
 
-    function deleteToStaff(sId) {
-        $("#产品档案管理").load("/staff/delete.html",data={sId:sId},function () {
-            alert("删除成功！")
-        })
-    }
+
 
   /*  function alterToStaff(sId) {
         $("#addmodal_div").load("/staff/getOneForAlter",data={sId:sId},function () {
@@ -104,12 +102,12 @@
     }
 
 
-   /* function onAdd(a) {
-        $(a).parent().next().load("/staff/depAndAdress", function () {
-            $(a).parent().next().find("#addModal").modal({keyboard: true});
+    function onAdd(url) {
+        $("#public_modal_div").load(url, function () {
+            $("#public_modal_div").find("#addModal").modal({keyboard: true});
         });
 
-    }*/
+    }
 
 
 </script>

@@ -11,8 +11,7 @@ mybatis:
   type-aliases-package: com.zeyushen.springboot01.app.model
 logging.level.com.zeyushen.springboot01.app.mapper: debug
 
-fileForTarget: G:/code/IdeaProjects/fileForTarget
-#分页插件
+fileForTarget: G:/code/IdeaProjects/fileForTarget#分页插件
 #pagehelper:
 #  helper-dialect: mysql
 #  reasonable: true

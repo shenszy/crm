@@ -33,4 +33,11 @@ public class GoodsController {
         return mv;
     }
 
+    @RequestMapping("/addGoods.html")
+    public ModelAndView add() {
+        ModelAndView mv = new ModelAndView("/filemanagement/goods/addGoods");
+        return mv;
+    }
+
+
 }
