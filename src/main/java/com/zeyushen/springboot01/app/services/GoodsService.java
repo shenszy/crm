@@ -20,4 +20,10 @@ public class GoodsService {
     public List<GoodsPojo> getAllGoods() {
         return  goodsPojoMapper.getAll();
     }
+
+    public boolean add(GoodsPojo goodsPojo) {
+        //TODO
+        goodsPojo.setsId(1);
+        return  goodsPojoMapper.insert(goodsPojo) == 1;
+    }
 }
