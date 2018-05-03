@@ -21,7 +21,7 @@ import java.io.OutputStream;
 public class FileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 
-    @Value("${file.dir}")
+    @Value("${fileForTarget}")
     private static String fileDir = "E:/Desktop/peoject/OrderingSys/file";
 
     @Autowired
@@ -29,15 +29,12 @@ public class FileController {
 
 
     @GetMapping("/img/{name}.{type}")
-    public void valicode(@PathVariable("name") String name, @PathVariable("type") String type,
-                         HttpServletResponse response) throws Exception {
-        LOGGER.info("图片获取: {} . {}", name, type);
-        LOGGER.info(fileDir + "/img/" + name + "." + type);
+    public void getFile(@PathVariable("name") String name, @PathVariable("type") String type,
+                         HttpServletResponse response) {
         //将图片输出给浏览器
-        BufferedImage image = ImageIO.read(new File(fileDir + "/img/" + name + "." + type));
-        response.setContentType("image/" + type);
-        OutputStream os = response.getOutputStream();
-        ImageIO.write(image, type, os);
+       fileService.getFileToResponse("/file/img/"+name+"."+type,type,response);
     }
+
+
 
 }
