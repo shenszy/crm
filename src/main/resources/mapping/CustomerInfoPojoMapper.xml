@@ -119,6 +119,23 @@
             </if>
         </trim>
     </insert>
+    <!--删除-->
+    <delete id="deleteById" parameterType="java.lang.Integer" >
+    delete from t_customerinfo
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+<!--通过条件查询-->
+    <select id="getCustomerByTerm" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        FROM (SELECT *,getPY(t_customerinfo.c_name) AS spell FROM t_customerinfo ) AS t_spell
+        WHERE (t_spell.c_name LIKE CONCAT('%',#{cName},'%') OR t_spell.spell LIKE CONCAT('%',#{spell},'%'))
+        <if test="cDegree!= null">
+            AND t_spell.c_degree=#{cDegree}
+        </if>
+        <if test="cLevel!= null">
+            AND t_spell.c_level=#{cLevel}
+        </if>
+    </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -126,10 +143,7 @@
     from t_customerinfo
     where c_id = #{cId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from t_customerinfo
-    where c_id = #{cId,jdbcType=INTEGER}
-  </delete>
+
   <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.CustomerInfoPojo" >
     insert into t_customerinfo (c_id, c_name, c_sex, 
       c_age, c_vocation, c_type, 

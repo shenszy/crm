@@ -171,14 +171,14 @@
                 $("#province").change(function () {
                     var parentID=$("#province").find("option:selected").attr("id");
                     if(parentID!=""){
-                        $("#city").load("/customer/adress",data={parentID:parentID,path:"/filemanagement/customer/addCustomer ::#city"})
+                        $("#city").load("/customer/address",data={parentID:parentID,path:"/filemanagement/customer/addCustomer ::#city"})
                     }
                 })
                 //市联动区、县
                 $("#city").change(function () {
                     var parentID=$("#city").find("option:selected").attr("id");
                     if(parentID!=""){
-                        $("#area").load("/customer/adress",data={parentID:parentID,path:"/filemanagement/customer/addCustomer ::#area"})
+                        $("#area").load("/customer/address",data={parentID:parentID,path:"/filemanagement/customer/addCustomer ::#area"})
                     }
                 })
 

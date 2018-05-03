@@ -15,4 +15,9 @@ public class CustomerServices {
     public List<CustomerInfoPojo> getAllCustomer(){return customerInfoPojoMapper.getAllCustomer();}
 
     public int insertOneCustomer(CustomerInfoPojo customerInfoPojo){return customerInfoPojoMapper.insertOneCustomer(customerInfoPojo);}
+
+    public int deleteById(Integer cId){return customerInfoPojoMapper.deleteById(cId);}
+
+    public  List<CustomerInfoPojo> getCustomerByTerm(String cName,String spell,String cDegree,String cLevel){
+        return customerInfoPojoMapper.getCustomerByTerm(cName,spell,cDegree,cLevel);}
 }

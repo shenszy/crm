@@ -30,15 +30,13 @@ public class CustomerController {
     @RequestMapping("/allCustomer.html")
     public ModelAndView getAllCustomer(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
                                        @RequestParam(required = true,defaultValue = "false") Boolean onlyData){
-        List<CustomerInfoPojo> customerList=customerServices.getAllCustomer();
         ModelAndView mv = new ModelAndView("/filemanagement/customer/customer");
-        String path="/filemanagement/customer/customer ::#table_paging";
+        String path="/filemanagement/customer/customer ::#table_pagingForCustomer";
         PagingUtil.paging("allCustomer",mv,pageNum,onlyData,path,()->customerServices.getAllCustomer());
-        mv.addObject("customerList",customerList);
         return mv;
     }
 
-    @RequestMapping("/adress")
+    @RequestMapping("/address")
     public ModelAndView getDepAndAdress(String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/addCustomer.html") String path){
         //三级联动
         List<AddressPojo> address=addressServices.getArea(parentID);
@@ -64,5 +62,31 @@ public class CustomerController {
         }
        customerServices.insertOneCustomer(customerInfoPojo);
         return "forward:/customer/allCustomer.html";
+    }
+
+
+    /*
+    删除
+     */
+    @RequestMapping("/delete.html")
+    public String deleteBySId(Integer cId){
+        customerServices.deleteById(cId);
+        return "forward:/customer/allCustomer.html";
+    }
+
+    /**
+     * cName按姓名模糊查询
+     * spell按汉字拼音首字母模糊查询
+     * cDegree按重要程度查询
+     * cLevel按会员等级查询
+     */
+    @RequestMapping("/getCustomerByTerm.html")
+    public ModelAndView getCustomerByTerm(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
+                                          @RequestParam(required = true,defaultValue = "true") Boolean onlyData,
+                                          String cName,String cDegree,String cLevel){
+        ModelAndView mv = new ModelAndView("/filemanagement/customer/customer ::#table_pagingForCustomer");
+        String path="/filemanagement/customer/customer ::#table_pagingForCustomer";
+        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,path,()->customerServices.getCustomerByTerm(cName,cName,cDegree,cLevel));
+        return mv;
     }
 }
