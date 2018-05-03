@@ -7,6 +7,7 @@ import com.zeyushen.springboot01.app.util.PagingUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/goods")
+@PreAuthorize("hasRole('ROLE_ADMIN')")
 public class GoodsController {
     private static final Logger LOGGER = LoggerFactory.getLogger(GoodsController.class);
 
@@ -54,17 +56,19 @@ public class GoodsController {
         return  goodsService.delete(gId);
     }
 
-    @GetMapping("/update")
-    public ModelAndView update(String gId) {
+    @GetMapping("/update.html")
+    public ModelAndView update(String id) {
         ModelAndView mv = new ModelAndView("/filemanagement/goods/update");
-        GoodsPojo goodsPojo= goodsService.getById(gId);
+        GoodsPojo goodsPojo= goodsService.getById(id);
+        mv.addObject("goods",goodsPojo);
         return mv;
     }
     @PostMapping("/update")
     @ResponseBody
     public boolean update(GoodsPojo goodsPojo) {
 
-        return  false;
+        return  goodsService.update(goodsPojo);
+        //return  false;
     }
 
 }
