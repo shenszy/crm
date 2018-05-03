@@ -124,7 +124,7 @@
     delete from t_customerinfo
     where c_id = #{cId,jdbcType=INTEGER}
   </delete>
-<!--通过条件查询-->
+<!--通过多条件查询-->
     <select id="getCustomerByTerm" resultMap="BaseResultMap">
         select <include refid="Base_Column_List"/>
         FROM (SELECT *,getPY(t_customerinfo.c_name) AS spell FROM t_customerinfo ) AS t_spell
@@ -136,15 +136,58 @@
             AND t_spell.c_level=#{cLevel}
         </if>
     </select>
-
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--通过id值修改数据-->
+    <update id="updateById" parameterType="com.zeyushen.springboot01.app.model.CustomerInfoPojo" >
+        update t_customerinfo
+        <set >
+            <if test="cName != null" >
+                c_name = #{cName,jdbcType=VARCHAR},
+            </if>
+            <if test="cSex != null" >
+                c_sex = #{cSex,jdbcType=CHAR},
+            </if>
+            <if test="cAge != null" >
+                c_age = #{cAge,jdbcType=INTEGER},
+            </if>
+            <if test="cVocation != null" >
+                c_vocation = #{cVocation,jdbcType=VARCHAR},
+            </if>
+            <if test="cType != null" >
+                c_type = #{cType,jdbcType=VARCHAR},
+            </if>
+            <if test="cDegree != null" >
+                c_degree = #{cDegree,jdbcType=VARCHAR},
+            </if>
+            <if test="cLevel != null" >
+                c_level = #{cLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="cEmail != null" >
+                c_email = #{cEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="cRegion != null" >
+                c_region = #{cRegion,jdbcType=VARCHAR},
+            </if>
+            <if test="cAddress != null" >
+                c_address = #{cAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="cDescribe != null" >
+                c_describe = #{cDescribe,jdbcType=VARCHAR},
+            </if>
+            <if test="cPhoto != null" >
+                c_photo = #{cPhoto,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where c_id = #{cId,jdbcType=INTEGER}
+    </update>
+<!--通过id查询一条数据-->
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_customerinfo
     where c_id = #{cId,jdbcType=INTEGER}
   </select>
 
-  <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.CustomerInfoPojo" >
+    <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.CustomerInfoPojo" >
     insert into t_customerinfo (c_id, c_name, c_sex, 
       c_age, c_vocation, c_type, 
       c_degree, c_level, c_email, 
@@ -157,48 +200,6 @@
       #{cPhoto,jdbcType=VARCHAR})
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.CustomerInfoPojo" >
-    update t_customerinfo
-    <set >
-      <if test="cName != null" >
-        c_name = #{cName,jdbcType=VARCHAR},
-      </if>
-      <if test="cSex != null" >
-        c_sex = #{cSex,jdbcType=CHAR},
-      </if>
-      <if test="cAge != null" >
-        c_age = #{cAge,jdbcType=INTEGER},
-      </if>
-      <if test="cVocation != null" >
-        c_vocation = #{cVocation,jdbcType=VARCHAR},
-      </if>
-      <if test="cType != null" >
-        c_type = #{cType,jdbcType=VARCHAR},
-      </if>
-      <if test="cDegree != null" >
-        c_degree = #{cDegree,jdbcType=VARCHAR},
-      </if>
-      <if test="cLevel != null" >
-        c_level = #{cLevel,jdbcType=VARCHAR},
-      </if>
-      <if test="cEmail != null" >
-        c_email = #{cEmail,jdbcType=VARCHAR},
-      </if>
-      <if test="cRegion != null" >
-        c_region = #{cRegion,jdbcType=VARCHAR},
-      </if>
-      <if test="cAddress != null" >
-        c_address = #{cAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="cDescribe != null" >
-        c_describe = #{cDescribe,jdbcType=VARCHAR},
-      </if>
-      <if test="cPhoto != null" >
-        c_photo = #{cPhoto,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where c_id = #{cId,jdbcType=INTEGER}
-  </update>
   <update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.CustomerInfoPojo" >
     update t_customerinfo
     set c_name = #{cName,jdbcType=VARCHAR},

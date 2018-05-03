@@ -2,6 +2,8 @@ package com.zeyushen.springboot01.app.controller;
 
 import com.zeyushen.springboot01.app.model.AddressPojo;
 import com.zeyushen.springboot01.app.model.CustomerInfoPojo;
+import com.zeyushen.springboot01.app.model.DepInfoPojo;
+import com.zeyushen.springboot01.app.model.StaffPojo;
 import com.zeyushen.springboot01.app.services.AddressServices;
 import com.zeyushen.springboot01.app.services.CustomerServices;
 import com.zeyushen.springboot01.app.util.FileUtil;
@@ -88,5 +90,27 @@ public class CustomerController {
         String path="/filemanagement/customer/customer ::#table_pagingForCustomer";
         PagingUtil.paging("allCustomer",mv,pageNum,onlyData,path,()->customerServices.getCustomerByTerm(cName,cName,cDegree,cLevel));
         return mv;
+    }
+
+    /**
+     * 通过id查询一条数据
+     */
+    @RequestMapping("/getOneForAlter")
+    public ModelAndView getOneCustomer(Integer cId,String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/alterCustomer.html") String path){
+        CustomerInfoPojo oneCustomer=customerServices.getOneCustomer(cId);
+        List<AddressPojo> address=addressServices.getArea(parentID);
+        ModelAndView mv = new ModelAndView(path);
+        mv.addObject("oneCustomer",oneCustomer);
+        mv.addObject("addresses",address);
+        return mv;
+    }
+
+    /**
+     * 通过id值修改一条数据
+     */
+    @RequestMapping("/alter.html")
+    public String alterOneCustomer(CustomerInfoPojo customerInfoPojo){
+        customerServices.updateById(customerInfoPojo);
+        return "forward:/customer/allCustomer.html";
     }
 }

@@ -22,17 +22,17 @@ public class FileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 
     @Value("${fileForTarget}")
-    private static String fileDir = "E:/Desktop/peoject/OrderingSys/file";
+    private static String fileDir = "G:/code/IdeaProjects/file";
 
     @Autowired
     private FileServices fileService;
 
 
-    @GetMapping("/img/{name}.{type}")
+    @GetMapping("/photo/{name}.{type}")
     public void getFile(@PathVariable("name") String name, @PathVariable("type") String type,
                          HttpServletResponse response) {
         //将图片输出给浏览器
-       fileService.getFileToResponse("/file/img/"+name+"."+type,type,response);
+       fileService.getFileToResponse("/file/photo/"+name+"."+type,type,response);
     }
 
 

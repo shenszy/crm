@@ -10,7 +10,7 @@ mybatis:
   mapper-locations: classpath*:/mapping/*.xml
   type-aliases-package: com.zeyushen.springboot01.app.model
 logging.level.com.zeyushen.springboot01.app.mapper: debug
-fileForTarget: G:/code/IdeaProjects/fileForTarget
+fileForTarget: G:/code/IdeaProjects/file
 
 #pagehelper:
 #  helper-dialect: mysql

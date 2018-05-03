@@ -119,6 +119,12 @@
         $("#table_pagingForCustomer").load("/customer/getCustomerByTerm.html",data={cName:cName,cLevel:cLevel,cDegree:cDegree,onlyData:true});
     }
 
+    function alterToCustomer(cId) {
+        $("#addmodal_div").load("/customer/getOneForAlter",data={cId:cId},function () {
+            $("#addmodal_div").find("#alterCustomerModal").modal({keyboard: true});
+        })
+    }
+
     function deleteToCustomer(cId) {
         $("#客户档案管理").load("/customer/delete.html",data={cId:cId},function () {
             alert("删除成功！")

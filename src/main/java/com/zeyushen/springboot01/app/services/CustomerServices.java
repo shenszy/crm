@@ -19,5 +19,17 @@ public class CustomerServices {
     public int deleteById(Integer cId){return customerInfoPojoMapper.deleteById(cId);}
 
     public  List<CustomerInfoPojo> getCustomerByTerm(String cName,String spell,String cDegree,String cLevel){
-        return customerInfoPojoMapper.getCustomerByTerm(cName,spell,cDegree,cLevel);}
+        if(cDegree==null||cDegree.equals("")){
+            cDegree=null;
+        }
+        if(cLevel==null||cLevel.equals("")){
+            cLevel=null;
+        }
+        return customerInfoPojoMapper.getCustomerByTerm(cName,spell,cDegree,cLevel);
+    }
+
+    public CustomerInfoPojo getOneCustomer(Integer cId){return customerInfoPojoMapper.selectById(cId);}
+
+    public int updateById(CustomerInfoPojo customerInfoPojo){return customerInfoPojoMapper.updateById(customerInfoPojo);}
+
 }

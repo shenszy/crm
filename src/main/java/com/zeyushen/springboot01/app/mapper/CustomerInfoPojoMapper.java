@@ -13,9 +13,9 @@ public interface CustomerInfoPojoMapper {
 //
     int insertOneCustomer(CustomerInfoPojo record);
 //
-//    CustomerInfoPojo selectByPrimaryKey(Integer cId);
+    CustomerInfoPojo selectById(Integer cId);
 //
-//    int updateByPrimaryKeySelective(CustomerInfoPojo record);
+   int updateById(CustomerInfoPojo record);
 //
 //    int updateByPrimaryKey(CustomerInfoPojo record);
 
