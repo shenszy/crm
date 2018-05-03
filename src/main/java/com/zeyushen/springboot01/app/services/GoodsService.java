@@ -26,4 +26,24 @@ public class GoodsService {
         goodsPojo.setsId(1);
         return  goodsPojoMapper.insert(goodsPojo) == 1;
     }
+
+    public boolean delete(String gId) {
+        if(gId==null||gId.isEmpty()){
+            return false;
+        }else{
+            return  goodsPojoMapper.deleteByPrimaryKey(gId)==1;
+        }
+    }
+
+    public boolean update(GoodsPojo goods) {
+        return goods != null && goods.getgId() != null && goodsPojoMapper.updateByPrimaryKeySelective(goods) == 1;
+        }
+
+    public GoodsPojo getById(String gId) {
+        if(gId==null||gId.isEmpty()){
+            return null;
+        }else{
+            return  goodsPojoMapper.selectByPrimaryKey(gId);
+        }
+    }
 }

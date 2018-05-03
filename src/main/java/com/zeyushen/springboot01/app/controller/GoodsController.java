@@ -8,10 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -41,14 +38,33 @@ public class GoodsController {
         ModelAndView mv = new ModelAndView("/filemanagement/goods/addGoods");
         return mv;
     }
+
+
     @RequestMapping("/addGoods")
     @ResponseBody
     public boolean add(GoodsPojo goodsPojo) {
         return  goodsService.add(goodsPojo);
     }
+
+
     @PostMapping("/elsedeGoods")
     @ResponseBody
     public boolean delete(String gId) {
+
+        return  goodsService.delete(gId);
+    }
+
+    @GetMapping("/update")
+    public ModelAndView update(String gId) {
+        ModelAndView mv = new ModelAndView("/filemanagement/goods/update");
+        GoodsPojo goodsPojo= goodsService.getById(gId);
+        return mv;
+    }
+    @PostMapping("/update")
+    @ResponseBody
+    public boolean update(GoodsPojo goodsPojo) {
+
         return  false;
     }
+
 }

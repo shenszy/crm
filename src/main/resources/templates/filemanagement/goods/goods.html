@@ -62,7 +62,7 @@
                 <td th:text="${goods.gStatus}"></td>
                 <td th:text="${goods.gRemark}"></td>
                 <td>
-                    <a href="javascript:void(0);" th:onclick="${'alterToStaff('+goods.gId+')'}">修改</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0);" th:onclick="${'updateGoods('+goods.gId+')'}">修改</a>&nbsp;&nbsp;
                     <a href="javascript:void(0);" th:onclick="${'deleteToStaff('+goods.gId+')'}">删除</a>
                 </td>
             </tr>
@@ -110,4 +110,10 @@
     }
 
 
+    function updateGoods(gId) {
+        $("#public_modal_div").load("/goods/update?gId="+gId, function () {
+            $("#public_modal_div").find("#public_addModal").modal({keyboard: true});
+        });
+
+    }
 </script>
