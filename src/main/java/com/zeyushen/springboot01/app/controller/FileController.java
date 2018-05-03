@@ -32,7 +32,7 @@ public class FileController {
     public void getFile(@PathVariable("name") String name, @PathVariable("type") String type,
                          HttpServletResponse response) {
         //将图片输出给浏览器
-       fileService.getFileToResponse("/file/photo/"+name+"."+type,type,response);
+       fileService.getFileToResponse("/photo/"+name+"."+type,type,response);
     }
 
 

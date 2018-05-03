@@ -55,7 +55,7 @@ public class FileServices {
         String name;//= System.currentTimeMillis() + random.nextLong()+file.getOriginalFilename();
         try {
             name = System.currentTimeMillis() + random.nextLong() + file.getOriginalFilename();
-            name = "/file/img/" + name;
+            name = "/photo/" + name;
             LOGGER.info("文件上传： {}", name);
             FileCopyUtils.copy(file.getBytes(), new File(fileDir + name));
         } catch (IOException ioe) {
@@ -63,7 +63,7 @@ public class FileServices {
             return null;
         }
 
-        return name;
+        return "/file"+name;
     }
 
     /**
@@ -80,6 +80,7 @@ public class FileServices {
             OutputStream os = response.getOutputStream();
             ImageIO.write(image, type, os);
         } catch (Exception e) {
+            LOGGER.error("{} {}",fileDir , url);
             try {
                 OutputStream os = response.getOutputStream();
                 ImageIO.write(errorImg(), "JPEG", os);

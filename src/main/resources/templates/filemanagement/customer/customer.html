@@ -55,7 +55,7 @@
         </div>
     </nav>
     <div id="table_pagingForCustomer">
-    <table id="main_table" class="table table-hover table-striped table-bordered">
+    <table id="main_table" class="table table-hover table-striped table-bordered" cellspacing="0" cellpadding="0">
         <thead>
         <tr class="success">
             <th>客户编号</th>
@@ -90,7 +90,7 @@
             <td th:text="${allCustomer.cRegion}"></td>
             <td th:text="${allCustomer.cAddress}"></td>
             <td th:text="${allCustomer.cDescribe}"></td>
-            <td><img th:src="${allCustomer.cPhoto}"></td>
+            <td width="35"><img th:src="${allCustomer.cPhoto}" width="30" height="50"></td>
             <td>
                 <a th:onclick="${'alterToCustomer('+allCustomer.cId+')'}">修改</a>&nbsp;&nbsp;
                 <a  th:onclick="${'deleteToCustomer('+allCustomer.cId+')'}">删除</a>
@@ -132,7 +132,7 @@
     }
 
     function page(pageNum) {
-        $("#table_paging").load("/customer/allCustomer.html",data={pageNum:pageNum,onlyData:true});
+        $("#table_pagingForCustomer").load("/customer/allCustomer.html",data={pageNum:pageNum,onlyData:true});
     }
 
 

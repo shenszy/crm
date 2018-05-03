@@ -118,7 +118,6 @@ public class CustomerController {
 
         }
         customerInfoPojo.setcPhoto(path);
-
         customerServices.updateById(customerInfoPojo);
         return "forward:/customer/allCustomer.html";
     }
