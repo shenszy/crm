@@ -52,17 +52,15 @@ public class CustomerController {
     public String insertSelective(CustomerInfoPojo customerInfoPojo,@RequestParam("fileForPhoto") MultipartFile fileForPhoto, HttpServletRequest request){
         String path="";
         if(!fileForPhoto.isEmpty()){
-          /*  String fileName=fileForPhoto.getOriginalFilename();
-            String filePath="/photo/";*/
             try {
-               path= fileServices.upload(fileForPhoto);//.uploadFile(fileForPhoto.getBytes(),filePath,fileName);
-               customerInfoPojo.setcPhoto(path);
+               path= fileServices.upload(fileForPhoto);
             } catch (Exception e) {
                 e.printStackTrace();
             }
 
         }
-       customerServices.insertOneCustomer(customerInfoPojo);
+        customerInfoPojo.setcPhoto(path);
+        customerServices.insertOneCustomer(customerInfoPojo);
         return "forward:/customer/allCustomer.html";
     }
 
@@ -109,7 +107,18 @@ public class CustomerController {
      * 通过id值修改一条数据
      */
     @RequestMapping("/alter.html")
-    public String alterOneCustomer(CustomerInfoPojo customerInfoPojo){
+    public String alterOneCustomer(CustomerInfoPojo customerInfoPojo,@RequestParam("fileForPhoto") MultipartFile fileForPhoto, HttpServletRequest request){
+        String path="";
+        if(!fileForPhoto.isEmpty()){
+            try {
+                path= fileServices.upload(fileForPhoto);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+        customerInfoPojo.setcPhoto(path);
+
         customerServices.updateById(customerInfoPojo);
         return "forward:/customer/allCustomer.html";
     }

@@ -90,7 +90,7 @@
             <td th:text="${allCustomer.cRegion}"></td>
             <td th:text="${allCustomer.cAddress}"></td>
             <td th:text="${allCustomer.cDescribe}"></td>
-            <td></td>
+            <td><img th:src="${allCustomer.cPhoto}"></td>
             <td>
                 <a th:onclick="${'alterToCustomer('+allCustomer.cId+')'}">修改</a>&nbsp;&nbsp;
                 <a  th:onclick="${'deleteToCustomer('+allCustomer.cId+')'}">删除</a>
