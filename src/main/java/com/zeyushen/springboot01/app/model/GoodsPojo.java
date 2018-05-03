@@ -16,6 +16,8 @@ public class GoodsPojo {
 
     private String gAuthor;
 
+    private String gTypeface;
+
     private String gSpecification;
 
     private String gRemark;
@@ -68,6 +70,14 @@ public class GoodsPojo {
 
     public void setgAuthor(String gAuthor) {
         this.gAuthor = gAuthor == null ? null : gAuthor.trim();
+    }
+
+    public String getgTypeface() {
+        return gTypeface;
+    }
+
+    public void setgTypeface(String gTypeface) {
+        this.gTypeface = gTypeface;
     }
 
     public String getgSpecification() {
