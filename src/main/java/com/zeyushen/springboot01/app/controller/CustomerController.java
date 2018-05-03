@@ -4,7 +4,7 @@ import com.zeyushen.springboot01.app.model.AddressPojo;
 import com.zeyushen.springboot01.app.model.CustomerInfoPojo;
 import com.zeyushen.springboot01.app.services.AddressServices;
 import com.zeyushen.springboot01.app.services.CustomerServices;
-import com.zeyushen.springboot01.app.util.FileUtil;
+import com.zeyushen.springboot01.app.services.FileServices;
 import com.zeyushen.springboot01.app.util.PagingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -26,6 +24,8 @@ public class CustomerController {
     public CustomerServices customerServices;
     @Autowired
     private AddressServices addressServices;
+    @Autowired
+    private FileServices fileServices;
 
     @RequestMapping("/allCustomer.html")
     public ModelAndView getAllCustomer(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
@@ -50,10 +50,10 @@ public class CustomerController {
     public String insertSelective(CustomerInfoPojo customerInfoPojo,@RequestParam("fileForPhoto") MultipartFile fileForPhoto, HttpServletRequest request){
         String path="";
         if(!fileForPhoto.isEmpty()){
-            String fileName=fileForPhoto.getOriginalFilename();
-            String filePath="/photo/";
+          /*  String fileName=fileForPhoto.getOriginalFilename();
+            String filePath="/photo/";*/
             try {
-               path= FileUtil.uploadFile(fileForPhoto.getBytes(),filePath,fileName);
+               path= fileServices.upload(fileForPhoto);//.uploadFile(fileForPhoto.getBytes(),filePath,fileName);
                customerInfoPojo.setcPhoto(path);
             } catch (Exception e) {
                 e.printStackTrace();
