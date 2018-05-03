@@ -27,7 +27,7 @@ public class CustomerController {
     @Autowired
     private AddressServices addressServices;
 
-    @RequestMapping("/allCustomer")
+    @RequestMapping("/allCustomer.html")
     public ModelAndView getAllCustomer(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
                                        @RequestParam(required = true,defaultValue = "false") Boolean onlyData){
         List<CustomerInfoPojo> customerList=customerServices.getAllCustomer();
@@ -50,12 +50,19 @@ public class CustomerController {
 
     @PostMapping("/insert.html")
     public String insertSelective(CustomerInfoPojo customerInfoPojo,@RequestParam("fileForPhoto") MultipartFile fileForPhoto, HttpServletRequest request){
+        String path="";
         if(!fileForPhoto.isEmpty()){
             String fileName=fileForPhoto.getOriginalFilename();
-           // File targetPath=new File(fileForPhoto.getOriginalFilename());
+            String filePath="/photo/";
+            try {
+               path= FileUtil.uploadFile(fileForPhoto.getBytes(),filePath,fileName);
+               customerInfoPojo.setcPhoto(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
         }
-       // customerServices.insertOneCustomer(customerInfoPojo);
+       customerServices.insertOneCustomer(customerInfoPojo);
         return "forward:/customer/allCustomer.html";
     }
 }
