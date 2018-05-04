@@ -10,19 +10,19 @@
   </sql>
   <!--sql-->
   <!--insert-->
-  <!--<insert id="addDep" parameterType="java.lang.String" useGeneratedKeys="true" keyProperty="d_id">-->
-      <!--insert into t_depinfo(d_name)-->
-      <!--values #{dName}-->
-  <!--</insert>-->
+  <insert id="addOneDep" parameterType="java.lang.String">
+      insert into t_depinfo(d_name)
+      values (#{dName})
+  </insert>
   <!--delete-->
-  <!--<delete id="deleteById" parameterType="java.lang.Integer">-->
-      <!--delete from t_depinfo where d_id=#{dId}-->
-  <!--</delete>-->
+  <delete id="deleteById" parameterType="java.lang.Integer">
+      delete from t_depinfo where d_id=#{dId}
+  </delete>
   <!--update-->
   <!--<update id="updateById" parameterType="com.zeyushen.springboot01.app.model.DepInfoPojo">-->
       <!--update t_depinfo set d_name=#{dName} where d_id=#{dId}-->
   <!--</update>-->
-  <!--select-->
+  <!--查询所有数据-->
   <select id="getAll" resultMap="BaseResultMap" >
       select
       <include refid="Base_Column_List"/>

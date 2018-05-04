@@ -21,9 +21,9 @@ public interface DepInfoPojoMapper {
 //    int updateByPrimaryKey(DepInfoPojo record);
 
     //增删改查
-//    int addDep(String dName);
+    int addOneDep(String dName);
 //
-//    int deleteById(Integer dId);
+    int deleteById(Integer dId);
 //
 //    int updateById(Integer dId,String dName);
 

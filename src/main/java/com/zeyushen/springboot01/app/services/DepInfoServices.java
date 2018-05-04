@@ -21,4 +21,8 @@ public class DepInfoServices {
     public List<DepInfoPojo> getAll(){
         return depInfoPojoMapper.getAll();
     }
+
+    public int addOneDep(String dName){return depInfoPojoMapper.addOneDep(dName);}
+
+    public int deleteById(Integer dId){return depInfoPojoMapper.deleteById(dId);}
 }
