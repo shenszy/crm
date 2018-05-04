@@ -14,15 +14,17 @@ public class Test {
     private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);
 
     public static void main(String[] args) {
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(7);
-        String password = passwordEncoder.encode("12121223");
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
+        String password = passwordEncoder.encode("123");
         System.out.println(password);
         password = passwordEncoder.encode("123");
         System.out.println(password);
-        System.err.println(passwordEncoder.matches("123",password));
-        password = passwordEncoder.encode("asbcwdfweifw");
+        password = passwordEncoder.encode("123");
         System.out.println(password);
-        password = passwordEncoder.encode("dongwenqiang19951018");
-        System.out.println(password);
+        for (int i = 0; i < 100; i++) {
+            password = passwordEncoder.encode("123");
+            System.out.println(password);
+        }
+
     }
 }

@@ -33,8 +33,8 @@ public class CustomerController {
     public ModelAndView getAllCustomer(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
                                        @RequestParam(required = true,defaultValue = "false") Boolean onlyData){
         ModelAndView mv = new ModelAndView("/filemanagement/customer/customer");
-        String path="/filemanagement/customer/customer ::#table_pagingForCustomer";
-        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,path,()->customerServices.getAllCustomer());
+
+        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,()->customerServices.getAllCustomer());
         return mv;
     }
 
@@ -85,8 +85,8 @@ public class CustomerController {
                                           @RequestParam(required = true,defaultValue = "true") Boolean onlyData,
                                           String cName,String cDegree,String cLevel){
         ModelAndView mv = new ModelAndView("/filemanagement/customer/customer ::#table_pagingForCustomer");
-        String path="/filemanagement/customer/customer ::#table_pagingForCustomer";
-        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,path,()->customerServices.getCustomerByTerm(cName,cName,cDegree,cLevel));
+
+        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,()->customerServices.getCustomerByTerm(cName,cName,cDegree,cLevel));
         return mv;
     }
 

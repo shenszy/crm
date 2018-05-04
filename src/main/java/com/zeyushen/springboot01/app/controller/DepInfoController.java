@@ -28,8 +28,7 @@ public class DepInfoController {
     public ModelAndView getAll(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
                                @RequestParam(required = true,defaultValue = "false") Boolean onlyData){
         ModelAndView mv = new ModelAndView("/filemanagement/dep/dep");
-        String path="/filemanagement/dep/dep ::#table_pagingForDep";
-        PagingUtil.paging("allDep",mv,pageNum,onlyData,path,()->depInfoServices.getAll());
+        PagingUtil.paging("allDep",mv,pageNum,onlyData,()->depInfoServices.getAll());
         return mv;
     }
 

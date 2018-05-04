@@ -34,12 +34,12 @@ public class WebSecurityConfig  extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers(
                         /*不拦截的页面*/
-                        "/file/img/**", "/fonts/**.**", "error/**",
+                        "/file/img/**", "/fonts/**.**", "error/**","/images/**",
                         "/css/**", "/js/**",
                          "/favicon.ico"
                 ).permitAll()
                 .anyRequest().authenticated()
-                .and().formLogin()/*.loginPage("/login.html")*/
+                .and().formLogin().loginPage("/login.html")
                 .loginProcessingUrl("/login").passwordParameter("password").usernameParameter("username")
                 .permitAll()
                 .defaultSuccessUrl("/").permitAll()

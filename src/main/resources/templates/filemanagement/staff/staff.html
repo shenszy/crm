@@ -6,30 +6,30 @@
     }
 </style>
 <div class="main_table">
-    <nav id="table_nav" class="navbar navbar-default" style="margin: 0">
+    <nav id="staff_table_nav" class="navbar navbar-default" style="margin: 0">
         <div class="container-fluid">
             <div>
-                <form class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left" role="search" id="staff_search_form">
                     <div class="form-group">
                         <span>姓名 : </span>
-                        <input type="text" class="form-control" id="sNameToText">
+                        <input type="text" class="form-control" name="sName">
                     </div>
 
                     <div class="form-group">
                         <span>部门 : </span>
-                        <select class="form-control" id="dIdToSelect">
+                        <select class="form-control" name="dId">
                             <option value="0">所有</option>
                             <option th:each="depInfoPojoList:${depInfoPojoList}" th:value="${depInfoPojoList.dId}" th:text="${depInfoPojoList.dName}"></option>
                         </select>
                     </div>
-                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px" id="querySubmit" onclick="selectSubmit()">
+                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px" id="querySubmit" onclick="onSelect(this)">
                         <i class="glyphicon glyphicon-search"></i>查询
                     </button>
                 </form>
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
                     <li>
                         <div class="btn-group" style="margin-right: 10px">
-                            <button type="button" class="btn  btn-primary btn-md" onclick="onAdd(this)">
+                            <button type="button" class="btn  btn-primary btn-md" onclick="onShowModal('/staff/depAndAdress')" >
                                 <i class="glyphicon glyphicon-plus"></i>增加
                             </button>
                         </div>
@@ -41,8 +41,8 @@
             </div>
         </div>
     </nav>
-    <div id="table_paging">
-    <table id="main_table" class="table table-hover table-striped table-bordered">
+    <div class="main_context_body">
+    <table id="staff_table" class="table table-hover table-striped table-bordered">
         <thead>
         <tr class="success">
             <th>姓名</th>
@@ -71,25 +71,18 @@
         </tbody>
     </table>
     <div class="text-right">
-        <ul class="pager " style="text-align: right" dataUrl="/goods/goods.html" table="#goods_table" search="#goods_search_form">
-            <li><a onclick="page(0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
-            <li><a th:onclick="'page('+${pageNum-1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+        <ul class="pager " style="text-align: right" dataUrl="/staff/allStaff.html" table="#staff_table" search="#staff_search_form">
+            <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
+            <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
             <li><a  th:text="${pageNum}+'/'+${pages}"></a></li>
-            <li><a  th:onclick="'page('+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-            <li><a id="endPage" onclick="page(9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
+            <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+            <li><a href="javascript:void(0);" onclick="pageChange(this,9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
         </ul>
     </div>
     </div>
 </div>
 <script>
-    function selectSubmit() {
-      //  var value = $("form").serialize();
-        var dId=$("#dIdToSelect").val();
-        var sName=$("#sNameToText").val();
-        //var sId=$("#dIdToSelect").val();
-        $("#table_paging").load("/staff/getStaffByTerm.html",data={sName:sName,dId:dId,onlyData:true})
-    }
-
+    
    function deleteToStaff(sId) {
        $("#员工档案管理").load("/staff/delete.html",data={sId:sId},function () {
            alert("删除成功！")
@@ -102,17 +95,10 @@
        })
    }
 
-    function page(pageNum) {
-        $("#table_paging").load("/staff/allStaff.html",data={pageNum:pageNum,onlyData:true});
-    }
-    
-    
-    function onAdd(a) {
-        $(a).parent().next().load("/staff/depAndAdress", function () {
-            $(a).parent().next().find("#addModal").modal({keyboard: true});
-        });
 
-    }
+    
+    
+
 
 
 </script>

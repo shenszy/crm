@@ -22,7 +22,7 @@
                             <option>鞠闻天</option>
                         </select>
                     </div>
-                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"  onclick="onSelect(this);">
+                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"  onclick="onSelect(this)">
                         <i class="glyphicon glyphicon-search"></i>查询
                     </button>
                 </form>
@@ -69,7 +69,7 @@
                 <td th:text="${goods.gRemark}"></td>
                 <td>
                     <a href="javascript:void(0);" th:onclick="'onShowModal(\'goods/update.html\','+${goods.gId}+')'">修改</a>&nbsp;&nbsp;
-                    <a href="javascript:void(0);" th:onclick="${'deleteToStaff('+goods.gId+')'}">删除</a>
+                    <a href="javascript:void(0);" th:onclick="'deleteToStaff('+${goods.gId}+')'">删除</a>
                 </td>
             </tr>
 

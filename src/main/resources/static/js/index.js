@@ -115,18 +115,15 @@ function pageChange(a, pageNum) {
     });
 }
 
+/**
+ * 点击查询按钮
+ * */
 function onSelect(btn) {
     var li = $(btn).parents(".main_table:first").find("ul.pager >li:eq(0)");
     pageChange(li,0);
 }
 
-/*
-*
- * 显示模态框
+/**
  *
-function shoModal(btn,htmlUrl){
-    $(btn).parent().next().load(htmlUrl, function () {
-        $(btn).parent().next().find("#addModal").modal({keyboard: true});
-    });
-
-}*/
+ * */
+delete 
