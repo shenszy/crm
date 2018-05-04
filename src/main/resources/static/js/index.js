@@ -93,13 +93,16 @@ function onShowModal(html, id) {
  * */
 function pageChange(a, pageNum) {
     var pageUl = $(a).parents("ul:first");
-    //  dataUrl="/goods/goods.html" table="#goods_table" search="goods_search_form"
     var dataUrl = pageUl.attr("dataUrl");
     var table = pageUl.attr("table");
     var searchFrom = pageUl.attr("search");
     if (searchFrom !== null || searchFrom !== undefined || searchFrom !== '') {
         var search = $(searchFrom).serialize();
         if (search !== null || search !== undefined || search !== '') {
+            console.log("执行查询");
+            console.log(searchFrom);
+            console.log($(searchFrom));
+            console.log(search);
             dataUrl += "?" + search
         }
     }
@@ -110,6 +113,11 @@ function pageChange(a, pageNum) {
         if (status === "error")
             alert("加载错误");
     });
+}
+
+function onSelect(btn) {
+    var li = $(btn).parents(".main_table:first").find("ul.pager >li:eq(0)");
+    pageChange(li,0);
 }
 
 /*

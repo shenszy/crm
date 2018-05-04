@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PagingUtil {
 
-    public static Boolean paging(String resultName, ModelAndView mv,Integer pageNum,Boolean onlyData,String path,SelectList selectList){
+    public static Boolean paging(String resultName, ModelAndView mv,Integer pageNum,Boolean onlyData,SelectList selectList){
         if (pageNum <= 0) {
             pageNum = 1;
         }
@@ -21,7 +21,7 @@ public class PagingUtil {
                 list = selectList.run();
             }
             if (onlyData) {
-                mv.setViewName(path);
+                mv.setViewName(mv.getViewName()+" ::.main_context_body");
             }
             mv.addObject(resultName, list);
             mv.addObject("total", page.getTotal());
