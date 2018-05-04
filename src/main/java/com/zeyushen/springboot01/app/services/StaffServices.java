@@ -12,7 +12,9 @@ public class StaffServices {
     @Autowired
     private StaffPojoMapper staffPojoMapper;
 
-    public List<StaffPojo> getAllStaff(){return staffPojoMapper.getAllStaff();}
+    public List<StaffPojo> getAllStaff(){
+
+        return staffPojoMapper.getAllStaff();}
 
     public int insertSelective(StaffPojo staffPojo){return staffPojoMapper.insertSelective(staffPojo);}
 

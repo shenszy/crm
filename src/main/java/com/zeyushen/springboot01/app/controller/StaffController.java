@@ -32,8 +32,7 @@ public class StaffController {
                                     @RequestParam(required = true,defaultValue = "false") Boolean onlyData) {
         List<DepInfoPojo> depInfoPojoList=depInfoServices.getAll();
         ModelAndView mv = new ModelAndView("/filemanagement/staff/staff");
-        String path="/filemanagement/staff/staff ::#table_paging";
-        PagingUtil.paging("allStaff",mv,pageNum,onlyData,path, staffServices::getAllStaff);
+        PagingUtil.paging("allStaff",mv,pageNum,onlyData, staffServices::getAllStaff);
         mv.addObject("depInfoPojoList",depInfoPojoList);
         return mv;
     }
@@ -88,8 +87,7 @@ public class StaffController {
                                        @RequestParam(required = true,defaultValue = "true") Boolean onlyData,
                                        String sName,Integer dId ){
         ModelAndView mv = new ModelAndView("/filemanagement/staff/staff ::#table_paging");
-        String path="/filemanagement/staff/staff ::#table_paging";
-        PagingUtil.paging("allStaff",mv,pageNum,onlyData,path,()->staffServices.getStaffByTerm(sName,sName,dId));
+        PagingUtil.paging("allStaff",mv,pageNum,onlyData,()->staffServices.getStaffByTerm(sName,sName,dId));
         return mv;
     }
 }
