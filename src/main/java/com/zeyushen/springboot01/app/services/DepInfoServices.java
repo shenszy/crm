@@ -13,16 +13,25 @@ public class DepInfoServices {
     @Autowired
     private DepInfoPojoMapper depInfoPojoMapper;
 
-    public DepInfoPojo selectByPrimaryKey (Integer dId){
+    public DepInfoPojo selectByPrimaryKey(Integer dId) {
         return depInfoPojoMapper.selectByPrimaryKey(dId);
 
     }
 
-    public List<DepInfoPojo> getAll(){
+    public List<DepInfoPojo> getAll() {
         return depInfoPojoMapper.getAll();
     }
 
-    public int addOneDep(String dName){return depInfoPojoMapper.addOneDep(dName);}
+    public int addOneDep(String dName) {
+        return depInfoPojoMapper.addOneDep(dName);
+    }
 
-    public int deleteById(Integer dId){return depInfoPojoMapper.deleteById(dId);}
+    public int deleteById(Integer dId) {
+        return depInfoPojoMapper.deleteById(dId);
+    }
+
+    public boolean update(DepInfoPojo depInfoPojo) {
+        //TODO
+        return false;
+    }
 }

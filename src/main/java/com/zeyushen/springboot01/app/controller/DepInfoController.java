@@ -5,6 +5,7 @@ import com.zeyushen.springboot01.app.services.DepInfoServices;
 import com.zeyushen.springboot01.app.util.PagingUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -50,13 +51,25 @@ public class DepInfoController {
     }
 
     @RequestMapping("/delete.html")
-    public String deleteById(Integer dId){
-        depInfoServices.deleteById(dId);
+    public String deleteById(Integer id){
+        depInfoServices.deleteById(id);
         return "forward:/dep/allDep.html";
     }
 
     @RequestMapping("/depone")
     public DepInfoPojo selectByPrimaryKey(Integer dId){
         return depInfoServices.selectByPrimaryKey(dId);
+    }
+
+    @RequestMapping("/alter.html")
+    public ModelAndView updateDepHtml(Integer id){
+        ModelAndView mv=new ModelAndView("/filemanagement/dep/updateDep");
+        mv.addObject("dep",depInfoServices.selectByPrimaryKey(id));
+        return mv;
+    }
+    @PostMapping("/update")
+    @ResponseBody
+    public boolean updateDep(DepInfoPojo depInfoPojo){
+        return  depInfoServices.update(depInfoPojo);
     }
 }

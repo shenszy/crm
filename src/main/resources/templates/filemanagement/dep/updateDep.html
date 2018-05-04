@@ -5,16 +5,17 @@
         <div class="modal-content text-center">
             <div class="modal-header">
                 <button type="button" id="close" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title text-info" id="myModalLabel">添加部门</h4>
+                <h4 class="modal-title text-info" id="myModalLabel">修改部门</h4>
             </div>
             <div class="modal-body">
                 <form id="add_dep_form" class="form-horizontal" action="/dep/insert.html" role="form" >
                     <div class="form-group">
                         <label  class="col-sm-2 control-label">部门名称</label>
                         <div class="col-sm-8">
-                            <input name="dName"  type="text" class="form-control"  placeholder="部门名称">
+                            <input th:value="${dep.dName}" name="dName"  type="text" class="form-control"  placeholder="部门名称">
                         </div>
                     </div>
+                    <input hidden="hidden" th:value="${dep.dId}" name="dId">
                 </form>
 
             </div>
