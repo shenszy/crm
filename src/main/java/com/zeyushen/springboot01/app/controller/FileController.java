@@ -21,8 +21,7 @@ import java.io.OutputStream;
 public class FileController {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileController.class);
 
-    @Value("${fileForTarget}")
-    private static String fileDir = "G:/code/IdeaProjects/file";
+
 
     @Autowired
     private FileServices fileService;
