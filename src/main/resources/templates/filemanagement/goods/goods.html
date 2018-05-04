@@ -18,8 +18,8 @@
                     <div class="form-group">
                         <span>书法作者 : </span>
                         <select  class="form-control" name="gAuthor" >
-                            <option>钱松君</option>
-                            <option>鞠闻天</option>
+                            <option value="">所有</option>
+                            <option th:each="author:${author}" th:text="${author}" th:value="${author}"></option>
                         </select>
                     </div>
                     <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"  onclick="onSelect(this);">

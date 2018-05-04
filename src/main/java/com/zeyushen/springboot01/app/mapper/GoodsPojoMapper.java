@@ -1,6 +1,7 @@
 package com.zeyushen.springboot01.app.mapper;
 
 import com.zeyushen.springboot01.app.model.GoodsPojo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,5 +20,7 @@ public interface GoodsPojoMapper {
 
     int updateByPrimaryKey(GoodsPojo record);
 
-    List<GoodsPojo> getAll();
+    List<GoodsPojo> getGoodeByTerm(@Param("gName") String gName,@Param("spell") String spell,@Param("gAuthor") String gAuthor);
+
+    List<String> getAuthor();
 }

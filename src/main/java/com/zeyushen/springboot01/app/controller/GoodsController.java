@@ -25,11 +25,16 @@ public class GoodsController {
 
     @RequestMapping("/goods.html")
     public ModelAndView getGoodsAll(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
-                                    @RequestParam(required = true,defaultValue = "false") Boolean onlyData) {
-
-
+                                    @RequestParam(required = true,defaultValue = "false") Boolean onlyData,
+                                    @RequestParam(required = true,defaultValue = "") String gName,
+                                    @RequestParam(required = true,defaultValue = "") String spell,
+                                    @RequestParam(required = true,defaultValue = "") String gAuthor) {
         ModelAndView mv = new ModelAndView("/filemanagement/goods/goods");
-        PagingUtil.paging("allGoods",mv,pageNum,onlyData,goodsService::getAllGoods);
+        if(!onlyData){
+            List<String> author=goodsService.getAuthor();
+            mv.addObject("author",author);
+        }
+        PagingUtil.paging("allGoods",mv,pageNum,onlyData,()->goodsService.getGoodeByTerm(gName,spell,gAuthor));
 
         return mv;
     }

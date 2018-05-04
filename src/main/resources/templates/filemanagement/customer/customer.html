@@ -9,7 +9,7 @@
     <nav id="table_nav" class="navbar navbar-default" style="margin: 0">
         <div class="container-fluid">
             <div>
-                <form class="navbar-form navbar-left" role="search">
+                <form class="navbar-form navbar-left" role="search" id="customer_search_form">
                     <div class="form-group">
                         <span>姓名：</span>
                         <input type="text" class="form-control" id="cName">
@@ -36,7 +36,7 @@
                             <option>钻石会员</option>
                         </select>
                     </div>
-                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"  onclick="selectSubmitForCustomer()">
+                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"  onclick="onSelect(this)">
                         <i class="glyphicon glyphicon-search"></i>查询
                     </button>
                 </form>
@@ -54,8 +54,8 @@
             </div>
         </div>
     </nav>
-    <div id="table_pagingForCustomer">
-    <table id="main_table" class="table table-hover table-striped table-bordered" cellspacing="0" cellpadding="0">
+    <div id="main_context_body">
+    <table id="customer_table" class="table table-hover table-striped table-bordered" cellspacing="0" cellpadding="0">
         <thead>
         <tr class="success">
             <th>客户编号</th>
@@ -99,25 +99,25 @@
         </tbody>
     </table>
     <div class="text-right">
-        <ul class="pager " style="text-align: right">
-            <li><a onclick="page(0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
-            <li><a th:onclick="'page('+${pageNum-1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+        <ul class="pager " style="text-align: right"  dataUrl="/customer/customer.html" table="#customer_table" search="#customer_search_form">
+            <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
+            <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
             <li><a  th:text="${pageNum}+'/'+${pages}"></a></li>
-            <li><a  th:onclick="'page('+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-            <li><a id="endPage" onclick="page(9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
+            <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+            <li><a href="javascript:void(0);" onclick="pageChange(this,9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
         </ul>
     </div>
     </div>
 </div>
 <script>
 
-    function selectSubmitForCustomer() {
-        var cDegree=$("#cDegree").val();
-        var cName=$("#cName").val();
-        var cLevel=$("#cLevel").val();
-        console.log("11");
-        $("#table_pagingForCustomer").load("/customer/getCustomerByTerm.html",data={cName:cName,cLevel:cLevel,cDegree:cDegree,onlyData:true});
-    }
+    // function selectSubmitForCustomer() {
+    //     var cDegree=$("#cDegree").val();
+    //     var cName=$("#cName").val();
+    //     var cLevel=$("#cLevel").val();
+    //     console.log("11");
+    //     $("#main_context_body").load("/customer/getCustomerByTerm.html",data={cName:cName,cLevel:cLevel,cDegree:cDegree,onlyData:true});
+    // }
 
     function alterToCustomer(cId) {
         $("#addmodal_div").load("/customer/getOneForAlter",data={cId:cId},function () {
@@ -132,7 +132,7 @@
     }
 
     function page(pageNum) {
-        $("#table_pagingForCustomer").load("/customer/allCustomer.html",data={pageNum:pageNum,onlyData:true});
+        $("#main_context_body").load("/customer/allCustomer.html",data={pageNum:pageNum,onlyData:true});
     }
 
 

@@ -41,7 +41,7 @@
             </div>
         </div>
     </nav>
-    <div id="table_paging">
+    <div id="main_context_body">
     <table id="main_table" class="table table-hover table-striped table-bordered">
         <thead>
         <tr class="success">
@@ -87,7 +87,7 @@
         var dId=$("#dIdToSelect").val();
         var sName=$("#sNameToText").val();
         //var sId=$("#dIdToSelect").val();
-        $("#table_paging").load("/staff/getStaffByTerm.html",data={sName:sName,dId:dId,onlyData:true})
+        $("#main_context_body").load("/staff/getStaffByTerm.html",data={sName:sName,dId:dId,onlyData:true})
     }
 
    function deleteToStaff(sId) {
@@ -103,7 +103,7 @@
    }
 
     function page(pageNum) {
-        $("#table_paging").load("/staff/allStaff.html",data={pageNum:pageNum,onlyData:true});
+        $("#main_context_body").load("/staff/allStaff.html",data={pageNum:pageNum,onlyData:true});
     }
     
     

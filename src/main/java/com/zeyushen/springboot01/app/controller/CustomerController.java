@@ -29,17 +29,19 @@ public class CustomerController {
     @Autowired
     private FileServices fileServices;
 
-    @RequestMapping("/allCustomer.html")
+    @RequestMapping("/customer.html")
     public ModelAndView getAllCustomer(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
-                                       @RequestParam(required = true,defaultValue = "false") Boolean onlyData){
+                                       @RequestParam(required = true,defaultValue = "false") Boolean onlyData,
+                                       @RequestParam(required = true,defaultValue = "") String cName,
+                                       @RequestParam(required = true,defaultValue = "")String cDegree,
+                                       @RequestParam(required = true,defaultValue = "")String cLevel){
         ModelAndView mv = new ModelAndView("/filemanagement/customer/customer");
-        String path="/filemanagement/customer/customer ::#table_pagingForCustomer";
-        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,path,()->customerServices.getAllCustomer());
+        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,()->customerServices.getCustomerByTerm(cName,cName,cDegree,cLevel));
         return mv;
     }
 
     @RequestMapping("/address")
-    public ModelAndView getDepAndAdress(String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/addCustomer.html") String path){
+    public ModelAndView getDepAndAdress(String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/customer.html") String path){
         //三级联动
         List<AddressPojo> address=addressServices.getArea(parentID);
         ModelAndView mv = new ModelAndView(path);
@@ -61,7 +63,7 @@ public class CustomerController {
         }
         customerInfoPojo.setcPhoto(path);
         customerServices.insertOneCustomer(customerInfoPojo);
-        return "forward:/customer/allCustomer.html";
+        return "forward:/customer/customer.html";
     }
 
 
@@ -71,7 +73,7 @@ public class CustomerController {
     @RequestMapping("/delete.html")
     public String deleteBySId(Integer cId){
         customerServices.deleteById(cId);
-        return "forward:/customer/allCustomer.html";
+        return "forward:/customer/customer.html";
     }
 
     /**
@@ -86,7 +88,7 @@ public class CustomerController {
                                           String cName,String cDegree,String cLevel){
         ModelAndView mv = new ModelAndView("/filemanagement/customer/customer ::#table_pagingForCustomer");
         String path="/filemanagement/customer/customer ::#table_pagingForCustomer";
-        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,path,()->customerServices.getCustomerByTerm(cName,cName,cDegree,cLevel));
+        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,()->customerServices.getCustomerByTerm(cName,cName,cDegree,cLevel));
         return mv;
     }
 
@@ -119,6 +121,6 @@ public class CustomerController {
         }
         customerInfoPojo.setcPhoto(path);
         customerServices.updateById(customerInfoPojo);
-        return "forward:/customer/allCustomer.html";
+        return "forward:/customer/customer.html";
     }
 }
