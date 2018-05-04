@@ -91,10 +91,27 @@ function onShowModal(html, id) {
  *统一分页
  *
  * */
-function pageChange(tableselector,DataUrl,pageNum,search) {
-//TODO
-    
+function pageChange(a, pageNum) {
+    var pageUl = $(a).parents("ul:first");
+    //  dataUrl="/goods/goods.html" table="#goods_table" search="goods_search_form"
+    var dataUrl = pageUl.attr("dataUrl");
+    var table = pageUl.attr("table");
+    var searchFrom = pageUl.attr("search");
+    if (searchFrom !== null || searchFrom !== undefined || searchFrom !== '') {
+        var search = $(searchFrom).serialize();
+        if (search !== null || search !== undefined || search !== '') {
+            dataUrl += "?" + search
+        }
+    }
+    $(table).parent().load(dataUrl + " .main_context_body > *", data = {
+        pageNum: pageNum,
+        onlyData: true
+    }, function (response, status) {
+        if (status === "error")
+            alert("加载错误");
+    });
 }
+
 /*
 *
  * 显示模态框

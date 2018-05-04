@@ -29,7 +29,7 @@ public class GoodsController {
 
 
         ModelAndView mv = new ModelAndView("/filemanagement/goods/goods");
-        String path="/filemanagement/goods/goods ::#table_paging";
+        String path="/filemanagement/goods/goods ::.main_context_body";
         PagingUtil.paging("allGoods",mv,pageNum,onlyData,path, goodsService::getAllGoods);
 
         return mv;

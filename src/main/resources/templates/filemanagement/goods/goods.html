@@ -70,12 +70,12 @@
             </tbody>
         </table>
         <div class="text-right">
-            <ul class="pager " style="text-align: right">
-                <li><a href="javascript:void(0);" onclick="page(0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
-                <li><a href="javascript:void(0);" th:onclick="'page('+${pageNum-1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+            <ul class="pager " style="text-align: right"  dataUrl="/goods/goods.html" table="#goods_table" search="goods_search_form">
+                <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
+                <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
                 <li><a  th:text="${pageNum}+'/'+${pages}"></a></li>
-                <li><a href="javascript:void(0);" th:onclick="'page('+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-                <li><a href="javascript:void(0);" onclick="page(9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
+                <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+                <li><a href="javascript:void(0);" onclick="pageChange(this,9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
             </ul>
         </div>
     </div>
@@ -88,17 +88,6 @@
         var sId=$("#dIdToSelect").val();
         $("#table_paging").load("/staff/getStaffByTerm.html",data={sName:sName,sId:sId,dId:dId,onlyData:true})
     }
-
-
-
-
-    function page(pageNum) {
-        $("#产品档案管理").find("#table_paging").load("/goods/goods.html",data={pageNum:pageNum,onlyData:true});
-    }
-
-
-
-
 
 
 </script>
