@@ -6,18 +6,18 @@
     }
 </style>
 <div class="main_table">
-    <nav id="table_nav" class="navbar navbar-default" style="margin: 0">
+    <nav id="customer_table_nav" class="navbar navbar-default" style="margin: 0">
         <div class="container-fluid">
             <div>
                 <form class="navbar-form navbar-left" role="search" id="customer_search_form">
                     <div class="form-group">
                         <span>姓名：</span>
-                        <input type="text" class="form-control" id="cName">
+                        <input type="text" class="form-control" name="cName">
                     </div>
 
                     <div class="form-group">
                         <span>重要程度 </span>
-                        <select class="form-control" id="cDegree">
+                        <select class="form-control" name="cDegree">
                             <option value="">所有</option>
                             <option>一般</option>
                             <option>重要</option>
@@ -26,7 +26,7 @@
                     </div>
                     <div class="form-group">
                         <span>级别 </span>
-                        <select class="form-control" id="cLevel">
+                        <select class="form-control" name="cLevel">
                             <option value="">所有</option>
                             <option>普通会员</option>
                             <option>青铜会员</option>
@@ -43,7 +43,7 @@
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
                     <li>
                         <div class="btn-group" style="margin-right: 10px">
-                            <button type="button" class="btn  btn-primary btn-md" onclick="onAdd(this)">
+                            <button type="button" class="btn  btn-primary btn-md" onclick="onShowModal('/customer/address')">
                                 <i class="glyphicon glyphicon-plus"></i>增加
                             </button>
                         </div>
@@ -54,7 +54,7 @@
             </div>
         </div>
     </nav>
-    <div id="main_context_body">
+    <div class="main_context_body">
     <table id="customer_table" class="table table-hover table-striped table-bordered" cellspacing="0" cellpadding="0">
         <thead>
         <tr class="success">
@@ -111,19 +111,7 @@
 </div>
 <script>
 
-    // function selectSubmitForCustomer() {
-    //     var cDegree=$("#cDegree").val();
-    //     var cName=$("#cName").val();
-    //     var cLevel=$("#cLevel").val();
-    //     console.log("11");
-    //     $("#main_context_body").load("/customer/getCustomerByTerm.html",data={cName:cName,cLevel:cLevel,cDegree:cDegree,onlyData:true});
-    // }
 
-    function alterToCustomer(cId) {
-        $("#addmodal_div").load("/customer/getOneForAlter",data={cId:cId},function () {
-            $("#addmodal_div").find("#alterCustomerModal").modal({keyboard: true});
-        })
-    }
 
     function deleteToCustomer(cId) {
         $("#客户档案管理").load("/customer/delete.html",data={cId:cId},function () {
@@ -131,28 +119,8 @@
         })
     }
 
-    function page(pageNum) {
-        $("#main_context_body").load("/customer/allCustomer.html",data={pageNum:pageNum,onlyData:true});
-    }
 
 
-    function onAdd(a) {
-        $(a).parent().next().load("/customer/address", function () {
-            $(a).parent().next().find("#addModal").modal({keyboard: true});
-        });
 
-    }
 
-    $(function () {
-        $('#main_table  td> .collapse').on('show.bs.collapse', function () {
-            console.log($(this));
-            $(this).parent().removeClass("hide");
-            $("a[href='#" + $(this).attr('id') + "']").parent().parent().addClass("info");
-        });
-        $('#main_table  td> .collapse').on('hidden.bs.collapse', function () {
-            console.log($(this));
-            $("a[href='#" + $(this).attr('id') + "']").parent().parent().removeClass("info");
-            $(this).parent().addClass("hide");
-        });
-    });
 </script>

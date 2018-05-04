@@ -36,7 +36,7 @@ public class FileServices {
     public void init() throws NoSuchFileException {
         File dir = new File(fileDir);
         if (!dir.exists()) {
-            fileDir = "E:/Desktop/peoject/OrderingSys/file";
+            fileDir = "E:/Desktop/peoject/file";
            dir = new File(fileDir);
             if (!dir.exists()) {
                 throw new NoSuchFileException("文件路径" + "不存在");
@@ -59,6 +59,7 @@ public class FileServices {
             LOGGER.info("文件上传： {}", name);
             FileCopyUtils.copy(file.getBytes(), new File(fileDir + name));
         } catch (IOException ioe) {
+            LOGGER.error("文件上传异常");
             LOGGER.error(ioe.getMessage());
             return null;
         }
@@ -70,7 +71,7 @@ public class FileServices {
      * 获取图片到response
      */
     public void getFileToResponse(String url, String type, HttpServletResponse response)  {
-        LOGGER.info("文件输出路径： {}",fileDir);
+       // LOGGER.info("文件输出路径： {}",fileDir);
         //LOGGER.info(fileDir + "/img/" + name + "." + type);
         //将图片输出给浏览器
         try {
@@ -80,7 +81,7 @@ public class FileServices {
             OutputStream os = response.getOutputStream();
             ImageIO.write(image, type, os);
         } catch (Exception e) {
-            LOGGER.error("{} {}",fileDir , url);
+            LOGGER.error("文件读取异常，返回默认图片。  {}{}",fileDir , url);
             try {
                 OutputStream os = response.getOutputStream();
                 ImageIO.write(errorImg(), "JPEG", os);
