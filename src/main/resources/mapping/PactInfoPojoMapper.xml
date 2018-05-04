@@ -18,6 +18,10 @@
     p_id, c_id, s_id, p_title, p_type, p_signingdate, p_execdate, p_enddate, p_executeinfo, 
     p_filepath, p_remark
   </sql>
+    <select id="getAll" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" /> from t_pactinfo
+    </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />

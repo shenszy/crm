@@ -126,4 +126,3 @@ function onSelect(btn) {
 /**
  *
  * */
-delete 

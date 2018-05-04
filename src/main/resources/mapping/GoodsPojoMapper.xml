@@ -46,6 +46,13 @@
       #{gSpecification,jdbcType=VARCHAR}, #{gRemark,jdbcType=VARCHAR}, #{gStatus,jdbcType=VARCHAR})
   </insert>
 
+    <!--查询作品名称和作者-->
+    <select id="getProduct" resultMap="BaseResultMap">
+       SELECT g_id,g_name FROM product
+    </select>
+
+
+
   <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.GoodsPojo" >
     insert into t_goods
     <trim prefix="(" suffix=")" suffixOverrides="," >

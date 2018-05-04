@@ -3,6 +3,8 @@ package com.zeyushen.springboot01.app.mapper;
 import com.zeyushen.springboot01.app.model.PactInfoPojo;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface PactInfoPojoMapper {
     int deleteByPrimaryKey(Integer pId);
@@ -16,4 +18,6 @@ public interface PactInfoPojoMapper {
     int updateByPrimaryKeySelective(PactInfoPojo record);
 
     int updateByPrimaryKey(PactInfoPojo record);
+
+    List<PactInfoPojo> getAll();
 }

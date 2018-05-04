@@ -111,14 +111,6 @@
 </div>
 <script>
 
-    // function selectSubmitForCustomer() {
-    //     var cDegree=$("#cDegree").val();
-    //     var cName=$("#cName").val();
-    //     var cLevel=$("#cLevel").val();
-    //     console.log("11");
-    //     $("#main_context_body").load("/customer/getCustomerByTerm.html",data={cName:cName,cLevel:cLevel,cDegree:cDegree,onlyData:true});
-    // }
-
     function alterToCustomer(cId) {
         $("#addmodal_div").load("/customer/getOneForAlter",data={cId:cId},function () {
             $("#addmodal_div").find("#alterCustomerModal").modal({keyboard: true});

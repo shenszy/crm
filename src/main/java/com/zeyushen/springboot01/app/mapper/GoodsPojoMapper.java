@@ -23,4 +23,7 @@ public interface GoodsPojoMapper {
     List<GoodsPojo> getGoodeByTerm(@Param("gName") String gName,@Param("spell") String spell,@Param("gAuthor") String gAuthor);
 
     List<String> getAuthor();
+
+    List<GoodsPojo> getProduct();
+
 }
