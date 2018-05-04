@@ -17,9 +17,6 @@ public class GoodsService {
     GoodsPojoMapper goodsPojoMapper;
 
 
-    public List<GoodsPojo> getAllGoods() {
-        return  goodsPojoMapper.getAll();
-    }
 
     public boolean add(GoodsPojo goodsPojo) {
         //TODO
@@ -45,5 +42,20 @@ public class GoodsService {
         }else{
             return  goodsPojoMapper.selectByPrimaryKey(gId);
         }
+    }
+
+    public List<GoodsPojo> getGoodeByTerm(String gName,String spell,String gAuthor){
+        if(gAuthor==null||gAuthor.isEmpty()){
+            gAuthor=null;
+        }
+        if(gName==null||gName.isEmpty()||spell==null||spell.isEmpty()){
+            gName="";
+            spell="";
+        }
+        return goodsPojoMapper.getGoodeByTerm(gName,spell,gAuthor);
+    }
+
+    public List<String> getAuthor(){
+        return goodsPojoMapper.getAuthor();
     }
 }

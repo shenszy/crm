@@ -22,14 +22,18 @@
     from t_goods
     where g_id = #{gId,jdbcType=VARCHAR}
   </select>
-
-  <select id="getAll" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-    <include refid="Base_Column_List" />
-    from t_goods
+  <select id="getAuthor" resultType="java.lang.String">
+      SELECT DISTINCT g_author FROM t_goods
   </select>
 
-
+  <select id="getGoodeByTerm" resultMap="BaseResultMap">
+      SELECT  <include refid="Base_Column_List"/>
+      FROM (SELECT *,getPY(t_goods.g_name) AS spell FROM t_goods ) AS t_spell
+      WHERE (t_spell.g_name LIKE CONCAT('%',#{gName},'%') OR t_spell.spell LIKE CONCAT('%',#{spell},'%'))
+      <if test="gAuthor!=null">
+          AND t_spell.g_author=#{gAuthor}
+      </if>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_goods
     where g_id = #{gId,jdbcType=VARCHAR}

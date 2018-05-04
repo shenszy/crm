@@ -23,7 +23,7 @@
             </div>
         </div>
     </nav>
-    <div class="table_pagingForDep">
+    <div class="main_context_body">
         <table id="dep_table" class="table table-hover table-striped table-bordered">
             <thead>
             <tr class="success">
@@ -61,7 +61,7 @@
 
 
     function pageForDep(pageNum) {
-        $("#部门档案管理").find("#table_pagingForDep").load("/dep/dep.html",data={pageNum:pageNum,onlyData:true});
+        $("#部门档案管理").find("#main_context_body").load("/dep/dep.html",data={pageNum:pageNum,onlyData:true});
     }
 
 
