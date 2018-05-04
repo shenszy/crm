@@ -123,7 +123,6 @@ function onSelect(btn) {
 /**
  * 删除
  * */
- 
 function deleteById(deleteUrl, a, id) {
     $.jq_Confirm({
         message: "确定要删除吗",

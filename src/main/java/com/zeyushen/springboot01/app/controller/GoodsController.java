@@ -65,6 +65,7 @@ public class GoodsController {
         mv.addObject("goods",goodsPojo);
         return mv;
     }
+
     @PostMapping("/update")
     @ResponseBody
     public boolean update(GoodsPojo goodsPojo) {

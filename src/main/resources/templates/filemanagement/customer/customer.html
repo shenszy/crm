@@ -13,13 +13,13 @@
                 <form class="navbar-form navbar-left" role="search" id="customer_search_form">
                     <div class="form-group">
                         <span>姓名：</span>
-                    
+
                         <input type="text" class="form-control" name="cName">
                     </div>
 
                     <div class="form-group">
                         <span>重要程度 </span>
-                  
+
                         <select class="form-control" name="cDegree">
                             <option value="">所有</option>
                             <option>一般</option>
@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-group">
                         <span>级别 </span>
-                    
+
                         <select class="form-control" name="cLevel">
                             <option value="">所有</option>
                             <option>普通会员</option>
@@ -40,15 +40,17 @@
                             <option>钻石会员</option>
                         </select>
                     </div>
-                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"  onclick="onSelect(this)">
+                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"
+                            onclick="onSelect(this)">
                         <i class="glyphicon glyphicon-search"></i>查询
                     </button>
                 </form>
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
                     <li>
                         <div class="btn-group" style="margin-right: 10px">
-            
-                            <button type="button" class="btn  btn-primary btn-md" onclick="onShowModal('/customer/address')">
+
+                            <button type="button" class="btn  btn-primary btn-md"
+                                    onclick="onShowModal('/customer/address')">
                                 <i class="glyphicon glyphicon-plus"></i>增加
                             </button>
                         </div>
@@ -61,59 +63,67 @@
     </nav>
 
     <div class="main_context_body">
-    <table id="customer_table" class="table table-hover table-striped table-bordered" cellspacing="0" cellpadding="0">
-        <thead>
-        <tr class="success">
-            <th>客户编号</th>
-            <th>姓名</th>
-            <th>性别</th>
-            <th>年龄</th>
-            <th>所属行业</th>
-            <th>客户类型</th>
-            <th>重要程度</th>
-            <th>客户级别</th>
-            <th>客户邮箱</th>
-            <th>联系方式</th>
-            <th>客户地区</th>
-            <th>客户地址</th>
-            <th>客户描述</th>
-            <th>客户照片</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="allCustomer:${allCustomer}">
-            <td th:text="${allCustomer.cId}"></td>
-            <td th:text="${allCustomer.cName}"></td>
-            <td th:text="${allCustomer.cSex}"></td>
-            <td th:text="${allCustomer.cAge}"></td>
-            <td th:text="${allCustomer.cVocation}"></td>
-            <td th:text="${allCustomer.cType}"></td>
-            <td th:text="${allCustomer.cDegree}"></td>
-            <td th:text="${allCustomer.cLevel}"></td>
-            <td th:text="${allCustomer.cEmail}"></td>
-            <td th:text="${allCustomer.cPhone}"></td>
-            <td th:text="${allCustomer.cRegion}"></td>
-            <td th:text="${allCustomer.cAddress}"></td>
-            <td th:text="${allCustomer.cDescribe}"></td>
-            <td width="35"><img th:src="${allCustomer.cPhoto}" width="30" height="50"></td>
-            <td>
-               
-                <a href="javascript:void(0);" th:onclick="'onShowModal(\'/customer/getOneForAlter\','+${allCustomer.cId}+')'">修改</a>&nbsp;&nbsp;
-                <a href="javascript:void(0);" th:onclick="'deleteById(\'/customer/delete.html\',this,'+${allCustomer.cId}+')'">删除</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="text-right">
-      
-        <ul class="pager " style="text-align: right"  dataUrl="/customer/customer.html" table="#customer_table" search="#customer_search_form" th:attr="thispage=${pageNum}">
-            <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
-            <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
-            <li><a  th:text="${pageNum}+'/'+${pages}"></a></li>
-            <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-            <li><a href="javascript:void(0);" onclick="pageChange(this,9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
-        </ul>
-    </div>
+        <table id="customer_table" class="table table-hover table-striped table-bordered" cellspacing="0"
+               cellpadding="0">
+            <thead>
+            <tr class="success">
+                <th>客户编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>所属行业</th>
+                <th>客户类型</th>
+                <th>重要程度</th>
+                <th>客户级别</th>
+                <th>客户邮箱</th>
+                <th>联系方式</th>
+                <th>客户地区</th>
+                <th>客户地址</th>
+                <th>客户描述</th>
+                <th>客户照片</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="allCustomer:${allCustomer}">
+                <td th:text="${allCustomer.cId}"></td>
+                <td th:text="${allCustomer.cName}"></td>
+                <td th:text="${allCustomer.cSex}"></td>
+                <td th:text="${allCustomer.cAge}"></td>
+                <td th:text="${allCustomer.cVocation}"></td>
+                <td th:text="${allCustomer.cType}"></td>
+                <td th:text="${allCustomer.cDegree}"></td>
+                <td th:text="${allCustomer.cLevel}"></td>
+                <td th:text="${allCustomer.cEmail}"></td>
+                <td th:text="${allCustomer.cPhone}"></td>
+                <td th:text="${allCustomer.cRegion}"></td>
+                <td th:text="${allCustomer.cAddress}"></td>
+                <td th:text="${allCustomer.cDescribe}"></td>
+                <td width="35"><img th:src="${allCustomer.cPhoto}" width="30" height="50"></td>
+                <td>
+
+                    <a href="javascript:void(0);"
+                       th:onclick="'onShowModal(\'/customer/getOneForAlter\','+${allCustomer.cId}+')'">修改</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0);"
+                       th:onclick="'deleteById(\'/customer/delete.html\',this,'+${allCustomer.cId}+')'">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-right">
+
+            <ul class="pager " style="text-align: right" dataUrl="/customer/customer.html" table="#customer_table"
+                search="#customer_search_form" th:attr="thispage=${pageNum}">
+                <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span
+                        class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
+                <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span
+                        class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+                <li><a th:text="${pageNum}+'/'+${pages}"></a></li>
+                <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum+1}+');'"><span
+                        class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+                <li><a href="javascript:void(0);" onclick="pageChange(this,9999);"><span
+                        class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
+            </ul>
+        </div>
     </div>
 </div>
