@@ -27,14 +27,13 @@ public class GoodsController {
     public ModelAndView getGoodsAll(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
                                     @RequestParam(required = true,defaultValue = "false") Boolean onlyData,
                                     @RequestParam(required = true,defaultValue = "") String gName,
-                                    @RequestParam(required = true,defaultValue = "") String spell,
                                     @RequestParam(required = true,defaultValue = "") String gAuthor) {
         ModelAndView mv = new ModelAndView("/filemanagement/goods/goods");
         if(!onlyData){
             List<String> author=goodsService.getAuthor();
             mv.addObject("author",author);
         }
-        PagingUtil.paging("allGoods",mv,pageNum,onlyData,()->goodsService.getGoodeByTerm(gName,spell,gAuthor));
+        PagingUtil.paging("allGoods",mv,pageNum,onlyData,()->goodsService.getGoodeByTerm(gName,gName,gAuthor));
 
         return mv;
     }
@@ -53,11 +52,10 @@ public class GoodsController {
     }
 
 
-    @PostMapping("/elsedeGoods")
+    @PostMapping("/delsedeGoods")
     @ResponseBody
-    public boolean delete(String gId) {
-
-        return  goodsService.delete(gId);
+    public boolean delete(String id) {
+        return  goodsService.delete(id);
     }
 
     @GetMapping("/update.html")
@@ -70,9 +68,7 @@ public class GoodsController {
     @PostMapping("/update")
     @ResponseBody
     public boolean update(GoodsPojo goodsPojo) {
-
         return  goodsService.update(goodsPojo);
-        //return  false;
     }
 
 }

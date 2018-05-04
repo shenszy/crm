@@ -7,9 +7,8 @@
                 <button type="button" id="close" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title text-info" id="myModalLabel">修改客户档案</h4>
             </div>
-
-            <div class="modal-body container-fluid">
-                <form id="add_asset_form" class="form-horizontal" action="/customer/alter.html" role="form" enctype="multipart/form-data" method="post">
+            <div class="modal-body ">
+                <form id="add_customer_form" class="form-horizontal" action="/customer/alter.html" role="form" enctype="multipart/form-data" method="post">
                     <div class="form-group">
                         <label class="col-sm-2 control-label">客户姓名</label>
                         <div class="col-sm-8">
@@ -147,7 +146,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button id="alter_submit" type="button" class="btn btn-primary">提交</button>
+                        <button onclick="modalUpdateSubmit()" type="button" class="btn btn-primary">提交</button>
                     </div>
                 </form>
 
@@ -188,16 +187,7 @@
                 })
 
 
-                /**
-                 * 异步提交,不刷新页面
-                 * */
-                $("#alter_submit").click(function () {
-                    $("#add_asset_form").ajaxSubmit(function () {
-                        alert("修改成功");
-                        $("#alterCustomerModal").modal('hide')
-                    });
-
-                });</script>
+               </script>
 
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->

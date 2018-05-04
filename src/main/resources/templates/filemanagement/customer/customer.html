@@ -92,14 +92,14 @@
             <td th:text="${allCustomer.cDescribe}"></td>
             <td width="35"><img th:src="${allCustomer.cPhoto}" width="30" height="50"></td>
             <td>
-                <a th:onclick="${'alterToCustomer('+allCustomer.cId+')'}">修改</a>&nbsp;&nbsp;
-                <a  th:onclick="${'deleteToCustomer('+allCustomer.cId+')'}">删除</a>
+                <a href="javascript:void(0);" th:onclick="'onShowModal(\'/customer/getOneForAlter\','+${allCustomer.cId}+')'">修改</a>&nbsp;&nbsp;
+                <a href="javascript:void(0);" th:onclick="'deleteById(\'/customer/delete.html\',this,'+${allCustomer.cId}+')'">删除</a>
             </td>
         </tr>
         </tbody>
     </table>
     <div class="text-right">
-        <ul class="pager " style="text-align: right"  dataUrl="/customer/customer.html" table="#customer_table" search="#customer_search_form">
+        <ul class="pager " style="text-align: right"  dataUrl="/customer/customer.html" table="#customer_table" search="#customer_search_form" th:attr="thispage=${pageNum}">
             <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
             <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
             <li><a  th:text="${pageNum}+'/'+${pages}"></a></li>
@@ -112,12 +112,6 @@
 <script>
 
 
-
-    function deleteToCustomer(cId) {
-        $("#客户档案管理").load("/customer/delete.html",data={cId:cId},function () {
-            alert("删除成功！")
-        })
-    }
 
 
 

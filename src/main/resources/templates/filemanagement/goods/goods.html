@@ -68,15 +68,15 @@
                 <td th:text="${goods.gStatus}"></td>
                 <td th:text="${goods.gRemark}"></td>
                 <td>
-                    <a href="javascript:void(0);" th:onclick="'onShowModal(\'goods/update.html\','+${goods.gId}+')'">修改</a>&nbsp;&nbsp;
-                    <a href="javascript:void(0);" th:onclick="'deleteToStaff('+${goods.gId}+')'">删除</a>
+                    <a href="javascript:void(0);" th:onclick="'onShowModal(\'/goods/update.html\','+${goods.gId}+')'">修改</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0);" th:onclick="'deleteById(\'/goods/delsedeGoods\',this,'+${goods.gId}+')'">删除</a>
                 </td>
             </tr>
 
             </tbody>
         </table>
         <div class="text-right">
-            <ul class="pager " style="text-align: right"  dataUrl="/goods/goods.html" table="#goods_table" search="#goods_search_form">
+            <ul class="pager " style="text-align: right"  dataUrl="/goods/goods.html" table="#goods_table" search="#goods_search_form" th:attr="thispage=${pageNum}">
                 <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
                 <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
                 <li><a  th:text="${pageNum}+'/'+${pages}"></a></li>
@@ -87,4 +87,7 @@
     </div>
 </div>
 <script>
+
+
+
 </script>

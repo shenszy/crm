@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -71,9 +72,9 @@ public class CustomerController {
     删除
      */
     @RequestMapping("/delete.html")
-    public String deleteBySId(Integer cId){
-        customerServices.deleteById(cId);
-        return "forward:/customer/customer.html";
+    @ResponseBody
+    public boolean deleteBySId(Integer id){
+        return customerServices.deleteById(id);
     }
 
 
@@ -82,8 +83,8 @@ public class CustomerController {
      * 通过id查询一条数据
      */
     @RequestMapping("/getOneForAlter")
-    public ModelAndView getOneCustomer(Integer cId,String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/alterCustomer.html") String path){
-        CustomerInfoPojo oneCustomer=customerServices.getOneCustomer(cId);
+    public ModelAndView getOneCustomer(Integer id,String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/alterCustomer.html") String path){
+        CustomerInfoPojo oneCustomer=customerServices.getOneCustomer(id);
         List<AddressPojo> address=addressServices.getArea(parentID);
         ModelAndView mv = new ModelAndView(path);
         mv.addObject("oneCustomer",oneCustomer);
