@@ -22,7 +22,16 @@ public class StaffServices {
 
     public StaffPojo selectBySId(Integer sId){return staffPojoMapper.selectBySId(sId);}
 
-    public int updateBySId(StaffPojo staffPojo){return staffPojoMapper.updateBySId(staffPojo);}
+    public boolean updateBySId(StaffPojo staffPojo){return staffPojoMapper.updateBySId(staffPojo)==1;}
 
-    public List<StaffPojo> getStaffByTerm(String sName,String spell,Integer dId){return staffPojoMapper.getStaffByTerm(sName,spell,dId);}
+    public List<StaffPojo> getStaffByTerm(String sName,String spell,Integer dId){
+        if(dId ==null || dId <=0){
+            dId = 0;
+        }
+
+        if(sName==null||sName.isEmpty()||spell==null||spell.isEmpty()){
+            sName="";
+            spell="";
+        }
+        return staffPojoMapper.getStaffByTerm(sName,spell,dId);}
 }

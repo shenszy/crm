@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -29,10 +30,11 @@ public class StaffController {
 
     @RequestMapping("/allStaff.html")
     public ModelAndView getAllStaff(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
-                                    @RequestParam(required = true,defaultValue = "false") Boolean onlyData) {
+                                    @RequestParam(required = true,defaultValue = "false") Boolean onlyData,
+                                    String sName,Integer dId) {
         List<DepInfoPojo> depInfoPojoList=depInfoServices.getAll();
         ModelAndView mv = new ModelAndView("/filemanagement/staff/staff");
-        PagingUtil.paging("allStaff",mv,pageNum,onlyData, staffServices::getAllStaff);
+        PagingUtil.paging("allStaff",mv,pageNum,onlyData,()->staffServices.getStaffByTerm(sName,sName,dId));
         mv.addObject("depInfoPojoList",depInfoPojoList);
         return mv;
     }
@@ -56,14 +58,14 @@ public class StaffController {
     }
 
     @RequestMapping("/delete.html")
-    public String deleteBySId(Integer sId){
-        staffServices.deleteBySId(sId);
+    public String deleteBySId(Integer id){
+        staffServices.deleteBySId(id);
         return "forward:/staff/allStaff.html";
     }
 
     @RequestMapping("/getOneForAlter")
-    public ModelAndView getOneStaff(Integer sId,String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/staff/alterStaff.html") String path){
-        StaffPojo oneStaff=staffServices.selectBySId(sId);
+    public ModelAndView getOneStaff(Integer id,String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/staff/alterStaff.html") String path){
+        StaffPojo oneStaff=staffServices.selectBySId(id);
         DepInfoPojo oneDep=depInfoServices.selectByPrimaryKey(oneStaff.getdId());
         //选择部门
         List<DepInfoPojo> dep=depInfoServices.getAll();
@@ -77,17 +79,10 @@ public class StaffController {
     }
 
     @RequestMapping("/alter.html")
-    public String alterOneStaff(StaffPojo staffPojo){
-        staffServices.updateBySId(staffPojo);
-        return "forward:/staff/allStaff.html";
+    @ResponseBody
+    public boolean alterOneStaff(StaffPojo staffPojo){
+        return  staffServices.updateBySId(staffPojo);
     }
 
-    @RequestMapping("/getStaffByTerm.html")
-    public ModelAndView getStaffByTerm(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
-                                       @RequestParam(required = true,defaultValue = "true") Boolean onlyData,
-                                       String sName,Integer dId ){
-        ModelAndView mv = new ModelAndView("/filemanagement/staff/staff ::#table_paging");
-        PagingUtil.paging("allStaff",mv,pageNum,onlyData,()->staffServices.getStaffByTerm(sName,sName,dId));
-        return mv;
-    }
+
 }
