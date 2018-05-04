@@ -98,6 +98,7 @@ function pageChange(a, pageNum) {
     var searchFrom = pageUl.attr("search");
     if (searchFrom !== null || searchFrom !== undefined || searchFrom !== '') {
         var search = $(searchFrom).serialize();
+        console.log(search);
         if (search !== null || search !== undefined || search !== '') {
             dataUrl += "?" + search
         }

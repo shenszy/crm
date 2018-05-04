@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="public_addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content text-center">
             <div class="modal-header">
@@ -8,58 +9,61 @@
                 <h4 class="modal-title text-info" id="myModalLabel">添加员工</h4>
             </div>
             <div class="modal-body">
-                <form id="add_asset_form" class="form-horizontal" action="/staff/insert.html" role="form" >
+                <form id="add_asset_form" class="form-horizontal" action="/staff/insert.html" role="form">
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">员工姓名</label>
+                        <label class="col-sm-2 control-label">员工姓名</label>
                         <div class="col-sm-8">
-                            <input name="sTname"  type="text" class="form-control"  placeholder="请输入员工姓名">
+                            <input name="sTname" type="text" class="form-control" placeholder="请输入员工姓名">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">员工所属部门</label>
                         <div class="col-sm-8">
-                            <select name="dId" id="depOfStaff" class="form-control"  >
-                               <option th:each="dep:${dep}" th:text="${dep.dName}" th:value="${dep.dId}">财务部</option>
+                            <select name="dId" id="depOfStaff" class="form-control">
+                                <option th:each="dep:${dep}" th:text="${dep.dName}" th:value="${dep.dId}">财务部</option>
                             </select>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">职务名称</label>
                         <div class="col-sm-8">
-                            <input name="sLevel"  class="form-control" type="text" placeholder="职务名称">
+                            <input name="sLevel" class="form-control" type="text" placeholder="职务名称">
                             <p class="help-block"></p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">联系方式</label>
                         <div class="col-sm-8">
-                            <input name="tPhone" class="form-control"  type="text" placeholder="联系方式">
+                            <input name="tPhone" class="form-control" type="text" placeholder="联系方式">
 
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">住址</label>
                         <div class="col-sm-8">
-                        <div class="row">
-                            <select id="province" class="col-md-4">
-                                <option>--省--</option>
-                                <option th:each="province:${addresses}" th:id="${province.currentID}" th:text="${province.address}"></option>
-                            </select>
-                            <select id="city" class="col-md-4" >
-                                <option>--市--</option>
-                                <option th:each="city:${addresses}" th:id="${city.currentID}" th:text="${city.address}"></option>
-                            </select>
-                            <select id="area" class="col-md-4" >
-                                <option>--区、县--</option>
-                                <option th:each="area:${addresses}" th:id="${area.currentID}" th:text="${area.address}"></option>
-                            </select>
+                            <div class="row">
+                                <select id="province" class="col-md-4">
+                                    <option>--省--</option>
+                                    <option th:each="province:${addresses}" th:id="${province.currentID}"
+                                            th:text="${province.address}"></option>
+                                </select>
+                                <select id="city" class="col-md-4">
+                                    <option>--市--</option>
+                                    <option th:each="city:${addresses}" th:id="${city.currentID}"
+                                            th:text="${city.address}"></option>
+                                </select>
+                                <select id="area" class="col-md-4">
+                                    <option>--区、县--</option>
+                                    <option th:each="area:${addresses}" th:id="${area.currentID}"
+                                            th:text="${area.address}"></option>
+                                </select>
+                            </div>
+                            <input id="street" class="form-control" type="text" placeholder="街道">
+                            <input hidden="hidden" type="text" name="tAddress" id="address">
+
+
                         </div>
-                        <input id="street" class="form-control" type="text" placeholder="街道" >
-                        <input hidden="hidden" type="text" name="tAddress" id="address">
-
-
-                    </div>
                     </div>
 
                 </form>
@@ -67,68 +71,51 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button id="add_submit" type="button" class="btn btn-primary">提交</button>
+                <button onclick="modalAddSubmit()" type="button" class="btn btn-primary">提交</button>
             </div>
 
             <script>
                 //地址字符串拼接
                 $("#area").change(function () {
-                    var address=$("#address").val();
-                    var province=$("#province").val();
-                    var city=$("#city").val();
-                    var area=$("#area").val();
-                    if(address!=""){
-                        address="";
+                    var address = $("#address").val();
+                    var province = $("#province").val();
+                    var city = $("#city").val();
+                    var area = $("#area").val();
+                    if (address != "") {
+                        address = "";
                     }
-                    address=province+city+area;
+                    address = province + city + area;
                     $("#address").val(address);
-                })
+                });
                 $("#street").change(function () {
-                    var address=$("#address").val();
-                    var street=$("#street").val();
+                    var address = $("#address").val();
+                    var street = $("#street").val();
                     $("#address").val(address);
-                })
+                });
                 //三级联动
                 //省份联动市
                 $("#province").change(function () {
-                    var parentID=$("#province").find("option:selected").attr("id");
-                    if(parentID!=""){
-                        $("#city").load("/staff/depAndAdress",data={parentID:parentID,path:"/filemanagement/staff/addStaff ::#city"})
+                    var parentID = $("#province").find("option:selected").attr("id");
+                    if (parentID != "") {
+                        $("#city").load("/staff/depAndAdress", data = {
+                            parentID: parentID,
+                            path: "/filemanagement/staff/addStaff ::#city"
+                        })
                     }
-                })
+                });
                 //市联动区、县
                 $("#city").change(function () {
-                    var parentID=$("#city").find("option:selected").attr("id");
-                    if(parentID!=""){
-                        $("#area").load("/staff/depAndAdress",data={parentID:parentID,path:"/filemanagement/staff/addStaff ::#area"})
+                    var parentID = $("#city").find("option:selected").attr("id");
+                    if (parentID != "") {
+                        $("#area").load("/staff/depAndAdress", data = {
+                            parentID: parentID,
+                            path: "/filemanagement/staff/addStaff ::#area"
+                        })
                     }
-                })
+                });
 
 
-                /**
-                 * 异步提交,不刷新页面
-                 * */
-                $("#add_submit").click(function () {
-                var date = $("input[name='asTime']").val();
-                var sysDate = new Date();
-                console.log(date);
-                if (date === null ||date ===''  ) {
-                    console.log(date);
-                    alert("时间不能为空!");
-                    return;
-                }
-                var  newDate = new Date(date);
-                if(sysDate < newDate){
-                    console.log(date);
-                    alert("不能大于当前时间!");
-                    return;
-                }
-                $("#add_asset_form").ajaxSubmit(function (d) {
-                        alert("创建成功");
-                        $("#addModal").modal('hide')
-                    });
-
-            });</script>
+            </script>
 
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->

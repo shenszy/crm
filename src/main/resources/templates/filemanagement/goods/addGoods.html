@@ -74,17 +74,6 @@
                 <button onclick="modalAddSubmit()" type="button" class="btn btn-primary ">提交</button>
             </div>
 
-            <script>
-
-
-                $("form .num").keyup(function () {
-                    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
-                }).bind("paste", function () {  //CTR+V事件处理
-                    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
-
-                }).css("ime-mode", "disabled"); //CSS设置输入法不可用  ;
-
-            </script>
 
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->

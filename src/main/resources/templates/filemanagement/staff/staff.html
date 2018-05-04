@@ -22,7 +22,7 @@
                             <option th:each="depInfoPojoList:${depInfoPojoList}" th:value="${depInfoPojoList.dId}" th:text="${depInfoPojoList.dName}"></option>
                         </select>
                     </div>
-                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px" id="querySubmit" onclick="onSelect(this)">
+                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"  onclick="onSelect(this)">
                         <i class="glyphicon glyphicon-search"></i>查询
                     </button>
                 </form>
@@ -63,15 +63,15 @@
             <td th:text="${staff.tPhone}"></td>
             <td th:text="${staff.tAddress}"></td>
             <td>
-                <a th:onclick="${'alterToStaff('+staff.sId+')'}">修改</a>&nbsp;&nbsp;
-                <a  th:onclick="${'deleteToStaff('+staff.sId+')'}">删除</a>
+                <a href="javascript:void(0);" th:onclick="'onShowModal(\'/staff/getOneForAlter\','+${staff.sId}+')'">修改</a>&nbsp;&nbsp;
+                <a href="javascript:void(0);" th:onclick="'deleteById(\'/staff/delete.html\',this,'+${staff.sId}+')'">删除</a>
             </td>
         </tr>
 
         </tbody>
     </table>
     <div class="text-right">
-        <ul class="pager " style="text-align: right" dataUrl="/staff/allStaff.html" table="#staff_table" search="#staff_search_form">
+        <ul class="pager " style="text-align: right" dataUrl="/staff/allStaff.html" table="#staff_table" search="#staff_search_form" th:attr="thispage=${pageNum}">
             <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
             <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
             <li><a  th:text="${pageNum}+'/'+${pages}"></a></li>
@@ -81,24 +81,3 @@
     </div>
     </div>
 </div>
-<script>
-    
-   function deleteToStaff(sId) {
-       $("#员工档案管理").load("/staff/delete.html",data={sId:sId},function () {
-           alert("删除成功！")
-       })
-   }
-
-   function alterToStaff(sId) {
-       $("#addmodal_div").load("/staff/getOneForAlter",data={sId:sId},function () {
-           $("#addmodal_div").find("#alterModal").modal({keyboard: true});
-       })
-   }
-
-
-    
-    
-
-
-
-</script>
