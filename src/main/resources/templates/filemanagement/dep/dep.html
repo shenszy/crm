@@ -6,7 +6,7 @@
     }
 </style>
 <div class="main_table">
-    <nav id="dep_table_nav" class="navbar navbar-default" style="margin: 0">
+    <nav id="dep_table_nav" class="navbar navbar-default" style="margin: 0" >
         <div class="container-fluid">
             <div>
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
@@ -37,36 +37,22 @@
                 <td th:text="${allDep.dId}"></td>
                 <td th:text="${allDep.dName}"></td>
                 <td>
-                    <a href="javascript:void(0);" th:onclick="'onShowModal(\'dep/alter.html\','+${allDep.dId}+')'">修改</a>&nbsp;&nbsp;
-                    <a href="javascript:void(0);" th:onclick="${'deleteToDep('+allDep.dId+')'}">删除</a>
+                    <a href="javascript:void(0);" th:onclick="'onShowModal(\'/dep/alter.html\','+${allDep.dId}+')'">修改</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0);" th:onclick="'deleteById(\'/dep/delete.html\',this,'+${allDep.dId}+')'">删除</a>
+
                 </td>
             </tr>
 
             </tbody>
         </table>
         <div class="text-right">
-            <ul class="pager " style="text-align: right">
-                <li><a href="javascript:void(0);" onclick="pageForDep(0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
-                <li><a href="javascript:void(0);" th:onclick="'pageForDep('+${pageNum-1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+            <ul class="pager " style="text-align: right"  dataUrl="/dep/allDep.html" table="#dep_table"  th:attr="thispage=${pageNum}">
+                <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
+                <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
                 <li><a  th:text="${pageNum}+'/'+${pages}"></a></li>
-                <li><a href="javascript:void(0);" th:onclick="'pageForDep('+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
-                <li><a href="javascript:void(0);" onclick="pageForDep(9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
+                <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum+1}+');'"><span class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+                <li><a href="javascript:void(0);" onclick="pageChange(this,9999);"><span class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
             </ul>
         </div>
     </div>
 </div>
-<script>
-
-
-
-
-    function pageForDep(pageNum) {
-        $("#部门档案管理").find("#main_context_body").load("/dep/dep.html",data={pageNum:pageNum,onlyData:true});
-    }
-
-
-
-
-
-
-</script>

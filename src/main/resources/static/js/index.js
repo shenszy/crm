@@ -99,10 +99,6 @@ function pageChange(a, pageNum) {
     if (searchFrom !== null || searchFrom !== undefined || searchFrom !== '') {
         var search = $(searchFrom).serialize();
         if (search !== null || search !== undefined || search !== '') {
-            console.log("执行查询");
-            console.log(searchFrom);
-            console.log($(searchFrom));
-            console.log(search);
             dataUrl += "?" + search
         }
     }
@@ -120,9 +116,84 @@ function pageChange(a, pageNum) {
  * */
 function onSelect(btn) {
     var li = $(btn).parents(".main_table:first").find("ul.pager >li:eq(0)");
-    pageChange(li,0);
+    pageChange(li, 0);
 }
 
 /**
- *
+ * 删除
  * */
+ 
+function deleteById(deleteUrl, a, id) {
+    $.jq_Confirm({
+        message: "确定要删除吗",
+        btnOktext: "确定",
+        btnCanceltext: "取消",
+        btnOkClick: function () {
+            $.post(deleteUrl, {id: id}, function (r) {
+                if (r) {
+                    $.jq_Alert({
+                        message: "删除成功",
+                        btnOktext: "确定",
+                        btnOkClick: function () {
+                            var li = $(a).parents(".main_table:first").find("ul.pager >li:eq(0)");
+                            var pageUl = $(li).parents("ul:first");
+                            var thispage = pageUl.attr("thispage");
+                            pageChange(li, thispage);
+                        }
+                    });
+                } else {
+                    $.jq_Alert({
+                        message: "删除失败",
+                        btnOktext: "确定"
+                    });
+                }
+            })
+
+        },
+        btnCancelClick: function () {
+        }
+    });
+}
+
+/**
+ * 模态框的异步修改
+ * */
+function modalUpdateSubmit(){
+    $("#public_modal_div").find("form").ajaxSubmit(function (d) {
+        if (d) {
+            $("#public_modal_div >div").modal('hide');
+            $.jq_Alert({message: "修改成功", btnOktext: "确定",
+                btnOkClick: function () {
+                    var li = $("#main_context >div:visible").find("ul.pager >li:eq(0)")
+                    var pageUl = $(li).parents("ul:first");
+                    var thispage = pageUl.attr("thispage");
+                    pageChange(li, thispage);
+                }
+            });
+        } else {
+           alert("信息有误，修改失败！");
+        }
+    });
+
+};
+
+/**
+ * 模态框的异步添加
+ * */
+function modalAddSubmit() {
+    $("#public_modal_div").find("form").ajaxSubmit(function (d) {
+        if (d) {
+            $("#public_modal_div >div").modal('hide');
+            $.jq_Alert({message: "添加成功", btnOktext: "确定",
+                btnOkClick: function () {
+
+                    var li = $("#main_context >div:visible").find("ul.pager >li:eq(0)")
+                    pageChange(li, 9999);
+                }
+            });
+        } else {
+            alert("信息有误，添加失败！");
+        }
+    });
+
+};

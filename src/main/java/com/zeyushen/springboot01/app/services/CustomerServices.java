@@ -16,7 +16,7 @@ public class CustomerServices {
 
     public int insertOneCustomer(CustomerInfoPojo customerInfoPojo){return customerInfoPojoMapper.insertOneCustomer(customerInfoPojo);}
 
-    public int deleteById(Integer cId){return customerInfoPojoMapper.deleteById(cId);}
+    public boolean deleteById(Integer cId){return customerInfoPojoMapper.deleteById(cId)==1;}
 
     public  List<CustomerInfoPojo> getCustomerByTerm(String cName,String spell,String cDegree,String cLevel){
         if(cDegree==null||cDegree.isEmpty()){

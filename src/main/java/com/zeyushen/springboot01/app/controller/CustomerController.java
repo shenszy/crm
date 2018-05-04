@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -36,13 +37,12 @@ public class CustomerController {
                                        @RequestParam(required = true,defaultValue = "")String cDegree,
                                        @RequestParam(required = true,defaultValue = "")String cLevel){
         ModelAndView mv = new ModelAndView("/filemanagement/customer/customer");
-
-        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,()->customerServices.getAllCustomer());
+        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,()->customerServices.getCustomerByTerm(cName,cName,cDegree,cLevel));
         return mv;
     }
 
     @RequestMapping("/address")
-    public ModelAndView getDepAndAdress(String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/customer.html") String path){
+    public ModelAndView getDepAndAdress(String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/addCustomer.html") String path){
         //三级联动
         List<AddressPojo> address=addressServices.getArea(parentID);
         ModelAndView mv = new ModelAndView(path);
@@ -72,33 +72,19 @@ public class CustomerController {
     删除
      */
     @RequestMapping("/delete.html")
-    public String deleteBySId(Integer cId){
-        customerServices.deleteById(cId);
-        return "forward:/customer/customer.html";
+    @ResponseBody
+    public boolean deleteBySId(Integer id){
+        return customerServices.deleteById(id);
     }
 
-    /**
-     * cName按姓名模糊查询
-     * spell按汉字拼音首字母模糊查询
-     * cDegree按重要程度查询
-     * cLevel按会员等级查询
-     */
-    @RequestMapping("/getCustomerByTerm.html")
-    public ModelAndView getCustomerByTerm(@RequestParam(required = true, defaultValue = "1") Integer pageNum,
-                                          @RequestParam(required = true,defaultValue = "true") Boolean onlyData,
-                                          String cName,String cDegree,String cLevel){
-        ModelAndView mv = new ModelAndView("/filemanagement/customer/customer ::#table_pagingForCustomer");
 
-        PagingUtil.paging("allCustomer",mv,pageNum,onlyData,()->customerServices.getCustomerByTerm(cName,cName,cDegree,cLevel));
-        return mv;
-    }
 
     /**
      * 通过id查询一条数据
      */
     @RequestMapping("/getOneForAlter")
-    public ModelAndView getOneCustomer(Integer cId,String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/alterCustomer.html") String path){
-        CustomerInfoPojo oneCustomer=customerServices.getOneCustomer(cId);
+    public ModelAndView getOneCustomer(Integer id,String parentID,@RequestParam(required = true,defaultValue = "/filemanagement/customer/alterCustomer.html") String path){
+        CustomerInfoPojo oneCustomer=customerServices.getOneCustomer(id);
         List<AddressPojo> address=addressServices.getArea(parentID);
         ModelAndView mv = new ModelAndView(path);
         mv.addObject("oneCustomer",oneCustomer);

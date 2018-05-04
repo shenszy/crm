@@ -8,8 +8,8 @@
                 <h4 class="modal-title text-info" id="myModalLabel">添加客户档案</h4>
             </div>
 
-            <div class="modal-body container-fluid">
-                <form id="add_asset_form" class="form-horizontal" action="/customer/insert.html" role="form" enctype="multipart/form-data" method="post">
+            <div class="modal-body ">
+                <form id="add_customer_form" class="form-horizontal" action="/customer/insert.html" role="form" enctype="multipart/form-data" method="post">
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">客户姓名</label>
                                 <div class="col-sm-8">
@@ -142,7 +142,7 @@
                             </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                        <button id="add_submit" type="button" class="btn btn-primary">提交</button>
+                        <button onclick="modalAddSubmit()" type="button" class="btn btn-primary">提交</button>
                     </div>
                 </form>
 
@@ -183,16 +183,7 @@
                 })
 
 
-                /**
-                 * 异步提交,不刷新页面
-                 * */
-                $("#add_submit").click(function () {
-                    $("#add_asset_form").ajaxSubmit(function () {
-                        alert("创建成功");
-                        $("#addModal").modal('hide')
-                    });
-
-                });</script>
+                </script>
 
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->

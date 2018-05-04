@@ -8,43 +8,43 @@
                 <h4 class="modal-title text-info" id="myModalLabel">添加产品档案</h4>
             </div>
             <div class="modal-body">
-                <form id="add_goods_form" class="form-horizontal" action="/goods/addGoods" role="form" >
+                <form id="add_goods_form" class="form-horizontal" action="/goods/addGoods" role="form">
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">作品名称</label>
+                        <label class="col-sm-2 control-label">作品名称</label>
                         <div class="col-sm-8">
-                            <input name="gName"  type="text" class="form-control"  placeholder="作品名称">
+                            <input name="gName" type="text" class="form-control" placeholder="作品名称">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">作品单价</label>
+                        <label class="col-sm-2 control-label">作品单价</label>
                         <div class="col-sm-8">
-                            <input name="gPrice"  type="text" class="form-control num"  placeholder="作品单价">
+                            <input name="gPrice" type="text" class="form-control num" placeholder="作品单价">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">作品成本</label>
+                        <label class="col-sm-2 control-label">作品成本</label>
                         <div class="col-sm-8">
-                            <input name="gCosting"  type="text" class="form-control num"  placeholder="作品成本">
+                            <input name="gCosting" type="text" class="form-control num" placeholder="作品成本">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">书法作者</label>
+                        <label class="col-sm-2 control-label">书法作者</label>
                         <div class="col-sm-8">
-                            <input name="gAuthor"  type="text" class="form-control"  placeholder="书法作者">
+                            <input name="gAuthor" type="text" class="form-control" placeholder="书法作者">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">书法字体</label>
+                        <label class="col-sm-2 control-label">书法字体</label>
                         <div class="col-sm-8">
-                            <input name="gTypeface"  type="text" class="form-control"  placeholder="书法作者">
+                            <input name="gTypeface" type="text" class="form-control" placeholder="书法作者">
                         </div>
                     </div>
 
 
                     <div class="form-group">
-                        <label  class="col-sm-2 control-label">作品规格</label>
+                        <label class="col-sm-2 control-label">作品规格</label>
                         <div class="col-sm-8">
-                            <input name="gSpecification"  type="text" class="form-control"  placeholder="作品规格">
+                            <input name="gSpecification" type="text" class="form-control" placeholder="作品规格">
                         </div>
                     </div>
 
@@ -59,8 +59,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">作品状态</label>
                         <div class="col-sm-8">
-                            <select name="gStatus" class="form-control"  >
-                                <option >可用</option>
+                            <select name="gStatus" class="form-control">
+                                <option>可用</option>
                                 <option>不可用</option>
                             </select>
                         </div>
@@ -71,29 +71,20 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                <button id="goods_add_submit" type="button" class="btn btn-primary">提交</button>
+                <button onclick="modalAddSubmit()" type="button" class="btn btn-primary ">提交</button>
             </div>
 
-          <script>
-                /**
-                 * 异步提交,不刷新页面
-                 * */
-                $("#goods_add_submit").click(function () {
+            <script>
 
-                $("#add_goods_form").ajaxSubmit(function (d) {
-                        alert("创建成功");
-                        $("#public_addModal").modal('hide')
-                    });
-            });
 
-            $("form .num").keyup(function () {
-                $(this).val($(this).val().replace(/[^0-9.]/g,''));
-            }).bind("paste",function(){  //CTR+V事件处理
-                $(this).val($(this).val().replace(/[^0-9.]/g,''));
+                $("form .num").keyup(function () {
+                    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
+                }).bind("paste", function () {  //CTR+V事件处理
+                    $(this).val($(this).val().replace(/[^0-9.]/g, ''));
 
-            }).css("ime-mode", "disabled"); //CSS设置输入法不可用  ;
+                }).css("ime-mode", "disabled"); //CSS设置输入法不可用  ;
 
-          </script>
+            </script>
 
         </div><!-- /.modal-content -->
     </div><!-- /.modal -->
