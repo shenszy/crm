@@ -28,82 +28,53 @@ public class FileServices {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileServices.class);
 
     @Value("${fileForTarget}")
-    private String fileDir;//= "E:/Desktop/peoject/OrderingSys/file";
+    private  String fileDir ;//= "E:/Desktop/peoject/OrderingSys/file";
 
     private Random random = new Random(System.currentTimeMillis());
-
-    /**
-     * 初始化
-     */
+    /**初始化*/
     @PostConstruct
     public void init() throws NoSuchFileException {
         File dir = new File(fileDir);
         if (!dir.exists()) {
             fileDir = "E:/Desktop/peoject/file";
-            dir = new File(fileDir);
+           dir = new File(fileDir);
             if (!dir.exists()) {
                 throw new NoSuchFileException("文件路径" + "不存在");
             }
         }
-        LOGGER.info("设置文件路径： {}", fileDir);
+        LOGGER.info("设置文件路径： {}",fileDir);
     }
 
     /**
      * 保存图片，返回图片url
      */
-    public String upload(MultipartFile file) {
+    public String upload(MultipartFile file,String filePath) {
+        String fileName;
         if (file == null) {
             return null;
         }
-        String name;//= System.currentTimeMillis() + random.nextLong()+file.getOriginalFilename();
+        if(filePath==null||filePath.isEmpty()){
+            filePath="/photo/";
+        }
         try {
-            name = System.currentTimeMillis() + random.nextLong() + file.getOriginalFilename();
-            name = "/photo/" + name;
-            LOGGER.info("文件上传： {}", name);
-            FileCopyUtils.copy(file.getBytes(), new File(fileDir + name));
+            fileName = System.currentTimeMillis() + random.nextLong() + file.getOriginalFilename();
+            fileName = filePath + fileName;
+            LOGGER.info("文件上传： {}", fileName);
+            FileCopyUtils.copy(file.getBytes(), new File(fileDir + fileName));
         } catch (IOException ioe) {
             LOGGER.error("文件上传异常");
             LOGGER.error(ioe.getMessage());
             return null;
         }
 
-        return "/file" + name;
-    }
-
-    public String upload(MultipartFile file, String filePath) {
-        if (file == null) {
-            return null;
-        }
-        if (filePath == null || filePath.isEmpty()) {
-            filePath = "/";
-        }
-        char[] f = filePath.toCharArray();
-        if (f[0] != '/') {
-            filePath = "/" + filePath;
-        }
-        if (f[f.length - 1] != '/') {
-            filePath += "/";
-        }
-        String name;//= System.currentTimeMillis() + random.nextLong()+file.getOriginalFilename();
-        try {
-            name = System.currentTimeMillis() + random.nextLong() + file.getOriginalFilename();
-            name = filePath + name;
-            LOGGER.info("文件上传： {}", name);
-            FileCopyUtils.copy(file.getBytes(), new File(fileDir + name));
-        } catch (IOException ioe) {
-            LOGGER.error("文件上传异常");
-            LOGGER.error(ioe.getMessage());
-            return null;
-        }
-
-        return "/file" + name;
+        return "/file"+fileName;
     }
 
     /**
      * 获取图片到response
      */
-    public void getFileToResponse(String url, String type, HttpServletResponse response) {
-        // LOGGER.info("文件输出路径： {}",fileDir);
+    public void getFileToResponse(String url, String type, HttpServletResponse response)  {
+       // LOGGER.info("文件输出路径： {}",fileDir);
         //LOGGER.info(fileDir + "/img/" + name + "." + type);
         //将图片输出给浏览器
         try {
@@ -113,22 +84,21 @@ public class FileServices {
             OutputStream os = response.getOutputStream();
             ImageIO.write(image, type, os);
         } catch (Exception e) {
-            LOGGER.error("文件读取异常，返回默认图片。  {}{}", fileDir, url);
+            LOGGER.error("文件读取异常，返回默认图片。  {}{}",fileDir , url);
             try {
                 OutputStream os = response.getOutputStream();
                 ImageIO.write(errorImg(), "JPEG", os);
-            } catch (Exception e1) {
+            }catch (Exception e1){
                 LOGGER.error(e1.getMessage());
             }
 
         }
     }
-
     /**
      * 获取图片
      */
-    public BufferedImage getFile(String url) {
-        LOGGER.info("文件输出路径： {}", fileDir);
+    public BufferedImage getFile(String url){
+        LOGGER.info("文件输出路径： {}",fileDir);
         //LOGGER.info(fileDir + "/img/" + name + "." + type);
         //将图片输出给浏览器
         BufferedImage image = null;

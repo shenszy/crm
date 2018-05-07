@@ -12,8 +12,6 @@ public class CustomerServices {
     @Autowired
     private CustomerInfoPojoMapper customerInfoPojoMapper;
 
-    public List<CustomerInfoPojo> getAllCustomer(){return customerInfoPojoMapper.getAllCustomer();}
-
     public int insertOneCustomer(CustomerInfoPojo customerInfoPojo){return customerInfoPojoMapper.insertOneCustomer(customerInfoPojo);}
 
     public boolean deleteById(Integer cId){return customerInfoPojoMapper.deleteById(cId)==1;}
