@@ -48,23 +48,26 @@ public class FileServices {
     /**
      * 保存图片，返回图片url
      */
-    public String upload(MultipartFile file) {
+    public String upload(MultipartFile file,String filePath) {
+        String fileName;
         if (file == null) {
             return null;
         }
-        String name;//= System.currentTimeMillis() + random.nextLong()+file.getOriginalFilename();
+        if(filePath==null||filePath.isEmpty()){
+            filePath="/photo/";
+        }
         try {
-            name = System.currentTimeMillis() + random.nextLong() + file.getOriginalFilename();
-            name = "/photo/" + name;
-            LOGGER.info("文件上传： {}", name);
-            FileCopyUtils.copy(file.getBytes(), new File(fileDir + name));
+            fileName = System.currentTimeMillis() + random.nextLong() + file.getOriginalFilename();
+            fileName = filePath + fileName;
+            LOGGER.info("文件上传： {}", fileName);
+            FileCopyUtils.copy(file.getBytes(), new File(fileDir + fileName));
         } catch (IOException ioe) {
             LOGGER.error("文件上传异常");
             LOGGER.error(ioe.getMessage());
             return null;
         }
 
-        return "/file"+name;
+        return "/file"+fileName;
     }
 
     /**

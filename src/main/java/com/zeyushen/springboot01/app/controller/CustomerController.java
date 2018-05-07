@@ -52,11 +52,11 @@ public class CustomerController {
 
 
     @PostMapping("/insert.html")
-    public String insertSelective(CustomerInfoPojo customerInfoPojo,@RequestParam("fileForPhoto") MultipartFile fileForPhoto, HttpServletRequest request){
+    public String insertSelective(CustomerInfoPojo customerInfoPojo,@RequestParam("fileForPhoto") MultipartFile fileForPhoto){
         String path="";
         if(!fileForPhoto.isEmpty()){
             try {
-               path= fileServices.upload(fileForPhoto);
+               path= fileServices.upload(fileForPhoto,"");
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -100,7 +100,7 @@ public class CustomerController {
         String path="";
         if(!fileForPhoto.isEmpty()){
             try {
-                path= fileServices.upload(fileForPhoto);
+                path= fileServices.upload(fileForPhoto,"");
             } catch (Exception e) {
                 e.printStackTrace();
             }

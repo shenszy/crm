@@ -76,31 +76,31 @@
                         <div class="form-group">
                             <label class="col-sm-4 control-label">产品数量</label>
                             <div class="col-sm-7">
-                                <input name="goodsNum" type="number" class="form-control" placeholder="产品数量">
+                                <input name="goodsNum" id="goods_num" type="number" class="form-control" value="0" onchange="money()">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">销售单价</label>
                             <div class="col-sm-7">
-                                <input name="" type="number" class="form-control" placeholder="20000">
+                                <input name="sellPrice"  id="sell_price" type="number" class="form-control" value="20000" onchange="money()">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">产品成本</label>
                             <div class="col-sm-7">
-                                <input name="" class="form-control" type="text" placeholder="1111" readonly="readonly">
+                                <input name="goodsCost" id="goods_cost" class="form-control" type="text" value="1111" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">总销售金额</label>
                             <div class="col-sm-7">
-                                <input name="" class="form-control" type="text" placeholder="23233" readonly="readonly">
+                                <input name="totalMoney" id="total_money" class="form-control" type="text" readonly="readonly">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-4 control-label">订单毛利润</label>
                             <div class="col-sm-7">
-                                <input name="" class="form-control" type="text" placeholder="12121" readonly="readonly">
+                                <input name="grossProfit" id="gross_profit" class="form-control" type="text" readonly="readonly">
                             </div>
                         </div>
                     </div>
@@ -113,12 +113,24 @@
 
 </div>
 <script>
-        function show() {
-            var mydate = new Date();
-            var str = "" + mydate.getFullYear() + "/";
-            str += (mydate.getMonth() + 1) + "/";
-            str += mydate.getDate();
-            return str;
-        }
-        $("#setup_date").val(show());
+    //计算销售总额和毛利润
+    function money() {
+        var goodsNum=$("#goods_num").val();    //数量
+        var sellPrice=$("#sell_price").val();  //单价
+        var goodsCost=$("#goods_cost").val();  //单个成本
+        var totalMoney=goodsNum*sellPrice;     //销售总金额
+        var grossProfit=totalMoney-goodsNum*goodsCost;//毛利
+        $("#total_money").val(totalMoney);
+        $("#gross_profit").val(grossProfit)
+    }
+
+    //显示时间
+    function show() {
+        var mydate = new Date();
+        var str = "" + mydate.getFullYear() + "/";
+        str += (mydate.getMonth() + 1) + "/";
+        str += mydate.getDate();
+        return str;
+    }
+    $("#setup_date").val(show());
 </script>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-header">
+                <button type="button" id="close" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title text-info" id="myModalLabel">添加合同模板</h4>
+            </div>
+
+            <div class="modal-body ">
+                <form id="add_template_form" class="form-horizontal" action="/template/insert.html" role="form" enctype="multipart/form-data" method="post">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">模板名称</label>
+                        <div class="col-sm-8">
+                            <input name="ctName" type="text" class="form-control" placeholder="模板名称">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">模板文件</label>
+                        <div class="col-sm-8">
+                            <input name="fileForTemplate" class="form-control" type="file" placeholder="模板文件">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button onclick="modalAddSubmit()" type="button" class="btn btn-primary">提交</button>
+                    </div>
+                </form>
+
+            </div>
+
+
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal -->
+</div>
+

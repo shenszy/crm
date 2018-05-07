@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<style>
+    .main_table {
+        background: whitesmoke;
+    }
+</style>
+<div class="main_table">
+
+    <nav id="customer_table_nav" class="navbar navbar-default" style="margin: 0">
+        <div class="container-fluid">
+            <div>
+                <form class="navbar-form navbar-left" role="search" id="template_search_form">
+                    <div class="form-group">
+                        <span>模板名称：</span>
+
+                        <input type="text" class="form-control" name="cName">
+                    </div>
+
+                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"
+                            onclick="onSelect(this)">
+                        <i class="glyphicon glyphicon-search"></i>查询
+                    </button>
+                </form>
+                <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
+                    <li>
+                        <div class="btn-group" style="margin-right: 10px">
+
+                            <button type="button" class="btn  btn-primary btn-md"
+                                    onclick="onShowModal('/template/addTemplate.html')">
+                                <i class="glyphicon glyphicon-plus"></i>增加
+                            </button>
+                        </div>
+                        <div id="addmodal_div"></div>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main_context_body">
+        <table id="template_table" class="table table-hover table-striped table-bordered" cellspacing="0"
+               cellpadding="0">
+            <thead>
+            <tr class="success">
+                <th>模板编号</th>
+                <th>模板名称</th>
+                <th>模板文件</th>
+                <th>下载模板</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="allTemplate:${allTemplate}">
+                <td th:text="${allTemplate.ctId}"></td>
+                <td th:text="${allTemplate.ctName}"></td>
+                <td th:text="${allTemplate.ctFile}"></td>
+                <td><a>下载</a></td>
+                <td>
+                    <a href="javascript:void(0);"
+                       th:onclick="'onShowModal(\'/template/getOneForAlter\','+${allTemplate.ctId}+')'">修改</a>&nbsp;&nbsp;
+                    <a href="javascript:void(0);"
+                       th:onclick="'deleteById(\'/template/delete.html\',this,'+${allTemplate.ctId}+')'">删除</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-right">
+
+            <ul class="pager " style="text-align: right" dataUrl="/template/template.html" table="#template_table"
+                search="#template_search_form" th:attr="thispage=${pageNum}">
+                <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span
+                        class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
+                <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span
+                        class="glyphicon  glyphicon-chevron-left"></span>上一页</a></li>
+                <li><a th:text="${pageNum}+'/'+${pages}"></a></li>
+                <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum+1}+');'"><span
+                        class="glyphicon glyphicon-chevron-right"></span>下一页</a></li>
+                <li><a href="javascript:void(0);" onclick="pageChange(this,9999);"><span
+                        class="glyphicon glyphicon-fast-forward"></span>末页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
