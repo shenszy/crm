@@ -36,7 +36,7 @@ public class UserController {
        LOGGER.info(user.getName());
         //request.getUserPrincipal()
         //   request.getUserPrincipal().getName(
-        
+
         //userServices.loadUserByUsername();
         return mv;
     }
