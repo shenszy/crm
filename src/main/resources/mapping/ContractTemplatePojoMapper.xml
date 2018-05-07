@@ -47,12 +47,25 @@
     where ct_id = #{ctId,jdbcType=INTEGER}
   </delete>
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_contracttemplate
     where ct_id = #{ctId,jdbcType=INTEGER}
   </select>
+
+    <update id="updateById" parameterType="com.zeyushen.springboot01.app.model.ContractTemplatePojo" >
+        update t_contracttemplate
+        <set >
+            <if test="ctName != null" >
+                ct_name = #{ctName,jdbcType=VARCHAR},
+            </if>
+            <if test="ctFile != null" >
+                ct_file = #{ctFile,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ct_id = #{ctId,jdbcType=INTEGER}
+    </update>
 
   <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.ContractTemplatePojo" >
     insert into t_contracttemplate (ct_id, ct_name, ct_file
@@ -61,18 +74,7 @@
       )
   </insert>
 
-  <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.ContractTemplatePojo" >
-    update t_contracttemplate
-    <set >
-      <if test="ctName != null" >
-        ct_name = #{ctName,jdbcType=VARCHAR},
-      </if>
-      <if test="ctFile != null" >
-        ct_file = #{ctFile,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where ct_id = #{ctId,jdbcType=INTEGER}
-  </update>
+
   <update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.ContractTemplatePojo" >
     update t_contracttemplate
     set ct_name = #{ctName,jdbcType=VARCHAR},

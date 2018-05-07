@@ -14,7 +14,7 @@
                     <div class="form-group">
                         <span>模板名称：</span>
 
-                        <input type="text" class="form-control" name="cName">
+                        <input type="text" class="form-control" name="ctName">
                     </div>
 
                     <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"
@@ -55,11 +55,11 @@
             <tr th:each="allTemplate:${allTemplate}">
                 <td th:text="${allTemplate.ctId}"></td>
                 <td th:text="${allTemplate.ctName}"></td>
-                <td th:text="${allTemplate.ctFile}"></td>
+                <td><a th:href="${allTemplate.ctFile}" target="_blank">文件预览</a></td>
                 <td><a>下载</a></td>
                 <td>
                     <a href="javascript:void(0);"
-                       th:onclick="'onShowModal(\'/template/getOneForAlter\','+${allTemplate.ctId}+')'">修改</a>&nbsp;&nbsp;
+                       th:onclick="'onShowModal(\'/template/getOne\','+${allTemplate.ctId}+')'">修改</a>&nbsp;&nbsp;
                     <a href="javascript:void(0);"
                        th:onclick="'deleteById(\'/template/delete.html\',this,'+${allTemplate.ctId}+')'">删除</a>
                 </td>
