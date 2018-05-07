@@ -32,15 +32,15 @@
 
                     <!--右边选项-->
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#">哈哈哈</a></li>
+                      <!--  <li><a href="#">哈哈哈</a></li>-->
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                欢迎您,,Admin<b class="caret"></b>
+                                欢迎您, <span href="#"  th:text="${#request.getUserPrincipal().getName()}">a</span>
+                              <b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">设置</a></li>
-                                <li><a href="#">个人资料</a></li>
-                                <li><a href="#">账户中心</a></li>
+                                <li><a href="#">修改密码</a></li>
+                                <li><a href="javascript:void(0);" onclick="onloada('/asset/solid.html',this)">个人档案管理</a></li>
                                 <li class="divider"></li>
                                 <li><a href="/logout"> 退出登录</a></li>
                             </ul>

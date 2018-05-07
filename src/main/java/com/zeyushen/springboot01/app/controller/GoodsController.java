@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -71,5 +72,6 @@ public class GoodsController {
     public boolean update(GoodsPojo goodsPojo) {
         return  goodsService.update(goodsPojo);
     }
+
 
 }
