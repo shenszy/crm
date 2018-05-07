@@ -96,7 +96,7 @@ public class CustomerController {
      * 通过id值修改一条数据
      */
     @RequestMapping("/alter.html")
-    public String alterOneCustomer(CustomerInfoPojo customerInfoPojo,@RequestParam("fileForPhoto") MultipartFile fileForPhoto, HttpServletRequest request){
+    public String alterOneCustomer(CustomerInfoPojo customerInfoPojo,@RequestParam("fileForPhoto") MultipartFile fileForPhoto){
         String path="";
         if(!fileForPhoto.isEmpty()){
             try {

@@ -22,4 +22,8 @@ public class TemplateServices {
     public boolean insertSelective(ContractTemplatePojo templatePojo){return templatePojoMapper.insertSelective(templatePojo)==1;}
 
     public boolean deleteById(Integer id){return templatePojoMapper.deleteById(id)==1;}
+
+    public ContractTemplatePojo selectById(Integer id){return templatePojoMapper.selectById(id);}
+
+    public boolean updateById(ContractTemplatePojo templatePojo){return templatePojoMapper.updateById(templatePojo)==1;}
 }

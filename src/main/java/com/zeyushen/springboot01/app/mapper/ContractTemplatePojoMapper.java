@@ -10,10 +10,6 @@ import java.util.List;
 public interface ContractTemplatePojoMapper {
     int insert(ContractTemplatePojo record);
 
-    ContractTemplatePojo selectByPrimaryKey(Integer ctId);
-
-    int updateByPrimaryKeySelective(ContractTemplatePojo record);
-
     int updateByPrimaryKey(ContractTemplatePojo record);
 
     List<ContractTemplatePojo> getTemplateByTerm(@Param("ctName") String ctName,@Param("spell") String spell);
@@ -21,4 +17,8 @@ public interface ContractTemplatePojoMapper {
     int insertSelective(ContractTemplatePojo record);
 
     int deleteById(Integer ctId);
+
+    ContractTemplatePojo selectById(Integer ctId);
+
+    int updateById(ContractTemplatePojo record);
 }

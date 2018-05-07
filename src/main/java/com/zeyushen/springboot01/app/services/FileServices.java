@@ -1,5 +1,7 @@
 package com.zeyushen.springboot01.app.services;
 
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,10 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.NoSuchFileException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -109,6 +114,30 @@ public class FileServices {
             return errorImg();
         }
         return image;
+    }
+
+
+    /**
+     *   word文件预览
+     */
+
+    public List<String> preview(String filePath){
+        List<String> fileContent=new ArrayList<String>();
+        if(filePath==null||filePath.isEmpty()){
+            fileContent.add("文件不存在！");
+            return fileContent;
+        }else {
+            try {
+                //docx操作
+                XWPFDocument docx = new XWPFDocument(new FileInputStream(filePath));
+                XWPFWordExtractor file=new XWPFWordExtractor(docx);
+                fileContent.clear();
+                fileContent.add(file.getText());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return fileContent;
+        }
     }
 
 

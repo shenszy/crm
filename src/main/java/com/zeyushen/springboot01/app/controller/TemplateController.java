@@ -55,4 +55,23 @@ public class TemplateController {
     public boolean deleteBySId(Integer id){
         return templateServices.deleteById(id);
     }
+
+    @RequestMapping("/getOne")
+    public ModelAndView selectById(Integer id){
+        ModelAndView mv=new ModelAndView("/pactmanagement/template/alterTemplate");
+        ContractTemplatePojo templatePojo=templateServices.selectById(id);
+        mv.addObject("templatePojo",templatePojo);
+        return mv;
+    }
+
+    @PostMapping("/alter.html")
+    public String updateById(ContractTemplatePojo templatePojo, @RequestParam("fileForTemplate") MultipartFile fileForTemplate) {
+        String path="";
+        if(!fileForTemplate.isEmpty()){
+            path=fileServices.upload(fileForTemplate,"/template/");
+        }
+        templatePojo.setCtFile(path);
+        templateServices.updateById(templatePojo);
+        return "forward:/template/template.html";
+    }
 }
