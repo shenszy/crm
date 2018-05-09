@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -32,6 +33,12 @@ public class FileController {
                          HttpServletResponse response) {
         //将图片输出给浏览器
        fileService.getFileToResponse("/photo/"+name+"."+type,type,response);
+    }
+
+    //下载
+    @RequestMapping("/download")
+    public void downloadFile(HttpServletRequest request, HttpServletResponse response, String filePath, String fileName){
+        fileService.downloadFile(request,response,filePath,fileName);
     }
 
 

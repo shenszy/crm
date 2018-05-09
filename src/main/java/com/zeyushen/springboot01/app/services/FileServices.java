@@ -1,39 +1,37 @@
 package com.zeyushen.springboot01.app.services;
 
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.poi.xwpf.converter.core.BasicURIResolver;
+import org.apache.poi.xwpf.converter.core.FileImageExtractor;
+import org.apache.poi.xwpf.converter.xhtml.XHTMLConverter;
+import org.apache.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.nio.file.NoSuchFileException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Random;
 
-/**
- * @author 董文强
- * @Time 2018/5/3 9:37
- */
 @Service
 public class FileServices {
     private static final Logger LOGGER = LoggerFactory.getLogger(FileServices.class);
 
     @Value("${fileForTarget}")
     private  String fileDir ;//= "E:/Desktop/peoject/OrderingSys/file";
+    @Value("${previewPath}")
+    private String previewPath;
 
     private Random random = new Random(System.currentTimeMillis());
     /**初始化*/
@@ -120,26 +118,82 @@ public class FileServices {
     /**
      *   word文件预览
      */
-
-    public List<String> preview(String filePath){
-        List<String> fileContent=new ArrayList<String>();
+    public String preview(String filePath){
+        int suffix=filePath.lastIndexOf(".docx");//后缀
+        filePath=filePath.replaceFirst("/file/template","/template");
+        String htmlFile= previewPath+ "/preview.html";
+        LOGGER.info("html文件路径:"+htmlFile);
+        File fileForDocx=new File(fileDir+filePath);
+        //文档中图片
+        File imageFolderFile = new File(filePath.substring(0,suffix));
         if(filePath==null||filePath.isEmpty()){
-            fileContent.add("文件不存在！");
-            return fileContent;
+            return "文件不存在!";
         }else {
             try {
-                //docx操作
-                XWPFDocument docx = new XWPFDocument(new FileInputStream(filePath));
-                XWPFWordExtractor file=new XWPFWordExtractor(docx);
-                fileContent.clear();
-                fileContent.add(file.getText());
+                //读取文档内容   docx文档
+                XWPFDocument docx = new XWPFDocument(new FileInputStream(fileForDocx));
+                //加载html页面时图片路径
+                XHTMLOptions options = XHTMLOptions.create().URIResolver( new BasicURIResolver("./"));
+                //图片保存文件夹路径
+                options.setExtractor(new FileImageExtractor(imageFolderFile));
+
+                FileOutputStream outputStream=new FileOutputStream(htmlFile);
+                OutputStreamWriter outputStreamWriter=new OutputStreamWriter(outputStream,"utf-8");
+                XHTMLConverter xhtmlConverter=(XHTMLConverter) XHTMLConverter.getInstance();
+                xhtmlConverter.convert(docx,outputStreamWriter,options);
+                outputStream.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            return fileContent;
+            return "/preview.html";
         }
     }
 
+    /**
+     *  文件下载
+     * @param filePath 包含文件名的文件路径（相对路径）
+     */
+    public void downloadFile(HttpServletRequest request,HttpServletResponse response,String filePath,String fileName){
+        if(filePath!=null||!filePath.isEmpty()){
+            File file=new File(filePath);
+            if(file.exists()){
+                response.setContentType("application/force-download");// 设置强制下载不打开
+                response.addHeader("Content-Disposition","attachment;fileName=" + fileName);//设置文件名
+                byte[] buffer=new byte[1024];
+                FileInputStream inputStream=null;
+                BufferedInputStream bufferedInputStream=null;
+                try {
+                    inputStream=new FileInputStream(file);
+                    bufferedInputStream=new BufferedInputStream(inputStream);
+                    OutputStream outputStream=response.getOutputStream();
+                    int i=bufferedInputStream.read(buffer);
+                    while(i!=-1){
+                        outputStream.write(buffer,0,i);
+                        i=bufferedInputStream.read(buffer);
+                    }
+                }catch (Exception e){
+                    e.printStackTrace();
+                }finally {
+                    if(inputStream!=null||!inputStream.equals("")){
+                        try {
+                            inputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }finally {
+                            if(bufferedInputStream!=null||!bufferedInputStream.equals("")){
+                                try {
+                                    bufferedInputStream.close();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return;
+    }
 
     /**
      * 生成验证码图片文件

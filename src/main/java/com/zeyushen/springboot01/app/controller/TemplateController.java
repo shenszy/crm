@@ -74,4 +74,15 @@ public class TemplateController {
         templateServices.updateById(templatePojo);
         return "forward:/template/template.html";
     }
+
+    /**
+     * 文件预览
+     * @param filePath
+     * @return
+     */
+    @RequestMapping("/preview.html")
+    public String filePreview(String filePath){
+        String htmlFile=fileServices.preview(filePath);
+        return "redirect:"+htmlFile;
+    }
 }

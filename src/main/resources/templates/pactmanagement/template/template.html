@@ -55,7 +55,7 @@
             <tr th:each="allTemplate:${allTemplate}">
                 <td th:text="${allTemplate.ctId}"></td>
                 <td th:text="${allTemplate.ctName}"></td>
-                <td><a th:href="${allTemplate.ctFile}" target="_blank">文件预览</a></td>
+                <td><a th:href="${'/template/preview.html?filePath='+allTemplate.ctFile}" target="_blank">文件预览</a></td>
                 <td><a>下载</a></td>
                 <td>
                     <a href="javascript:void(0);"
