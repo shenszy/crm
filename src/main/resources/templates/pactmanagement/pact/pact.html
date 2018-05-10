@@ -14,7 +14,16 @@
                     <div class="form-group">
                         <span>合同名称：</span>
 
-                        <input type="text" class="form-control" name="pactName">
+                        <input type="text" class="form-control" name="pTitle">
+                    </div>
+                    <div class="form-group">
+                        <span>执行情况：</span>
+                        <select class="form-control" name="execStatus">
+                            <option value="">所有</option>
+                            <option>未执行</option>
+                            <option>正在执行</option>
+                            <option>完成</option>
+                        </select>
                     </div>
 
                     <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"
@@ -53,7 +62,7 @@
                 <th>执行日期</th>
                 <th>结束日期</th>
                 <th>执行情况</th>
-                <th>模板文件</th>
+                <th>模板名称</th>
                 <th>合同文件</th>
                 <th>备注</th>
                 <th>下载模板</th>
@@ -62,23 +71,24 @@
             </thead>
             <tbody>
             <tr th:each="allPact:${allPact}">
-                <td th:text="${allPact.ctId}"></td>
+                <td th:text="${allPact.pId}"></td>
+                <td th:text="${allPact.pTitle}"></td>
+                <td th:text="${allPact.pType}"></td>
+                <td th:text="${allPact.cName}"></td>
+                <td th:text="${allPact.sTName}"></td>
+                <td th:text="${#dates.format(allPact.pSigningdate,'yyyy-MM-dd')}"></td>
+                <td th:text="${#dates.format(allPact.pExecdate,'yyyy-MM-dd')}"></td>
+                <td th:text="${#dates.format(allPact.pEnddate,'yyyy-MM-dd')}"></td>
+                <td th:text="${allPact.pExecuteinfo}"></td>
                 <td th:text="${allPact.ctName}"></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><a th:href="${'/pact/preview.html?filePath='+allPact.ctFile}" target="_blank">文件预览</a></td>
+                <td><a th:href="${'/pact/preview.html?filePath='+allPact.pFilepath}" target="_blank">文件预览</a></td>
+                <td th:text="${allPact.pRemark}"></td>
                 <td><a>下载</a></td>
                 <td>
                     <a href="javascript:void(0);"
-                       th:onclick="'onShowModal(\'/pact/getOne\','+${allPact.ctId}+')'">修改</a>&nbsp;&nbsp;
+                       th:onclick="'onShowModal(\'/pact/getOne\','+${allPact.pId}+')'">修改</a>&nbsp;&nbsp;
                     <a href="javascript:void(0);"
-                       th:onclick="'deleteById(\'/pact/delete.html\',this,'+${allPact.ctId}+')'">删除</a>
+                       th:onclick="'deleteById(\'/pact/delete.html\',this,'+${allPact.pId}+')'">删除</a>
                 </td>
             </tr>
             </tbody>

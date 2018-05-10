@@ -23,18 +23,102 @@
         select <include refid="Base_Column_List" /> from t_pactinfo
     </select>
 
-    <select id="getPactByTerm" resultType="map">
-        SELECT  *
-        FROM (SELECT *,getPY(pact.p_title) AS spell FROM pact ) AS t_spell
-        WHERE (t_spell.p_title LIKE CONCAT('%',#{pTitle},'%') OR t_spell.spell LIKE CONCAT('%',#{spell},'%'))
-    </select>
+    <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.PactInfoPojo" >
+        insert into t_pactinfo
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="cId != null" >
+                c_id,
+            </if>
+            <if test="sId != null" >
+                s_id,
+            </if>
+            <if test="pTitle != null" >
+                p_title,
+            </if>
+            <if test="pType != null" >
+                p_type,
+            </if>
+            <if test="pSigningdate != null" >
+                p_signingdate,
+            </if>
+            <if test="pExecdate != null" >
+                p_execdate,
+            </if>
+            <if test="pEnddate != null" >
+                p_enddate,
+            </if>
+            <if test="pExecuteinfo != null" >
+                p_executeinfo,
+            </if>
+            <if test="pFilepath != null" >
+                p_filepath,
+            </if>
+            <if test="pRemark != null" >
+                p_remark,
+            </if>
+            <if test="ctId !=null">
+                ct_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
 
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
+            <if test="cId != null" >
+                #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="sId != null" >
+                #{sId,jdbcType=INTEGER},
+            </if>
+            <if test="pTitle != null" >
+                #{pTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="pType != null" >
+                #{pType,jdbcType=VARCHAR},
+            </if>
+            <if test="pSigningdate != null" >
+                #{pSigningdate,jdbcType=DATE},
+            </if>
+            <if test="pExecdate != null" >
+                #{pExecdate,jdbcType=DATE},
+            </if>
+            <if test="pEnddate != null" >
+                #{pEnddate,jdbcType=DATE},
+            </if>
+            <if test="pExecuteinfo != null" >
+                #{pExecuteinfo,jdbcType=VARCHAR},
+            </if>
+            <if test="pFilepath != null" >
+                #{pFilepath,jdbcType=VARCHAR},
+            </if>
+            <if test="pRemark != null" >
+                #{pRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="ctId !=null">
+                #{ctId,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateById" parameterType="com.zeyushen.springboot01.app.model.PactInfoPojo" >
+        update t_pactinfo
+        <set >
+            <if test="pExecuteinfo != null" >
+                p_executeinfo = #{pExecuteinfo,jdbcType=VARCHAR},
+            </if>
+            <if test="pRemark != null" >
+                p_remark = #{pRemark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where p_id = #{pId,jdbcType=INTEGER}
+    </update>
+
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select  p_id,p_title,p_executeinfo,p_remark
     from t_pactinfo
     where p_id = #{pId,jdbcType=INTEGER}
   </select>
+
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_pactinfo
     where p_id = #{pId,jdbcType=INTEGER}
@@ -49,115 +133,8 @@
       #{pExecdate,jdbcType=DATE}, #{pEnddate,jdbcType=DATE}, #{pExecuteinfo,jdbcType=VARCHAR}, 
       #{pFilepath,jdbcType=VARCHAR}, #{pRemark,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.PactInfoPojo" >
-    insert into t_pactinfo
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="pId != null" >
-        p_id,
-      </if>
-      <if test="cId != null" >
-        c_id,
-      </if>
-      <if test="sId != null" >
-        s_id,
-      </if>
-      <if test="pTitle != null" >
-        p_title,
-      </if>
-      <if test="pType != null" >
-        p_type,
-      </if>
-      <if test="pSigningdate != null" >
-        p_signingdate,
-      </if>
-      <if test="pExecdate != null" >
-        p_execdate,
-      </if>
-      <if test="pEnddate != null" >
-        p_enddate,
-      </if>
-      <if test="pExecuteinfo != null" >
-        p_executeinfo,
-      </if>
-      <if test="pFilepath != null" >
-        p_filepath,
-      </if>
-      <if test="pRemark != null" >
-        p_remark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="pId != null" >
-        #{pId,jdbcType=INTEGER},
-      </if>
-      <if test="cId != null" >
-        #{cId,jdbcType=INTEGER},
-      </if>
-      <if test="sId != null" >
-        #{sId,jdbcType=INTEGER},
-      </if>
-      <if test="pTitle != null" >
-        #{pTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="pType != null" >
-        #{pType,jdbcType=VARCHAR},
-      </if>
-      <if test="pSigningdate != null" >
-        #{pSigningdate,jdbcType=DATE},
-      </if>
-      <if test="pExecdate != null" >
-        #{pExecdate,jdbcType=DATE},
-      </if>
-      <if test="pEnddate != null" >
-        #{pEnddate,jdbcType=DATE},
-      </if>
-      <if test="pExecuteinfo != null" >
-        #{pExecuteinfo,jdbcType=VARCHAR},
-      </if>
-      <if test="pFilepath != null" >
-        #{pFilepath,jdbcType=VARCHAR},
-      </if>
-      <if test="pRemark != null" >
-        #{pRemark,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.PactInfoPojo" >
-    update t_pactinfo
-    <set >
-      <if test="cId != null" >
-        c_id = #{cId,jdbcType=INTEGER},
-      </if>
-      <if test="sId != null" >
-        s_id = #{sId,jdbcType=INTEGER},
-      </if>
-      <if test="pTitle != null" >
-        p_title = #{pTitle,jdbcType=VARCHAR},
-      </if>
-      <if test="pType != null" >
-        p_type = #{pType,jdbcType=VARCHAR},
-      </if>
-      <if test="pSigningdate != null" >
-        p_signingdate = #{pSigningdate,jdbcType=DATE},
-      </if>
-      <if test="pExecdate != null" >
-        p_execdate = #{pExecdate,jdbcType=DATE},
-      </if>
-      <if test="pEnddate != null" >
-        p_enddate = #{pEnddate,jdbcType=DATE},
-      </if>
-      <if test="pExecuteinfo != null" >
-        p_executeinfo = #{pExecuteinfo,jdbcType=VARCHAR},
-      </if>
-      <if test="pFilepath != null" >
-        p_filepath = #{pFilepath,jdbcType=VARCHAR},
-      </if>
-      <if test="pRemark != null" >
-        p_remark = #{pRemark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where p_id = #{pId,jdbcType=INTEGER}
-  </update>
+
+
   <update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.PactInfoPojo" >
     update t_pactinfo
     set c_id = #{cId,jdbcType=INTEGER},

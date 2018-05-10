@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zeyushen.springboot01.app.mapper.PactMapper" >
+    <resultMap id="BaseResultMap" type="com.zeyushen.springboot01.app.model.PactPojo" >
+        <id column="p_id" property="pId" jdbcType="INTEGER" />
+        <result column="c_name" property="cName" jdbcType="VARCHAR" />
+        <result column="s_tname" property="sTName" jdbcType="VARCHAR" />
+        <result column="p_title" property="pTitle" jdbcType="VARCHAR" />
+        <result column="p_type" property="pType" jdbcType="VARCHAR" />
+        <result column="p_signingdate" property="pSigningdate" jdbcType="DATE" />
+        <result column="p_execdate" property="pExecdate" jdbcType="DATE" />
+        <result column="p_enddate" property="pEnddate" jdbcType="DATE" />
+        <result column="p_executeinfo" property="pExecuteinfo" jdbcType="VARCHAR" />
+        <result column="p_filepath" property="pFilepath" jdbcType="VARCHAR" />
+        <result column="p_remark" property="pRemark" jdbcType="VARCHAR" />
+        <result column="ct_name" property="ctName" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+    p_id, c_name, s_tname, p_title, p_type, p_signingdate, p_execdate, p_enddate, p_executeinfo,
+    p_filepath, p_remark,ct_name
+  </sql>
+
+    <select id="getPactByTerm" resultMap="BaseResultMap">
+        SELECT  <include refid="Base_Column_List"/>
+        FROM (SELECT *,getPY(pact.p_title) AS spell FROM pact ) AS t_spell
+        WHERE (t_spell.p_title LIKE CONCAT('%',#{pTitle},'%') OR t_spell.spell LIKE CONCAT('%',#{spell},'%')) and
+        <if test="execStatus!=null">
+            p_executeinfo=#{execStatus}
+        </if>
+        <if test="execStatus==null">
+            p_executeinfo!='废弃'
+        </if>
+    </select>
+
+
+</mapper>

@@ -12,15 +12,14 @@ public interface PactInfoPojoMapper {
 
     int insert(PactInfoPojo record);
 
-    int insertSelective(PactInfoPojo record);
-
-    PactInfoPojo selectByPrimaryKey(Integer pId);
-
-    int updateByPrimaryKeySelective(PactInfoPojo record);
-
     int updateByPrimaryKey(PactInfoPojo record);
 
     List<PactInfoPojo> getAll();
 
-    Map<String,Object> getPactByTerm();
+    int insertSelective(PactInfoPojo record);
+
+    PactInfoPojo selectById(Integer pId);
+
+    int updateById(PactInfoPojo record);
+
 }
