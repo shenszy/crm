@@ -13,13 +13,20 @@
     <result column="p_executeinfo" property="pExecuteinfo" jdbcType="VARCHAR" />
     <result column="p_filepath" property="pFilepath" jdbcType="VARCHAR" />
     <result column="p_remark" property="pRemark" jdbcType="VARCHAR" />
+    <result column="ct_id" property="ctId" jdbcType="INTEGER"/>
   </resultMap>
   <sql id="Base_Column_List" >
     p_id, c_id, s_id, p_title, p_type, p_signingdate, p_execdate, p_enddate, p_executeinfo, 
-    p_filepath, p_remark
+    p_filepath, p_remark,ct_id
   </sql>
     <select id="getAll" resultMap="BaseResultMap">
         select <include refid="Base_Column_List" /> from t_pactinfo
+    </select>
+
+    <select id="getPactByTerm" resultType="map">
+        SELECT  *
+        FROM (SELECT *,getPY(pact.p_title) AS spell FROM pact ) AS t_spell
+        WHERE (t_spell.p_title LIKE CONCAT('%',#{pTitle},'%') OR t_spell.spell LIKE CONCAT('%',#{spell},'%'))
     </select>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

@@ -7,14 +7,14 @@
 </style>
 <div class="main_table">
 
-    <nav id="template_table_nav" class="navbar navbar-default" style="margin: 0">
+    <nav id="pact_table_nav" class="navbar navbar-default" style="margin: 0">
         <div class="container-fluid">
             <div>
-                <form class="navbar-form navbar-left" role="search" id="template_search_form">
+                <form class="navbar-form navbar-left" role="search" id="pact_search_form">
                     <div class="form-group">
-                        <span>模板名称：</span>
+                        <span>合同名称：</span>
 
-                        <input type="text" class="form-control" name="ctName">
+                        <input type="text" class="form-control" name="pactName">
                     </div>
 
                     <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"
@@ -27,7 +27,7 @@
                         <div class="btn-group" style="margin-right: 10px">
 
                             <button type="button" class="btn  btn-primary btn-md"
-                                    onclick="onShowModal('/template/addTemplate.html')">
+                                    onclick="onShowModal('/pact/addPact.html')">
                                 <i class="glyphicon glyphicon-plus"></i>增加
                             </button>
                         </div>
@@ -40,36 +40,53 @@
     </nav>
 
     <div class="main_context_body">
-        <table id="template_table" class="table table-hover table-striped table-bordered" cellspacing="0"
+        <table id="pact_table" class="table table-hover table-striped table-bordered" cellspacing="0"
                cellpadding="0">
             <thead>
             <tr class="success">
-                <th>模板编号</th>
-                <th>模板名称</th>
+                <th>合同编号</th>
+                <th>合同名称</th>
+                <th>合同类型</th>
+                <th>签订客户</th>
+                <th>签订员工</th>
+                <th>签订日期</th>
+                <th>执行日期</th>
+                <th>结束日期</th>
+                <th>执行情况</th>
                 <th>模板文件</th>
+                <th>合同文件</th>
+                <th>备注</th>
                 <th>下载模板</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="allTemplate:${allTemplate}">
-                <td th:text="${allTemplate.ctId}"></td>
-                <td th:text="${allTemplate.ctName}"></td>
-                <td><a th:href="${'/template/preview.html?filePath='+allTemplate.ctFile}" target="_blank">文件预览</a></td>
+            <tr th:each="allPact:${allPact}">
+                <td th:text="${allPact.ctId}"></td>
+                <td th:text="${allPact.ctName}"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><a th:href="${'/pact/preview.html?filePath='+allPact.ctFile}" target="_blank">文件预览</a></td>
                 <td><a>下载</a></td>
                 <td>
                     <a href="javascript:void(0);"
-                       th:onclick="'onShowModal(\'/template/getOne\','+${allTemplate.ctId}+')'">修改</a>&nbsp;&nbsp;
+                       th:onclick="'onShowModal(\'/pact/getOne\','+${allPact.ctId}+')'">修改</a>&nbsp;&nbsp;
                     <a href="javascript:void(0);"
-                       th:onclick="'deleteById(\'/template/delete.html\',this,'+${allTemplate.ctId}+')'">删除</a>
+                       th:onclick="'deleteById(\'/pact/delete.html\',this,'+${allPact.ctId}+')'">删除</a>
                 </td>
             </tr>
             </tbody>
         </table>
         <div class="text-right">
 
-            <ul class="pager " style="text-align: right" dataUrl="/template/template.html" table="#template_table"
-                search="#template_search_form" th:attr="thispage=${pageNum}">
+            <ul class="pager " style="text-align: right" dataUrl="/pact/pact.html" table="#pact_table"
+                search="#pact_search_form" th:attr="thispage=${pageNum}">
                 <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span
                         class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
                 <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span

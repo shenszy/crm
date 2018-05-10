@@ -4,6 +4,7 @@ import com.zeyushen.springboot01.app.model.PactInfoPojo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface PactInfoPojoMapper {
@@ -20,4 +21,6 @@ public interface PactInfoPojoMapper {
     int updateByPrimaryKey(PactInfoPojo record);
 
     List<PactInfoPojo> getAll();
+
+    Map<String,Object> getPactByTerm();
 }

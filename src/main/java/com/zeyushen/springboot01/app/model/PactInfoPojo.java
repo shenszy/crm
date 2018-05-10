@@ -27,6 +27,16 @@ public class PactInfoPojo {
 
     private String pRemark;
 
+    private Integer ctId;
+
+    public Integer getCtId() {
+        return ctId;
+    }
+
+    public void setCtId(Integer ctId) {
+        this.ctId = ctId;
+    }
+
     public Integer getpId() {
         return pId;
     }
