@@ -30,3 +30,7 @@ li > ul {
 #main_context_nav >div >div >ul{
     margin-top: -1px;
 }
+
+.main_table {
+    background: whitesmoke;
+}

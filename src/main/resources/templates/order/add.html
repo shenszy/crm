@@ -5,7 +5,7 @@
         background: whitesmoke;
     }
 </style>
-<div class="main_table" >
+<div class="main_table">
     <nav class="navbar navbar-default" style="margin: 0">
         <div class="container-fluid text-center">
             <h1>创建新订单</h1>
@@ -13,100 +13,110 @@
     </nav>
     <div class="row" style="margin: 0">
         <div class="col-sm-offset-1 col-sm-10">
-        <form id="add_asset_form" class="form-horizontal" action="http://127.0.0.1:7255/insert" role="form">
-            <div class="row">
-                <div id="add_order_form" class="form-horizontal" role="form">
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">订单创建人</label>
-                            <div class="col-sm-7">
-                                <input name="sId" type="text" class="form-control" readonly="readonly" value="张三">
+            <form id="add_order_form" class="form-horizontal" action="http://127.0.0.1:7255/insert" role="form">
+                <div class="row">
+                    <div class="form-horizontal" role="form">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">订单创建人</label>
+                                <div class="col-sm-7">
+                                    <input name="sId" type="text" class="form-control" readonly="readonly"
+                                           th:value="${orderCreator}">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">选择客户</label>
+                                <div class="col-sm-7">
+                                    <input name="customer" type="text" class="form-control" placeholder="选择客户"
+                                           list="customer_list">
+                                    <datalist id="customer_list">
+                                        <option th:each="customer:${customer}" th:value="${customer.cId}"
+                                                th:text="${customer.cName}"></option>
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">订单创建日期</label>
+                                <div class="col-sm-7">
+                                    <input id="setup_date" class="form-control" type="text" readonly="readonly">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">订单执行日期</label>
+                                <div class="col-sm-7">
+                                    <input name="" class="form-control" type="date">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">订单对应合同</label>
+                                <div class="col-sm-7">
+                                    <input name="" class="form-control" type="text" placeholder="订单对应合同"
+                                           list="pact_list">
+                                    <datalist id="pact_list">
+                                        <option th:each="pact:${pact}" th:value="${pact.pId}"
+                                                th:text="${pact.pTitle}"></option>
+                                    </datalist>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">订单状态</label>
+                                <div class="col-sm-7">
+                                    <input name="orderState" class="form-control" type="text" value="新建"
+                                           readonly="readonly">
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">选择客户</label>
-                          <div class="col-sm-7">
-                                <input name="customer" type="text" class="form-control" placeholder="选择客户"
-                                       list="customer_list">
-                                <datalist id="customer_list">
-                                    <option th:each="customer:${customer}" th:value="${customer.cId}" th:text="${customer.cName}"></option>
-                                </datalist>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">选择产品</label>
+                                <div class="col-sm-7">
+                                    <input name="goods" type="text" class="form-control" placeholder="选择产品"
+                                           list="goods_list">
+                                    <datalist id="goods_list">
+                                        <option th:each="product:${product}" th:value="${product.gId}"
+                                                th:text="${product.gName}"></option>
+                                    </datalist>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">订单创建日期</label>
-                            <div class="col-sm-7">
-                                <input id="setup_date" class="form-control" type="text" readonly="readonly">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">产品数量</label>
+                                <div class="col-sm-7">
+                                    <input name="goodsNum" id="goods_num" type="number" class="form-control" value="0"
+                                           onchange="money()">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">订单执行日期</label>
-                            <div class="col-sm-7">
-                                <input name="" class="form-control" type="date">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">销售单价</label>
+                                <div class="col-sm-7">
+                                    <input name="sellPrice" id="sell_price" type="number" class="form-control"
+                                           value="20000" onchange="money()">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">订单对应合同</label>
-                            <div class="col-sm-7">
-                                <input name="" class="form-control" type="text" placeholder="订单对应合同" list="pact_list">
-                                <datalist id="pact_list">
-                                    <option th:each="pact:${pact}" th:value="${pact.pId}" th:text="${pact.pTitle}"></option>
-                                </datalist>
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">产品成本</label>
+                                <div class="col-sm-7">
+                                    <input name="goodsCost" id="goods_cost" class="form-control" type="text"
+                                           value="1111" readonly="readonly">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">订单状态</label>
-                            <div class="col-sm-7">
-                                <input name="orderState" class="form-control" type="text" value="新建"
-                                       readonly="readonly">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">总销售金额</label>
+                                <div class="col-sm-7">
+                                    <input name="totalMoney" id="total_money" class="form-control" type="text"
+                                           readonly="readonly">
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">选择产品</label>
-                            <div class="col-sm-7">
-                                <input name="goods" type="text" class="form-control" placeholder="选择产品"
-                                       list="goods_list">
-                                <datalist id="goods_list">
-                                    <option th:each="product:${product}" th:value="${product.gId}" th:text="${product.gName}"></option>
-                                </datalist>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">产品数量</label>
-                            <div class="col-sm-7">
-                                <input name="goodsNum" id="goods_num" type="number" class="form-control" value="0" onchange="money()">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">销售单价</label>
-                            <div class="col-sm-7">
-                                <input name="sellPrice"  id="sell_price" type="number" class="form-control" value="20000" onchange="money()">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">产品成本</label>
-                            <div class="col-sm-7">
-                                <input name="goodsCost" id="goods_cost" class="form-control" type="text" value="1111" readonly="readonly">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">总销售金额</label>
-                            <div class="col-sm-7">
-                                <input name="totalMoney" id="total_money" class="form-control" type="text" readonly="readonly">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">订单毛利润</label>
-                            <div class="col-sm-7">
-                                <input name="grossProfit" id="gross_profit" class="form-control" type="text" readonly="readonly">
+                            <div class="form-group">
+                                <label class="col-sm-4 control-label">订单毛利润</label>
+                                <div class="col-sm-7">
+                                    <input name="grossProfit" id="gross_profit" class="form-control" type="text"
+                                           readonly="readonly">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
 
         </div>
     </div>
@@ -115,13 +125,13 @@
 <script>
     //计算销售总额和毛利润
     function money() {
-        var goodsNum=$("#goods_num").val();    //数量
-        var sellPrice=$("#sell_price").val();  //单价
-        var goodsCost=$("#goods_cost").val();  //单个成本
-        var totalMoney=goodsNum*sellPrice;     //销售总金额
-        var grossProfit=totalMoney-goodsNum*goodsCost;//毛利
-        $("#total_money").val(totalMoney);
-        $("#gross_profit").val(grossProfit)
+        var goodsNum = $("#goods_num").val();    //数量
+        var sellPrice = $("#sell_price").val();  //单价
+        var goodsCost = $("#goods_cost").val();  //单个成本
+        var totalMoney = goodsNum * sellPrice;     //销售总金额
+        var grossProfit = totalMoney - goodsNum * goodsCost;//毛利
+        $("#total_money").val(totalMoney.toFixed(2));
+        $("#gross_profit").val(grossProfit.toFixed(2))
     }
 
     //显示时间
@@ -132,5 +142,16 @@
         str += mydate.getDate();
         return str;
     }
+
     $("#setup_date").val(show());
+
+
+    $("#add_order_form  input[name='goods']").change(function () {
+        var gId = $(this).val();
+        console.log(gId);
+        $.get("/order/selectPrice",{gId:gId},function (goods) {
+            $("#add_order_form  input[name='goodsCost']").val(goods.gCosting.toFixed(2));
+            $("#add_order_form  input[name='sellPrice']").val(goods.gPrice.toFixed(2));
+        });
+    });
 </script>
