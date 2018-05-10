@@ -37,11 +37,16 @@ public class GoodsService {
         }
 
     public GoodsPojo getById(String gId) {
-        if(gId==null||gId.isEmpty()){
+        try {
+            if(gId==null||gId.isEmpty()){
+                return null;
+            }else{
+                return  goodsPojoMapper.selectByPrimaryKey(gId);
+            }
+        }catch (Exception e){
             return null;
-        }else{
-            return  goodsPojoMapper.selectByPrimaryKey(gId);
         }
+
     }
 
     public List<GoodsPojo> getGoodeByTerm(String gName,String spell,String gAuthor){

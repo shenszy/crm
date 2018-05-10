@@ -76,13 +76,27 @@ function hideTable(name) {
  * */
 function onShowModal(html, id) {
     if (id === undefined) {
-        $("#public_modal_div").load(html, function () {
-            $("#public_modal_div").children().modal({keyboard: true});
+        $("#public_modal_div").load(html,  function (response,status,xhr) {
+            if (status==="success") {
+                $("#public_modal_div").children().modal({keyboard: true});
+            }else {
+                $.jq_Alert({
+                    message: "加载错误",
+                    btnOktext: "确定"
+                });
+            }
         });
     }
     else {
-        $("#public_modal_div").load(html + "?id=" + id, function () {
-            $("#public_modal_div").children().modal({keyboard: true});
+        $("#public_modal_div").load(html + "?id=" + id, function (response,status,xhr) {
+            if (status==="success") {
+                $("#public_modal_div").children().modal({keyboard: true});
+            }else {
+                $.jq_Alert({
+                    message: "加载错误",
+                    btnOktext: "确定"
+                });
+            }
         });
     }
 }
@@ -107,8 +121,13 @@ function pageChange(a, pageNum) {
         pageNum: pageNum,
         onlyData: true
     }, function (response, status) {
-        if (status === "error")
-            alert("加载错误");
+        if (status === "error"){
+            $.jq_Alert({
+                message: "加载错误",
+                btnOktext: "确定"
+            });
+        }
+
     });
 }
 
@@ -171,14 +190,18 @@ function modalUpdateSubmit(){
                 }
             });
         } else {
-           alert("信息有误，修改失败！");
+            alert("信息有误，修改失败！");
+           /* $.jq_Alert({
+                message: "信息有误，修改失败！",
+                btnOktext: "确定"
+            });*/
         }
     });
 
 };
 
 /**
- * 模态框的异步添加
+ * 模态框的form 的异步添加
  * */
 function modalAddSubmit() {
     $("#public_modal_div").find("form").ajaxSubmit(function (d) {
@@ -192,7 +215,11 @@ function modalAddSubmit() {
                 }
             });
         } else {
-            alert("信息有误，添加失败！");
+            alert("信息有误，修改失败！");
+            /* $.jq_Alert({
+                 message: "信息有误，修改失败！",
+                 btnOktext: "确定"
+             });*/
         }
     });
 

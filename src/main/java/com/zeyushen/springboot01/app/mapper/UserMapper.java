@@ -3,6 +3,8 @@ package com.zeyushen.springboot01.app.mapper;
 import com.zeyushen.springboot01.app.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 
 @Repository
 public interface UserMapper {
@@ -19,4 +21,6 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    List<User> getAll();
 }
