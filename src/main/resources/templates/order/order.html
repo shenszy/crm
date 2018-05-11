@@ -56,6 +56,7 @@
                 <th>总销售金额</th>
                 <th>订单毛利润</th>
                 <th>订单状态</th>
+                <th sec:authorize="hasRole('经理')">审核人</th>
                 <th>操作</th>
             </tr>
             </thead>
@@ -74,11 +75,12 @@
                 <td th:text="${myOrder.oMoney}"></td>
                 <td th:text="${myOrder.oGprofit}"></td>
                 <td th:text="${myOrder.oState}"></td>
+                <td sec:authorize="hasRole('经理')" th:text="${myOrder.approvalName}"></td>
                 <td>
                     <a sec:authorize="hasRole('经理')" href="javascript:void(0);"
-                       th:onclick="'deleteById(\'/order/updateOfState.html?state=审核通过\',this,'+${myOrder.oId}+')'">通过</a>
+                       th:onclick="'deleteById(\'/order/updateOfState.html?state=审核通过,approvalSId='+${myOrder.approvalSId}+'\',this,'+${myOrder.oId}+')'">通过</a>
                     <a sec:authorize="hasRole('经理')" href="javascript:void(0);"
-                       th:onclick="'deleteById(\'/order/updateOfState.html?state=审核驳回\',this,'+${myOrder.oId}+')'">驳回</a>
+                       th:onclick="'deleteById(\'/order/updateOfState.html?state=审核驳回,approvalSId='+${myOrder.approvalSId}+'\',this,'+${myOrder.oId}+')'">驳回</a>
                     <a sec:authorize="hasRole('员工')" href="javascript:void(0);"
                        th:onclick="'deleteById(\'/order/updateOfState.html\',this,'+${myOrder.oId}+')'">订单作废</a>
                 </td>

@@ -31,6 +31,8 @@ public class OrderInfoPojo {
 
     private Float sellPrice;
 
+    private Integer approvalSid;
+
     public Float getSellPrice() {
         return sellPrice;
     }
@@ -70,8 +72,6 @@ public class OrderInfoPojo {
     public void setApprovalSid(Integer approvalSid) {
         this.approvalSid = approvalSid;
     }
-
-    private Integer approvalSid;
 
     public Integer getoId() {
         return oId;

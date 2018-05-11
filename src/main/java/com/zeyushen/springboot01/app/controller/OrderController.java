@@ -94,16 +94,22 @@ public class OrderController {
 
     @RequestMapping("/updateOfState.html")
     @ResponseBody
-    public boolean updateOfState(Integer id,@RequestParam(value = "state",defaultValue = "")String state){
+    public boolean updateOfState(Integer id,@RequestParam(value = "state",defaultValue = "")String state,
+                                 @RequestParam("approvalSId") String approvalSId){
         if(id==null||id.equals("")){
             return false;
         }
         if(state==null||state.isEmpty()){
             state="废弃";
         }
+        if(approvalSId==null||approvalSId.isEmpty()){
+            approvalSId=null;
+        }
+        Integer sId=Integer.parseInt(approvalSId);
         OrderInfoPojo order=new OrderInfoPojo();
         order.setoId(id);
         order.setoState(state);
+        order.setApprovalSid(sId);
         return orderServices.updateOfState(order);
     }
 
