@@ -107,10 +107,14 @@ function onShowModal(html, id) {
  * */
 function pageChange(a, pageNum) {
     var pageUl = $(a).parents("ul:first");
-    var dataUrl = pageUl.attr("dataUrl");
-    var table = pageUl.attr("table");
-    var searchFrom = pageUl.attr("search");
-    if (searchFrom !== null || searchFrom !== undefined || searchFrom !== '') {
+
+    var dataUrl = pageUl.data("dataurl");
+    var table = pageUl.data("table");
+    var searchFrom = pageUl.data("search");
+    console.log(dataUrl);
+    console.log(pageUl);
+
+    if (searchFrom !== null && searchFrom !== undefined && searchFrom !== '') {
         var search = $(searchFrom).serialize();
         console.log(search);
         if (search !== null || search !== undefined || search !== '') {
@@ -203,8 +207,18 @@ function modalUpdateSubmit(){
 /**
  * 模态框的form 的异步添加
  * */
-function modalAddSubmit() {
-    $("#public_modal_div").find("form").ajaxSubmit(function (d) {
+function modalAddSubmit(formSelector) {
+    var form;
+    if(formSelector === undefined) {
+        form =  $("#public_modal_div").find("form");
+    }else{
+        form = $(formSelector);
+    }
+    if(form.length !== 1){
+        console.error("未能找到form表单!!");
+        return;
+    }
+    form.ajaxSubmit(function (d) {
         if (d) {
             $("#public_modal_div >div").modal('hide');
             $.jq_Alert({message: "添加成功", btnOktext: "确定",
