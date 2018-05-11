@@ -11,4 +11,6 @@ public interface AddressPojoMapper {
     public List<AddressPojo> getProvince();
     //查询市及区、县
     public List<AddressPojo> getCityAndArea(String parentID);
+
+
 }

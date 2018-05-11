@@ -9,6 +9,7 @@
     <sql id="Base_Column_List">
         currentID,address,parentID
     </sql>
+
     <!--查询省份-->
     <select id="getProvince" resultMap="BaseResultMap">
         select

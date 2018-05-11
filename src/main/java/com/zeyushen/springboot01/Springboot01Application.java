@@ -36,7 +36,7 @@ public class Springboot01Application {
     }
 
     @RequestMapping("/")
-    public ModelAndView index(UsernamePasswordAuthenticationToken user, HttpSession session){
+    public ModelAndView index(UsernamePasswordAuthenticationToken user, HttpSession session,HttpServletRequest request){
        if(user == null){
            LOGGER.info("用户未登录，无法访问主页");
            return new ModelAndView("redirect:/login.html");
@@ -45,6 +45,7 @@ public class Springboot01Application {
            ModelAndView mv =  new ModelAndView("/index");
            mv.addObject("username",user.getName());
            User a = (User) user.getPrincipal();
+           request.isUserInRole("经理");
            session.setAttribute("sId",a.getsId());
            session.setAttribute("uId",a.getuId());
            return mv;
