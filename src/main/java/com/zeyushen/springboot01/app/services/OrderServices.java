@@ -4,13 +4,11 @@ import com.zeyushen.springboot01.app.mapper.CustomerInfoPojoMapper;
 import com.zeyushen.springboot01.app.mapper.GoodsPojoMapper;
 import com.zeyushen.springboot01.app.mapper.OrderInfoPojoMapper;
 import com.zeyushen.springboot01.app.mapper.PactInfoPojoMapper;
-import com.zeyushen.springboot01.app.model.CustomerInfoPojo;
-import com.zeyushen.springboot01.app.model.GoodsPojo;
-import com.zeyushen.springboot01.app.model.OrderInfoPojo;
-import com.zeyushen.springboot01.app.model.PactInfoPojo;
+import com.zeyushen.springboot01.app.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +24,8 @@ public class OrderServices {
     PactInfoPojoMapper pactInfoPojoMapper;
     @Autowired
     OrderInfoPojoMapper orderInfoPojoMapper;
+    @Autowired
+    StaffServices staffServices;
 
     public List<GoodsPojo> getProduct(){ return goodsPojoMapper.getProduct(); }
 
@@ -35,9 +35,9 @@ public class OrderServices {
 
     public boolean insert(OrderInfoPojo orderInfoPojo){return orderInfoPojoMapper.insertSelective(orderInfoPojo)==1;}
 
-    public List<Map<String,Object>> getMyOrder(Integer sId){
+    public List<Map<String,Object>> getMyOrder(Principal user){
         List<Map<String,Object>> mapList=new ArrayList<>();
-        List<OrderInfoPojo> order=orderInfoPojoMapper.getMyOrder(sId);
+        List<OrderInfoPojo> order=orderInfoPojoMapper.getMyOrder(user.getName());
         order.forEach(orderInfoPojo -> {
             Map<String,Object> map=new HashMap<>();
             mapList.add(map);
@@ -51,7 +51,16 @@ public class OrderServices {
             map.put("sellPrice",orderInfoPojo.getSellPrice());//销售单价
             map.put("oMoney",orderInfoPojo.getoMoney());//总销售金额
             map.put("oGprofit",orderInfoPojo.getoGprofit());//销售毛利润
-            map.put("oState",orderInfoPojo.getoState());//销售毛利润
+            map.put("oState",orderInfoPojo.getoState());//订单状态
+
+            StaffPojo staffPojo=staffServices.selectBySId(orderInfoPojo.getsId());
+            map.put("sName",staffPojo.getsTname());//订单创建人
+            CustomerInfoPojo customerInfoPojo=customerInfoPojoMapper.selectById(orderInfoPojo.getcId());
+            map.put("cName",customerInfoPojo.getcName());//客户
+            PactInfoPojo pactInfoPojo=pactInfoPojoMapper.selectById(orderInfoPojo.getpId());
+            map.put("PactFilePath",pactInfoPojo.getpFilepath());//合同文件路径
+            GoodsPojo goodsPojo=goodsPojoMapper.selectByPrimaryKey(orderInfoPojo.getgId());
+            map.put("cost",goodsPojo.getgCosting());//产品成本
         });
         return mapList;
     }

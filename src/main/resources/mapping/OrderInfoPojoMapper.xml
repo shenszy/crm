@@ -114,7 +114,7 @@
     <select id="getMyOrder" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select <include refid="Base_Column_List"/>
         from t_orderinfo
-        where s_id!=#{sId,jdbcType=INTEGER}
+        where s_id=(select s_id from t_user where u_name=#{uName,jdbcType=VARCHAR} )
     </select>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

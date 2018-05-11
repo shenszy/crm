@@ -19,5 +19,5 @@ public interface OrderInfoPojoMapper {
 
     int insertSelective(OrderInfoPojo record);
 
-    List<OrderInfoPojo> getMyOrder(Integer sId);
+    List<OrderInfoPojo> getMyOrder(String uName);
 }
