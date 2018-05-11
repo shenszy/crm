@@ -111,7 +111,7 @@
             </if>
         </trim>
     </insert>
-    <select id="getMyOrder" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    <select id="getMyOrder" resultMap="BaseResultMap" parameterType="java.lang.String">
         select <include refid="Base_Column_List"/>
         from t_orderinfo
         where s_id=(select s_id from t_user where u_name=#{uName,jdbcType=VARCHAR} )
