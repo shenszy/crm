@@ -10,6 +10,7 @@
     <script src="/js/jquery.form.js"></script>
     <script src="/js/alertJs.js"></script>
     <script src="/js/index.js"></script>
+    <script src="/js/highcharts.src.js"></script>
     <link rel="stylesheet" href="/css/index.css"/>
     <link rel="stylesheet" href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.css">
 
@@ -108,9 +109,9 @@
                         <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                     </a>
                     <ul id="empSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                        <li><a href="javascript:void(0);" onclick="onloada('template/template.html',this)"><i class="glyphicon glyphicon-user"></i>合同模板管理</a>
+                        <li><a href="javascript:void(0);" onclick="onloada('/template/template.html',this)"><i class="glyphicon glyphicon-user"></i>合同模板管理</a>
                         </li>
-                        <li><a href="javascript:void(0);" onclick="onloada('pact/pact.html',this)"><i class="glyphicon glyphicon-th-list"></i>合同信息管理</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('/pact/pact.html',this)"><i class="glyphicon glyphicon-th-list"></i>合同信息管理</a></li>
                     </ul>
                 </li>
                 <li>
@@ -120,8 +121,10 @@
                         <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                     </a>
                     <ul id="sellStatistics" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                        <li><a href="#">按产品统计订单</a></li>
-                        <li><a href="#">按员工统计订单</a></li>
+                        <li><a href="javascript:void(0);" onclick="onloada('/orderChart/productChart.html',this)"><i class="glyphicon glyphicon-stats"></i>按产品统计订单</a>
+                        </li>
+                        <li><a href="javascript:void(0);" onclick="onloada('/orderChart/staffChart.html',this)"><i class="glyphicon glyphicon-stats"></i>按员工统计订单</a>
+                        </li>
                     </ul>
                 </li>
                 <li>
