@@ -9,16 +9,12 @@
 
                 <!--内容面板顶栏左侧   formID不能和其他页面重复-->
                 <form class="navbar-form navbar-left" role="search" id="productChart_search_form}">
+
                     <div class="form-group">
-                        <span>输入框</span>
-                        <input type="text" class="form-control" name=>
-                    </div>
-                    <div class="form-group">
-                        <span>下拉框</span>
-                        <select class="form-control" name=>
-                            <option value="1">选择一</option>
-                            <option value="2">选择二</option>
-                            <option value="2">选择三</option>
+                        <span>产品名称</span>
+                        <select class="form-control"  >
+                            <option value="0">所有</option>
+                            <option th:each="goods :${goodsList}" th:value="${goods.g_id}" th:text="${goods.gname}">选择一</option>
                         </select>
                     </div>
                     <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"
@@ -49,6 +45,6 @@
 
 
 
-        
+
     </div>
 </div>
