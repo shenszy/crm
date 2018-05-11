@@ -56,7 +56,9 @@
                 <td th:text="${allTemplate.ctId}"></td>
                 <td th:text="${allTemplate.ctName}"></td>
                 <td><a th:href="${'/template/preview.html?filePath='+allTemplate.ctFile}" target="_blank">文件预览</a></td>
-                <td><a>下载</a></td>
+                <td><a th:href="${'/file/download?filePath='+allTemplate.ctFile+'&fileName='+allTemplate.ctName}"  th:download="${allTemplate.ctName}">下载</a>
+                    <!--<a th:href="${'/file/download?filePath='+allTemplate.ctFile+'&fileName='+allTemplate.ctName}">下载</a>-->
+                </td>
                 <td>
                     <a href="javascript:void(0);"
                        th:onclick="'onShowModal(\'/template/getOne\','+${allTemplate.ctId}+')'">修改</a>&nbsp;&nbsp;
