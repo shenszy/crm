@@ -121,6 +121,7 @@ public class FileServices {
     public String preview(String filePath){
         int suffix=filePath.lastIndexOf(".docx");//后缀
         filePath=filePath.replaceFirst("/file/template","/template");
+        filePath=filePath.replaceFirst("/file/pact","/pact");
         String htmlFile= previewPath+ "/preview.html";
         LOGGER.info("html文件路径:"+htmlFile);
         File fileForDocx=new File(fileDir+filePath);

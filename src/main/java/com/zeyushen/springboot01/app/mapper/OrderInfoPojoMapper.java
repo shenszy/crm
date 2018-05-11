@@ -9,11 +9,11 @@ public interface OrderInfoPojoMapper {
 
     int insert(OrderInfoPojo record);
 
-    int insertSelective(OrderInfoPojo record);
-
     OrderInfoPojo selectByPrimaryKey(Integer oId);
 
     int updateByPrimaryKeySelective(OrderInfoPojo record);
 
     int updateByPrimaryKey(OrderInfoPojo record);
+
+    int insertSelective(OrderInfoPojo record);
 }

@@ -98,4 +98,15 @@ public class PactController {
         pactServices.updateById(pactInfoPojo);
         return "forward:/pact/pact.html";
     }
+
+    /**
+     * 文件预览
+     * @param filePath
+     * @return
+     */
+    @RequestMapping("/preview.html")
+    public String filePreview(String filePath){
+        String htmlFile=fileServices.preview(filePath);
+        return "redirect:"+htmlFile;
+    }
 }
