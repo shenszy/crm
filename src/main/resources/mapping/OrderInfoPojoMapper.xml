@@ -11,88 +11,117 @@
     <result column="o_gprofit" property="oGprofit" jdbcType="REAL" />
     <result column="o_addtime" property="oAddtime" jdbcType="TIMESTAMP" />
     <result column="o_remark" property="oRemark" jdbcType="VARCHAR" />
+    <result column="o_executetime" property="oExecutetime" jdbcType="DATE"/>
+    <result column="p_id" property="pId" jdbcType="INTEGER"/>
+    <result column="o_state" property="oState" jdbcType="VARCHAR"/>
+    <result column="approval_sid" property="approvalSid" jdbcType="INTEGER"/>
   </resultMap>
   <sql id="Base_Column_List" >
-    o_id, s_id, g_id, c_id, o_gnum, o_money, o_gprofit, o_addtime, o_remark
+    o_id, s_id, g_id, c_id, o_gnum, o_money, o_gprofit, o_addtime, o_remark,o_executetime,p_id,o_state,approval_sid
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
+        insert into t_orderinfo
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="oId != null" >
+                o_id,
+            </if>
+            <if test="sId != null" >
+                s_id,
+            </if>
+            <if test="gId != null" >
+                g_id,
+            </if>
+            <if test="cId != null" >
+                c_id,
+            </if>
+            <if test="oGnum != null" >
+                o_gnum,
+            </if>
+            <if test="oMoney != null" >
+                o_money,
+            </if>
+            <if test="oGprofit != null" >
+                o_gprofit,
+            </if>
+            <if test="oAddtime != null" >
+                o_addtime,
+            </if>
+            <if test="oRemark != null" >
+                o_remark,
+            </if>
+            <if test="oExecutetime!=null">
+                o_executetime,
+            </if>
+            <if test="pId!=null">
+                p_id,
+            </if>
+            <if test="oState!=null">
+                o_state,
+            </if>
+            <if test="approvalSid!=null">
+                approval_sid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="oId != null" >
+                #{oId,jdbcType=INTEGER},
+            </if>
+            <if test="sId != null" >
+                #{sId,jdbcType=INTEGER},
+            </if>
+            <if test="gId != null" >
+                #{gId,jdbcType=VARCHAR},
+            </if>
+            <if test="cId != null" >
+                #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="oGnum != null" >
+                #{oGnum,jdbcType=INTEGER},
+            </if>
+            <if test="oMoney != null" >
+                #{oMoney,jdbcType=REAL},
+            </if>
+            <if test="oGprofit != null" >
+                #{oGprofit,jdbcType=REAL},
+            </if>
+            <if test="oAddtime != null" >
+                #{oAddtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="oRemark != null" >
+                #{oRemark,jdbcType=VARCHAR},
+            </if>
+            <if test="oExecutetime!=null">
+                #{oExecutetime,jdbcType=DATE},
+            </if>
+            <if test="pId!=null">
+                #{pId,jdbcType="INTEGER"},
+            </if>
+            <if test="oState!=null">
+                #{oState,jdbcType="VARCHAR"},
+            </if>
+            <if test="approvalSid!=null">
+                #{approvalSid,jdbcType="INTEGER"},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_orderinfo
     where o_id = #{oId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_orderinfo
     where o_id = #{oId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
+    <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
     insert into t_orderinfo (o_id, s_id, g_id, 
       c_id, o_gnum, o_money, o_gprofit, 
       o_addtime, o_remark)
     values (#{oId,jdbcType=INTEGER}, #{sId,jdbcType=INTEGER}, #{gId,jdbcType=VARCHAR}, 
       #{cId,jdbcType=INTEGER}, #{oGnum,jdbcType=INTEGER}, #{oMoney,jdbcType=REAL}, #{oGprofit,jdbcType=REAL}, 
       #{oAddtime,jdbcType=TIMESTAMP}, #{oRemark,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
-    insert into t_orderinfo
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="oId != null" >
-        o_id,
-      </if>
-      <if test="sId != null" >
-        s_id,
-      </if>
-      <if test="gId != null" >
-        g_id,
-      </if>
-      <if test="cId != null" >
-        c_id,
-      </if>
-      <if test="oGnum != null" >
-        o_gnum,
-      </if>
-      <if test="oMoney != null" >
-        o_money,
-      </if>
-      <if test="oGprofit != null" >
-        o_gprofit,
-      </if>
-      <if test="oAddtime != null" >
-        o_addtime,
-      </if>
-      <if test="oRemark != null" >
-        o_remark,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="oId != null" >
-        #{oId,jdbcType=INTEGER},
-      </if>
-      <if test="sId != null" >
-        #{sId,jdbcType=INTEGER},
-      </if>
-      <if test="gId != null" >
-        #{gId,jdbcType=VARCHAR},
-      </if>
-      <if test="cId != null" >
-        #{cId,jdbcType=INTEGER},
-      </if>
-      <if test="oGnum != null" >
-        #{oGnum,jdbcType=INTEGER},
-      </if>
-      <if test="oMoney != null" >
-        #{oMoney,jdbcType=REAL},
-      </if>
-      <if test="oGprofit != null" >
-        #{oGprofit,jdbcType=REAL},
-      </if>
-      <if test="oAddtime != null" >
-        #{oAddtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="oRemark != null" >
-        #{oRemark,jdbcType=VARCHAR},
-      </if>
-    </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
     update t_orderinfo

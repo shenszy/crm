@@ -47,11 +47,14 @@ public class OrderController {
         return mv;
     }
 
-    @PostMapping("/add")
-    @ResponseBody
-    public boolean addOrder(OrderInfoPojo order) {
-
-        return false;
+    @RequestMapping("/add")
+    public String addOrder(OrderInfoPojo order) {
+        boolean bool =orderServices.insert(order);
+        if(bool){
+            return "forward:/order/order.html";
+        }else {
+            return "forward:/order/add.html";
+        }
     }
 
     @GetMapping("/selectPrice")

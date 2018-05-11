@@ -13,7 +13,7 @@
     </nav>
     <div class="row" style="margin: 0">
         <div class="col-sm-offset-1 col-sm-10">
-            <form id="add_order_form" class="form-horizontal" action="http://127.0.0.1:7255/insert" role="form">
+            <form id="add_order_form" class="form-horizontal" action="/order/add" role="form">
                 <div class="row">
                     <div class="form-horizontal" role="form">
                         <div class="col-sm-6">
@@ -89,14 +89,14 @@
                                 <label class="col-sm-4 control-label">销售单价</label>
                                 <div class="col-sm-7">
                                     <input name="sellPrice" id="sell_price" type="number" class="form-control"
-                                           value="20000" onchange="money()">
+                                            onchange="money()">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">产品成本</label>
                                 <div class="col-sm-7">
                                     <input name="goodsCost" id="goods_cost" class="form-control" type="text"
-                                           value="1111" readonly="readonly">
+                                            readonly="readonly">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -116,7 +116,9 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="modal-footer">
+                    <button onclick="modalAddSubmit()" type="button" class="btn btn-primary">提交</button>
+                </div>
             </form>
 
 

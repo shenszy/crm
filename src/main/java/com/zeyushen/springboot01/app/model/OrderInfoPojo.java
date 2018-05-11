@@ -23,6 +23,46 @@ public class OrderInfoPojo {
 
     private String oRemark;
 
+    private Date oExecutetime;
+
+    private Integer pId;
+
+    private String oState;
+
+    public Date getoExecutetime() {
+        return oExecutetime;
+    }
+
+    public void setoExecutetime(Date oExecutetime) {
+        this.oExecutetime = oExecutetime;
+    }
+
+    public Integer getpId() {
+        return pId;
+    }
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
+    }
+
+    public String getoState() {
+        return oState;
+    }
+
+    public void setoState(String oState) {
+        this.oState = oState;
+    }
+
+    public Integer getApprovalSid() {
+        return approvalSid;
+    }
+
+    public void setApprovalSid(Integer approvalSid) {
+        this.approvalSid = approvalSid;
+    }
+
+    private Integer approvalSid;
+
     public Integer getoId() {
         return oId;
     }
