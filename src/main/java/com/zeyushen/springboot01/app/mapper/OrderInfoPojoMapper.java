@@ -1,6 +1,7 @@
 package com.zeyushen.springboot01.app.mapper;
 
 import com.zeyushen.springboot01.app.model.OrderInfoPojo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -19,5 +20,9 @@ public interface OrderInfoPojoMapper {
 
     int insertSelective(OrderInfoPojo record);
 
-    List<OrderInfoPojo> getMyOrder(String uName);
+    List<OrderInfoPojo> getMyOrder(@Param("uName") String uName, @Param("oId")String oId,@Param("oState") String oState);
+
+    int updateOfState(OrderInfoPojo orderInfoPojo);
+
+    List<OrderInfoPojo> getMyCheckOrder(@Param("uName") String uName, @Param("oId")String oId,@Param("oState") String oState);
 }

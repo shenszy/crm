@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <style>
     .main_table {
         background: whitesmoke;
@@ -14,16 +15,17 @@
                     <div class="form-group">
                         <span>订单编号：</span>
 
-                        <input type="text" class="form-control" name="pTitle">
+                        <input type="text" class="form-control" name="oId">
                     </div>
                     <div class="form-group">
                         <span>审核情况：</span>
-                        <select class="form-control" name="execStatus">
+                        <select class="form-control" name="oState">
                             <option value="">所有</option>
                             <option>未审核</option>
                             <option>已审核</option>
-                            <option>订单通过</option>
-                            <option>订单驳回</option>
+                            <option>审核通过</option>
+                            <option>审核驳回</option>
+                            <option>废弃</option>
                         </select>
                     </div>
 
@@ -32,19 +34,7 @@
                         <i class="glyphicon glyphicon-search"></i>查询
                     </button>
                 </form>
-                <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
-                    <li>
-                        <div class="btn-group" style="margin-right: 10px">
 
-                            <button type="button" class="btn  btn-primary btn-md"
-                                    onclick="onShowModal('/order/add.html')">
-                                <i class="glyphicon glyphicon-plus"></i>增加
-                            </button>
-                        </div>
-                        <div id="addmodal_div"></div>
-                    </li>
-
-                </ul>
             </div>
         </div>
     </nav>
@@ -86,8 +76,12 @@
                 <td th:text="${myOrder.oGprofit}"></td>
                 <td th:text="${myOrder.oState}"></td>
                 <td>
-                    <a href="javascript:void(0);"
-                       th:onclick="'deleteById(\'/order/delete.html\',this,'+${myOrder.pId}+')'">订单作废</a>
+                    <a sec:authorize="hasRole('经理')" href="javascript:void(0);"
+                       th:onclick="'deleteById(\'/order/updateOfState.html?state=审核通过\',this,'+${myOrder.oId}+')'">通过</a>
+                    <a sec:authorize="hasRole('经理')" href="javascript:void(0);"
+                       th:onclick="'deleteById(\'/order/updateOfState.html?state=审核驳回\',this,'+${myOrder.oId}+')'">驳回</a>
+                    <a sec:authorize="hasRole('员工')" href="javascript:void(0);"
+                       th:onclick="'deleteById(\'/order/updateOfState.html\',this,'+${myOrder.oId}+')'">订单作废</a>
                 </td>
             </tr>
             </tbody>
