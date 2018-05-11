@@ -87,9 +87,7 @@
                 <td th:text="${myOrder.oState}"></td>
                 <td>
                     <a href="javascript:void(0);"
-                       th:onclick="'onShowModal(\'/rder/getOne\','+${myOrder.pId}+')'">修改</a>&nbsp;&nbsp;
-                    <a href="javascript:void(0);"
-                       th:onclick="'deleteById(\'/order/delete.html\',this,'+${myOrder.pId}+')'">删除</a>
+                       th:onclick="'deleteById(\'/order/delete.html\',this,'+${myOrder.pId}+')'">订单作废</a>
                 </td>
             </tr>
             </tbody>
