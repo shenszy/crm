@@ -15,9 +15,10 @@
     <result column="p_id" property="pId" jdbcType="INTEGER"/>
     <result column="o_state" property="oState" jdbcType="VARCHAR"/>
     <result column="approval_sid" property="approvalSid" jdbcType="INTEGER"/>
+    <result column="sell_price" property="sellPrice" jdbcType="REAL"/>
   </resultMap>
   <sql id="Base_Column_List" >
-    o_id, s_id, g_id, c_id, o_gnum, o_money, o_gprofit, o_addtime, o_remark,o_executetime,p_id,o_state,approval_sid
+    o_id, s_id, g_id, c_id, o_gnum, o_money, o_gprofit, o_addtime, o_remark,o_executetime,p_id,o_state,approval_sid,sell_price
   </sql>
     <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
         insert into t_orderinfo
@@ -61,6 +62,9 @@
             <if test="approvalSid!=null">
                 approval_sid,
             </if>
+            <if test="sellPrice!=null">
+                sell_price,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="oId != null" >
@@ -102,8 +106,16 @@
             <if test="approvalSid!=null">
                 #{approvalSid,jdbcType="INTEGER"},
             </if>
+            <if test="sellPrice!=null">
+                #{sellPrice,jdbcType=REAL},
+            </if>
         </trim>
     </insert>
+    <select id="getMyOrder" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select <include refid="Base_Column_List"/>
+        from t_orderinfo
+        where s_id!=#{sId,jdbcType=INTEGER}
+    </select>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -111,6 +123,8 @@
     from t_orderinfo
     where o_id = #{oId,jdbcType=INTEGER}
   </select>
+
+
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_orderinfo
     where o_id = #{oId,jdbcType=INTEGER}
