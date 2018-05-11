@@ -1,54 +1,54 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.zeyushen.springboot01.app.mapper.OrderInfoPojoMapper" >
+<mapper namespace="com.zeyushen.springboot01.app.mapper.OrderInfoPojoMapper">
 
     <resultMap id="BaseResultMap" type="com.zeyushen.springboot01.app.model.OrderInfoPojo">
-        <id column="o_id" jdbcType="INTEGER" property="oId" />
-        <result column="s_id" jdbcType="INTEGER" property="sId" />
-        <result column="g_id" jdbcType="VARCHAR" property="gId" />
-        <result column="c_id" jdbcType="INTEGER" property="cId" />
-        <result column="o_gnum" jdbcType="INTEGER" property="oGnum" />
-        <result column="o_money" jdbcType="REAL" property="oMoney" />
-        <result column="o_gprofit" jdbcType="REAL" property="oGprofit" />
-        <result column="o_addtime" jdbcType="TIMESTAMP" property="oAddtime" />
-        <result column="o_remark" jdbcType="VARCHAR" property="oRemark" />
-        <result column="o_executetime" jdbcType="DATE" property="oExecutetime" />
-        <result column="p_id" jdbcType="INTEGER" property="pId" />
-        <result column="o_state" jdbcType="VARCHAR" property="oState" />
-        <result column="approval_sid" jdbcType="INTEGER" property="approvalSid" />
-        <result column="sell_price" jdbcType="REAL" property="sellPrice" />
+        <id column="o_id" jdbcType="INTEGER" property="oId"/>
+        <result column="s_id" jdbcType="INTEGER" property="sId"/>
+        <result column="g_id" jdbcType="VARCHAR" property="gId"/>
+        <result column="c_id" jdbcType="INTEGER" property="cId"/>
+        <result column="o_gnum" jdbcType="INTEGER" property="oGnum"/>
+        <result column="o_money" jdbcType="REAL" property="oMoney"/>
+        <result column="o_gprofit" jdbcType="REAL" property="oGprofit"/>
+        <result column="o_addtime" jdbcType="TIMESTAMP" property="oAddtime"/>
+        <result column="o_remark" jdbcType="VARCHAR" property="oRemark"/>
+        <result column="o_executetime" jdbcType="DATE" property="oExecutetime"/>
+        <result column="p_id" jdbcType="INTEGER" property="pId"/>
+        <result column="o_state" jdbcType="VARCHAR" property="oState"/>
+        <result column="approval_sid" jdbcType="INTEGER" property="approvalSid"/>
+        <result column="sell_price" jdbcType="REAL" property="sellPrice"/>
     </resultMap>
-  <sql id="Base_Column_List" >
+    <sql id="Base_Column_List">
     o_id, s_id, g_id, c_id, o_gnum, o_money, o_gprofit, o_addtime, o_remark,o_executetime,p_id,o_state,approval_sid,sell_price
   </sql>
-    <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
+    <insert id="insertSelective" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo">
         insert into t_orderinfo
-        <trim prefix="(" suffix=")" suffixOverrides="," >
-            <if test="oId != null" >
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="oId != null">
                 o_id,
             </if>
-            <if test="sId != null" >
+            <if test="sId != null">
                 s_id,
             </if>
-            <if test="gId != null" >
+            <if test="gId != null">
                 g_id,
             </if>
-            <if test="cId != null" >
+            <if test="cId != null">
                 c_id,
             </if>
-            <if test="oGnum != null" >
+            <if test="oGnum != null">
                 o_gnum,
             </if>
-            <if test="oMoney != null" >
+            <if test="oMoney != null">
                 o_money,
             </if>
-            <if test="oGprofit != null" >
+            <if test="oGprofit != null">
                 o_gprofit,
             </if>
-            <if test="oAddtime != null" >
+            <if test="oAddtime != null">
                 o_addtime,
             </if>
-            <if test="oRemark != null" >
+            <if test="oRemark != null">
                 o_remark,
             </if>
             <if test="oExecutetime!=null">
@@ -67,32 +67,32 @@
                 sell_price,
             </if>
         </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides="," >
-            <if test="oId != null" >
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="oId != null">
                 #{oId},
             </if>
-            <if test="sId != null" >
+            <if test="sId != null">
                 #{sId},
             </if>
-            <if test="gId != null" >
+            <if test="gId != null">
                 #{gId},
             </if>
-            <if test="cId != null" >
+            <if test="cId != null">
                 #{cId},
             </if>
-            <if test="oGnum != null" >
+            <if test="oGnum != null">
                 #{oGnum},
             </if>
-            <if test="oMoney != null" >
+            <if test="oMoney != null">
                 #{oMoney},
             </if>
-            <if test="oGprofit != null" >
+            <if test="oGprofit != null">
                 #{oGprofit},
             </if>
-            <if test="oAddtime != null" >
+            <if test="oAddtime != null">
                 #{oAddtime},
             </if>
-            <if test="oRemark != null" >
+            <if test="oRemark != null">
                 #{oRemark},
             </if>
             <if test="oExecutetime!=null">
@@ -113,7 +113,8 @@
         </trim>
     </insert>
     <select id="getMyOrder" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select <include refid="Base_Column_List"/>
+        select
+        <include refid="Base_Column_List"/>
         from t_orderinfo
         where s_id=(select s_id from t_user where u_name=#{uName,jdbcType=VARCHAR} )
         and o_id like concat('%',#{oId},'%')
@@ -123,7 +124,8 @@
     </select>
 
     <select id="getMyCheckOrder" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select <include refid="Base_Column_List"/>
+        select
+        <include refid="Base_Column_List"/>
         from t_orderinfo
         where approval_sid=(select s_id from t_user where u_name=#{uName,jdbcType=VARCHAR} )
         or approval_sid is null
@@ -133,6 +135,21 @@
         </if>
     </select>
 
+    <select id="getAllStaffSale" resultType="map">
+        SELECT t.`s_id`,s_tname,money , profit ,num
+	        FROM ( SELECT s_id ,SUM(o_money) AS money ,SUM(o_gprofit)  AS profit,COUNT(*)
+		        AS num FROM t_orderinfo GROUP BY s_id) AS o ,
+	        t_staff AS t
+        WHERE o.s_id=t.s_id
+    </select>
+
+    <select id="getAllSaleByStaff" parameterType="java.lang.Integer">
+        SELECT t.`s_id`,s_tname,money , profit ,num
+           FROM  (SELECT s_id,SUM(o_money) AS money ,SUM(o_gprofit)  AS profit,COUNT(*)AS num   FROM t_orderinfo
+                  WHERE s_id = #{id}) o ,
+           t_staff t
+        WHERE o.s_id=t.s_id
+    </select>
     <update id="updateOfState" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo">
         update t_orderinfo
         set o_state=#{oState,jdbcType=VARCHAR},
@@ -142,19 +159,19 @@
         where o_id = #{oId,jdbcType=INTEGER}
     </update>
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from t_orderinfo
-    where o_id = #{oId,jdbcType=INTEGER}
-  </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_orderinfo
+        where o_id = #{oId,jdbcType=INTEGER}
+    </select>
 
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from t_orderinfo
     where o_id = #{oId,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
+    <insert id="insert" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo">
     insert into t_orderinfo (o_id, s_id, g_id, 
       c_id, o_gnum, o_money, o_gprofit, 
       o_addtime, o_remark)
@@ -162,37 +179,37 @@
       #{cId,jdbcType=INTEGER}, #{oGnum,jdbcType=INTEGER}, #{oMoney,jdbcType=REAL}, #{oGprofit,jdbcType=REAL}, 
       #{oAddtime,jdbcType=TIMESTAMP}, #{oRemark,jdbcType=VARCHAR})
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
-    update t_orderinfo
-    <set >
-      <if test="sId != null" >
-        s_id = #{sId,jdbcType=INTEGER},
-      </if>
-      <if test="gId != null" >
-        g_id = #{gId,jdbcType=VARCHAR},
-      </if>
-      <if test="cId != null" >
-        c_id = #{cId,jdbcType=INTEGER},
-      </if>
-      <if test="oGnum != null" >
-        o_gnum = #{oGnum,jdbcType=INTEGER},
-      </if>
-      <if test="oMoney != null" >
-        o_money = #{oMoney,jdbcType=REAL},
-      </if>
-      <if test="oGprofit != null" >
-        o_gprofit = #{oGprofit,jdbcType=REAL},
-      </if>
-      <if test="oAddtime != null" >
-        o_addtime = #{oAddtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="oRemark != null" >
-        o_remark = #{oRemark,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where o_id = #{oId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
+    <update id="updateByPrimaryKeySelective" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo">
+        update t_orderinfo
+        <set>
+            <if test="sId != null">
+                s_id = #{sId,jdbcType=INTEGER},
+            </if>
+            <if test="gId != null">
+                g_id = #{gId,jdbcType=VARCHAR},
+            </if>
+            <if test="cId != null">
+                c_id = #{cId,jdbcType=INTEGER},
+            </if>
+            <if test="oGnum != null">
+                o_gnum = #{oGnum,jdbcType=INTEGER},
+            </if>
+            <if test="oMoney != null">
+                o_money = #{oMoney,jdbcType=REAL},
+            </if>
+            <if test="oGprofit != null">
+                o_gprofit = #{oGprofit,jdbcType=REAL},
+            </if>
+            <if test="oAddtime != null">
+                o_addtime = #{oAddtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="oRemark != null">
+                o_remark = #{oRemark,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where o_id = #{oId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo">
     update t_orderinfo
     set s_id = #{sId,jdbcType=INTEGER},
       g_id = #{gId,jdbcType=VARCHAR},

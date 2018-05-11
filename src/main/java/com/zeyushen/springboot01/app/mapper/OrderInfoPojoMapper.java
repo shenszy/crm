@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface OrderInfoPojoMapper {
@@ -25,4 +26,8 @@ public interface OrderInfoPojoMapper {
     int updateOfState(OrderInfoPojo orderInfoPojo);
 
     List<OrderInfoPojo> getMyCheckOrder(@Param("uName") String uName, @Param("oId")String oId,@Param("oState") String oState);
+
+    List<Map<String,Object>> getAllStaffSale();
+
+    List<Map<String,Object>> getAllSaleByStaff(Integer id);
 }

@@ -12,9 +12,8 @@
                     <div class="form-group">
                         <span>员工:</span>
                         <select class="form-control" name=>
-                            <option value="1">选择一</option>
-                            <option value="2">选择二</option>
-                            <option value="2">选择三</option>
+                            <option value="0">选择一</option>
+                            <option th:each="staff :${staffList}" th:value="${staff.sId}" th:text="${staff.sTname}">选择一</option>
                         </select>
                     </div>
                 </form>
@@ -40,63 +39,9 @@
         </div>
 
         <script language="JavaScript">
-            $(document).ready(function () {
-                var chart = {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false
-                };
-                var title = {
-                    text: '员工销售饼状图'
-                };
-                var tooltip = {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                };
-                var plotOptions = {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
-                        }
-                    }
-                };
-                var series = [{
-                    type: 'pie',
-                    name: 'Browser share',
-                    data: [
-                        ['Firefox', 500],
-                        ['IE', 300],
-                        ['Chrome', 15],
-                        ['Safari', 80.5],
-                        ['Opera', 600],
-                        ['Others', 999]
-                    ]
-                }];
-
-
-                Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
-                    return {
-                        radialGradient: {cx: 0.5, cy: 0.3, r: 0.7},
-                        stops: [
-                            [0, color],
-                            [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-                        ]
-                    };
-                });
-
-                var json = {};
-                json.chart = chart;
-                json.title = title;
-                json.tooltip = tooltip;
-                json.series = series;
-                json.plotOptions = plotOptions;
-                $('#staff_chart_container_pie').highcharts(json);
-            });
+            var data = getData("/orderChart/getAllStaffSale");
+            console.log(data);
+            showPie(data);
         </script>
 
         <script language="JavaScript">

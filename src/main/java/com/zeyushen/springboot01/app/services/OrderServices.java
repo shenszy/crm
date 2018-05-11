@@ -73,22 +73,22 @@ public class OrderServices {
         }
     }
 
-    public List<Map<String, Object>> getMyOrder(Principal user,String oId,String oState) {
+    public List<Map<String, Object>> getMyOrder(Principal user, String oId, String oState) {
         List<Map<String, Object>> mapList = new ArrayList<>();
-        if(oState=="已审核"){
-            oState="审核";
+        if (oState == "已审核") {
+            oState = "审核";
         }
         //判断权限
-        String role=userServices.getRole(user.getName());
-        List<OrderInfoPojo> order =null;
-        if(role.equals("员工")){
-            order= orderInfoPojoMapper.getMyOrder(user.getName(),oId,oState);
+        String role = userServices.getRole(user.getName());
+        List<OrderInfoPojo> order = null;
+        if (role.equals("员工")) {
+            order = orderInfoPojoMapper.getMyOrder(user.getName(), oId, oState);
         }
-        if (role.equals("经理")){
-            if(oState==null||oState.isEmpty()){
-                oState=null;
+        if (role.equals("经理")) {
+            if (oState == null || oState.isEmpty()) {
+                oState = null;
             }
-            order= orderInfoPojoMapper.getMyCheckOrder(user.getName(),oId,oState);
+            order = orderInfoPojoMapper.getMyCheckOrder(user.getName(), oId, oState);
         }
         order.forEach(orderInfoPojo -> {
             Map<String, Object> map = new HashMap<>();
@@ -106,14 +106,14 @@ public class OrderServices {
             map.put("oState", orderInfoPojo.getoState());//订单状态
 
 
-            map.put("approvalSId",userServices.getSId(user.getName()));//经理编号
+            map.put("approvalSId", userServices.getSId(user.getName()));//经理编号
 
             StaffPojo staffPojo = staffServices.selectBySId(orderInfoPojo.getsId());
             map.put("sName", staffPojo.getsTname());//订单创建人
-            if(orderInfoPojo.getApprovalSid()!=null&&!orderInfoPojo.getApprovalSid().equals("")) {
+            if (orderInfoPojo.getApprovalSid() != null && !orderInfoPojo.getApprovalSid().equals("")) {
                 StaffPojo staff = staffServices.selectBySId(orderInfoPojo.getApprovalSid());
                 map.put("approvalName", staff.getsTname());//审核人
-            }else {
+            } else {
                 map.put("approvalName", "");//审核人
             }
             CustomerInfoPojo customerInfoPojo = customerInfoPojoMapper.selectById(orderInfoPojo.getcId());
@@ -126,6 +126,30 @@ public class OrderServices {
         return mapList;
     }
 
-    public boolean updateOfState(OrderInfoPojo orderInfoPojo){return orderInfoPojoMapper.updateOfState(orderInfoPojo)==1;}
+    public boolean updateOfState(OrderInfoPojo orderInfoPojo) {
+        return orderInfoPojoMapper.updateOfState(orderInfoPojo) == 1;
+    }
 
+    public List<Map<String, Object>> getAllStaffSale() {
+        try {
+            List<Map<String, Object>> mapList = orderInfoPojoMapper.getAllStaffSale();
+            return mapList;
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+            return null;
+        }
+
+
+    }
+
+    public List<Map<String, Object>> getAllSaleByStaff(Integer id) {
+        if (id == null) return null;
+        try {
+            List<Map<String, Object>> mapList = orderInfoPojoMapper.getAllSaleByStaff(id);
+            return mapList;
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+            return null;
+        }
+    }
 }

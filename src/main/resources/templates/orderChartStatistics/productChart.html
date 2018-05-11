@@ -14,7 +14,7 @@
                         <span>产品名称</span>
                         <select class="form-control"  >
                             <option value="0">所有</option>
-                            <option th:each="goods :${goodsList}" th:value="${goods.g_id}" th:text="${goods.gname}">选择一</option>
+                            <option th:each="goods :${goodsList}" th:value="${goods.gId}" th:text="${goods.gName}">选择一</option>
                         </select>
                     </div>
                     <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"

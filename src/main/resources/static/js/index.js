@@ -147,13 +147,13 @@ function onSelect(btn) {
  * 删除
  * */
 function deleteById(deleteUrl, a, id,message) {
+    var mes = (message === undefined ? '删除' : message);
     $.jq_Confirm({
-        message: "确定要删除吗",
+        message: "确定要"+mes+"吗!",
         btnOktext: "确定",
         btnCanceltext: "取消",
         btnOkClick: function () {
             $.post(deleteUrl, {id: id}, function (r) {
-                var mes = (message === undefined ? '删除' : message);
                 if (r) {
                     $.jq_Alert({
                         message: mes+"成功",
@@ -239,3 +239,80 @@ function modalAddSubmit(formSelector) {
     });
 
 };
+
+/** 初始化图表显示*/
+$(document).ready(function () {
+    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+        return {
+            radialGradient: {cx: 0.5, cy: 0.3, r: 0.7},
+            stops: [
+                [0, color],
+                [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+            ]
+        };
+    });
+});
+/**同步获取数据*/
+function getData(url,data) {
+    var res;
+    if(data ===undefined){
+        $.ajax({
+            url: url,  async: false, success: function (result) {
+               res = result;
+            }
+        });
+    }else {
+        $.ajax({
+            url: url, data: data, async: false, success: function (result) {
+                res = result;
+            }
+        });
+    }
+    return res;
+}
+
+/**显示饼状图*/
+function showPie(data) {
+    var chart = {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false
+    };
+    var title = {
+        text: '员工销售饼状图'
+    };
+    var tooltip = {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+    };
+    var plotOptions = {
+        pie: {
+            allowPointSelect: true,
+            cursor: 'pointer',
+            dataLabels: {
+                enabled: true,
+                format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
+                style: {
+                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                }
+            }
+        }
+    };
+
+    var series = [{
+        type: 'pie',
+        name: '销售占比',
+        data: data
+    }];
+
+
+
+
+    var json = {};
+    json.chart = chart;
+    json.title = title;
+    json.tooltip = tooltip;
+    json.series = series;
+    json.plotOptions = plotOptions;
+    $('#staff_chart_container_pie').html("");
+    $('#staff_chart_container_pie').highcharts(json);
+}
