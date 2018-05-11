@@ -146,16 +146,17 @@ function onSelect(btn) {
 /**
  * 删除
  * */
-function deleteById(deleteUrl, a, id) {
+function deleteById(deleteUrl, a, id,message) {
     $.jq_Confirm({
         message: "确定要删除吗",
         btnOktext: "确定",
         btnCanceltext: "取消",
         btnOkClick: function () {
             $.post(deleteUrl, {id: id}, function (r) {
+                var mes = (message === undefined ? '删除' : message);
                 if (r) {
                     $.jq_Alert({
-                        message: "删除成功",
+                        message: mes+"成功",
                         btnOktext: "确定",
                         btnOkClick: function () {
                             var li = $(a).parents(".main_table:first").find("ul.pager >li:eq(0)");
@@ -166,7 +167,7 @@ function deleteById(deleteUrl, a, id) {
                     });
                 } else {
                     $.jq_Alert({
-                        message: "删除失败",
+                        message: mes+"失败",
                         btnOktext: "确定"
                     });
                 }
