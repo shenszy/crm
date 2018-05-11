@@ -66,7 +66,7 @@
                         <span class="pull-right glyphicon glyphicon-chevron-down"></span>
                     </a>
                     <ul id="AssetsMent" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                        <li><a href="javascript:void(0);" onclick="onloada('/userManage/user.html',this)">
+                        <li sec:authorize="hasRole('管理员')"><a href="javascript:void(0);" onclick="onloada('/userManage/user.html',this)">
                             <i class="glyphicon glyphicon-user"></i>用户信息管理</a></li>
                         <li><a href="javascript:void(0);" onclick="onloada('/staff/allStaff.html',this)">
                             <i class="glyphicon glyphicon-print"></i>员工档案管理</a></li>
@@ -87,7 +87,7 @@
                     <ul id="hrmManage" class="nav nav-list collapse secondmenu" style="height: 0px;">
                         <li sec:authorize="hasRole('员工')" ><a href="javascript:void(0);" onclick="onloada('/order/add.html',this)">
                             <i class="fa fa-gift"></i>新建订单</a></li>
-                        <li><a href="javascript:void(0);" onclick="onloada('order/order.html',this)">
+                        <li sec:authorize="hasRole('员工')"><a href="javascript:void(0);" onclick="onloada('order/order.html',this)">
                             <i class="fa  fa-address-card-o"></i>我的订单</a></li>
                         <li  sec:authorize="hasRole('经理')"  ><a href="#hrmManage_cwa" class="nav-header collapsed" data-toggle="collapse">
                             <i class="fa fa-clock-o"></i>我审核的订单
