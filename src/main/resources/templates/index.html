@@ -68,7 +68,7 @@
                     <ul id="AssetsMent" class="nav nav-list collapse secondmenu" style="height: 0px;">
                         <li sec:authorize="hasRole('管理员')"><a href="javascript:void(0);" onclick="onloada('/userManage/user.html',this)">
                             <i class="glyphicon glyphicon-user"></i>用户信息管理</a></li>
-                        <li><a href="javascript:void(0);" onclick="onloada('/staff/allStaff.html',this)">
+                        <li sec:authorize="hasRole('管理员')"><a href="javascript:void(0);" onclick="onloada('/staff/allStaff.html',this)">
                             <i class="glyphicon glyphicon-print"></i>员工档案管理</a></li>
                         <li><a href="javascript:void(0);" onclick="onloada('/dep/allDep.html',this)">
                             <i class="glyphicon glyphicon-print"></i>部门档案管理</a></li>
