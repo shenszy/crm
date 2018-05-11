@@ -71,9 +71,20 @@ public class OrderServices {
         }
     }
 
-    public List<Map<String, Object>> getMyOrder(Principal user) {
+    public List<Map<String, Object>> getMyOrder(Principal user,String oId,String oState) {
         List<Map<String, Object>> mapList = new ArrayList<>();
-        List<OrderInfoPojo> order = orderInfoPojoMapper.getMyOrder(user.getName());
+        if(oState=="已审核"){
+            oState="审核";
+        }
+        //判断权限
+        UserServices userServices=new UserServices();
+        String role=userServices.getRole(user.getName());
+        List<OrderInfoPojo> order =null;
+        if(role=="员工"){
+            order= orderInfoPojoMapper.getMyOrder(user.getName(),oId,oState);
+        }else if (role=="经理"){
+            order= orderInfoPojoMapper.getMyCheckOrder(user.getName(),oId,oState);
+        }
         order.forEach(orderInfoPojo -> {
             Map<String, Object> map = new HashMap<>();
             mapList.add(map);
@@ -101,5 +112,6 @@ public class OrderServices {
         return mapList;
     }
 
+    public boolean updateOfState(OrderInfoPojo orderInfoPojo){return orderInfoPojoMapper.updateOfState(orderInfoPojo)==1;}
 
 }

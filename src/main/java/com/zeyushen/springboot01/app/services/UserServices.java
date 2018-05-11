@@ -62,6 +62,11 @@ public class UserServices implements UserDetailsService {
         return user.getsId();
     }
 
+    public String getRole(String userName){
+        User user=userMapper.selectByUserName(userName);
+        return user.getuRole();
+    }
+
     public List<Map<String, Object>> getAll() {
         List<Map<String, Object>> mapList = new ArrayList<>();
         List<User> users = userMapper.getAll();

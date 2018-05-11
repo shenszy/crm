@@ -116,7 +116,28 @@
         select <include refid="Base_Column_List"/>
         from t_orderinfo
         where s_id=(select s_id from t_user where u_name=#{uName,jdbcType=VARCHAR} )
+        and o_id like concat('%',#{oId},'%')
+        <if test="oState!=null">
+            and o_state like concat(#{oState},'%')
+        </if>
     </select>
+
+    <select id="getMyCheckOrder" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select <include refid="Base_Column_List"/>
+        from t_orderinfo
+        where approval_sid=(select s_id from t_user where u_name=#{uName,jdbcType=VARCHAR} )
+        or approval_sid is null;
+        and o_id like concat('%',#{oId},'%')
+        <if test="oState!=null">
+            and o_state like concat(#{oState},'%')
+        </if>
+    </select>
+
+    <update id="updateOfState" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo">
+        update t_orderinfo
+        set o_state=#{oState,jdbcType=VARCHAR}
+        where o_id = #{oId,jdbcType=INTEGER}
+    </update>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 

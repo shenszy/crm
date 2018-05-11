@@ -84,10 +84,27 @@ public class OrderController {
     @RequestMapping("/order.html")
     public ModelAndView getMyOrder(Principal user,
                                    @RequestParam(defaultValue = "false") Boolean onlyData,
-                                   @RequestParam(defaultValue = "1") Integer pageNum){
+                                   @RequestParam(defaultValue = "1") Integer pageNum,
+                                   @RequestParam(defaultValue = "")String oId,
+                                   @RequestParam(defaultValue = "")String oState){
         ModelAndView mv=new ModelAndView("/order/order");
-        PagingUtil.paging("myOrder", mv, pageNum, onlyData, () ->orderServices.getMyOrder(user));
+        PagingUtil.paging("myOrder", mv, pageNum, onlyData, () ->orderServices.getMyOrder(user,oId,oState));
         return mv;
+    }
+
+    @RequestMapping("/updateOfState.html")
+    @ResponseBody
+    public boolean updateOfState(Integer id,@RequestParam(value = "state",defaultValue = "")String state){
+        if(id==null||id.equals("")){
+            return false;
+        }
+        if(state==null||state.isEmpty()){
+            state="废弃";
+        }
+        OrderInfoPojo order=new OrderInfoPojo();
+        order.setoId(id);
+        order.setoState(state);
+        return orderServices.updateOfState(order);
     }
 
 }
