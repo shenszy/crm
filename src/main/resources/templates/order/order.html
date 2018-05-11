@@ -96,8 +96,8 @@
         </table>
         <div class="text-right">
 
-            <ul class="pager " style="text-align: right" dataUrl="/order/order.html" table="#order_table"
-                search="#order_search_form" th:attr="thispage=${pageNum}">
+            <ul class="pager " style="text-align: right" data-dataUrl="/order/order.html" data-table="#order_table"
+                data-search="#order_search_form" th:attr="data-thispage=${pageNum}">
                 <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span
                         class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
                 <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span

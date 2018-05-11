@@ -54,7 +54,8 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public String addOrder(OrderInfoPojo order, @RequestParam("addTime") String addTime,@RequestParam("executeTime") String executeTime) {
+    @ResponseBody
+    public boolean addOrder(OrderInfoPojo order, @RequestParam("addTime") String addTime,@RequestParam("executeTime") String executeTime) {
         SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
         Date addToDate=null;
         Date execToDate=null;
@@ -66,12 +67,8 @@ public class OrderController {
         }
         order.setoAddtime(addToDate);
         order.setoExecutetime(execToDate);
-        boolean bool =orderServices.insert(order);
-        if(bool){
-            return "forward:/order/order.html";
-        }else {
-            return "forward:/order/add.html";
-        }
+        return  orderServices.insert(order);
+
     }
 
     @GetMapping("/selectPrice")

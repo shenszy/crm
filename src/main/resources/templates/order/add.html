@@ -39,19 +39,19 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">订单创建日期</label>
                                 <div class="col-sm-7">
-                                    <input name="addTime" id="addTime" class="form-control" type="text" readonly="readonly">
+                                    <input name="addTime" id="addTime" class="form-control" type="text"  readonly="readonly">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">订单执行日期</label>
                                 <div class="col-sm-7">
-                                    <input name="executeTime" class="form-control" type="date">
+                                    <input name="executeTime" class="form-control" type="date" required="required">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">订单对应合同</label>
                                 <div class="col-sm-7">
-                                    <input name="pId" class="form-control" type="text" placeholder="订单对应合同"
+                                    <input name="pId" class="form-control" type="text" placeholder="订单对应合同" required="required"
                                            list="pact_list">
                                     <datalist id="pact_list">
                                         <option th:each="pact:${pact}" th:value="${pact.pId}"
@@ -82,7 +82,7 @@
                             <div class="form-group">
                                 <label class="col-sm-4 control-label">产品数量</label>
                                 <div class="col-sm-7">
-                                    <input name="oGnum" id="goods_num" type="number" class="form-control" value="0"
+                                    <input name="oGnum" id="goods_num" type="number" class="form-control" value="1" required="required"
                                            onchange="money()">
                                 </div>
                             </div>
@@ -118,8 +118,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input class="btn btn-primary" type="submit" value="提交"/>
-                    <!--<button onclick="modalAddSubmit()" type="button" class="btn btn-primary">提交</button>-->
+                    <button onclick="modalAddSubmit('#add_order_form')" type="button" class="btn btn-primary">提交</button>
                 </div>
             </form>
 

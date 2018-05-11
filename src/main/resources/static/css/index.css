@@ -27,10 +27,17 @@ li > ul {
     margin: 0;
     min-height: 30px;
 }
+
 #main_context_nav >div >div >ul{
     margin-top: -1px;
 }
 
+/*统一表格样式*/
 .main_table {
     background: whitesmoke;
+}
+
+/*分页样式*/
+.pager{
+    text-align: right;
 }

@@ -53,8 +53,8 @@
             </tbody>
         </table>
         <div class="text-right">
-            <ul class="pager " style="text-align: right" dataUrl="/userManage/user.html" table="#user_table"
-                th:attr="thispage=${pageNum}">
+            <ul class="pager " style="text-align: right" data-dataUrl="/userManage/user.html" data-table="#user_table"
+                th:attr="data-thispage=${pageNum}">
                 <li><a href="javascript:void(0);" onclick="pageChange(this,0);"> <span
                         class="glyphicon glyphicon-fast-backward"></span>首页</a></li>
                 <li><a href="javascript:void(0);" th:onclick="'pageChange(this,'+${pageNum -1}+');'"><span
