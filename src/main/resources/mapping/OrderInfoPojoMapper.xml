@@ -126,7 +126,7 @@
         select <include refid="Base_Column_List"/>
         from t_orderinfo
         where approval_sid=(select s_id from t_user where u_name=#{uName,jdbcType=VARCHAR} )
-        or approval_sid is null;
+        or approval_sid is null
         and o_id like concat('%',#{oId},'%')
         <if test="oState!=null">
             and o_state like concat(#{oState},'%')
@@ -135,7 +135,10 @@
 
     <update id="updateOfState" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo">
         update t_orderinfo
-        set o_state=#{oState,jdbcType=VARCHAR}
+        set o_state=#{oState,jdbcType=VARCHAR},
+        <if test="approvalSid!=null">
+            approval_sid=#{approvalSid}
+        </if>
         where o_id = #{oId,jdbcType=INTEGER}
     </update>
 

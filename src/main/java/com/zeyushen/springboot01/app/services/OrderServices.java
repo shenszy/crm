@@ -30,6 +30,8 @@ public class OrderServices {
     OrderInfoPojoMapper orderInfoPojoMapper;
     @Autowired
     StaffServices staffServices;
+    @Autowired
+    UserServices userServices;
 
     public List<GoodsPojo> getProduct() {
         return goodsPojoMapper.getProduct();
@@ -77,12 +79,15 @@ public class OrderServices {
             oState="审核";
         }
         //判断权限
-        UserServices userServices=new UserServices();
         String role=userServices.getRole(user.getName());
         List<OrderInfoPojo> order =null;
-        if(role=="员工"){
+        if(role.equals("员工")){
             order= orderInfoPojoMapper.getMyOrder(user.getName(),oId,oState);
-        }else if (role=="经理"){
+        }
+        if (role.equals("经理")){
+            if(oState==null||oState.isEmpty()){
+                oState=null;
+            }
             order= orderInfoPojoMapper.getMyCheckOrder(user.getName(),oId,oState);
         }
         order.forEach(orderInfoPojo -> {
@@ -100,8 +105,17 @@ public class OrderServices {
             map.put("oGprofit", orderInfoPojo.getoGprofit());//销售毛利润
             map.put("oState", orderInfoPojo.getoState());//订单状态
 
+
+            map.put("approvalSId",userServices.getSId(user.getName()));//经理编号
+
             StaffPojo staffPojo = staffServices.selectBySId(orderInfoPojo.getsId());
             map.put("sName", staffPojo.getsTname());//订单创建人
+            if(orderInfoPojo.getApprovalSid()!=null&&!orderInfoPojo.getApprovalSid().equals("")) {
+                StaffPojo staff = staffServices.selectBySId(orderInfoPojo.getApprovalSid());
+                map.put("approvalName", staff.getsTname());//审核人
+            }else {
+                map.put("approvalName", "");//审核人
+            }
             CustomerInfoPojo customerInfoPojo = customerInfoPojoMapper.selectById(orderInfoPojo.getcId());
             map.put("cName", customerInfoPojo.getcName());//客户
             PactInfoPojo pactInfoPojo = pactInfoPojoMapper.selectById(orderInfoPojo.getpId());
