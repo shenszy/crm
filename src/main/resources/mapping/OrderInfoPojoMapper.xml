@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zeyushen.springboot01.app.mapper.OrderInfoPojoMapper" >
-  <resultMap id="BaseResultMap" type="com.zeyushen.springboot01.app.model.OrderInfoPojo" >
-    <id column="o_id" property="oId" jdbcType="INTEGER" />
-    <result column="s_id" property="sId" jdbcType="INTEGER" />
-    <result column="g_id" property="gId" jdbcType="VARCHAR" />
-    <result column="c_id" property="cId" jdbcType="INTEGER" />
-    <result column="o_gnum" property="oGnum" jdbcType="INTEGER" />
-    <result column="o_money" property="oMoney" jdbcType="REAL" />
-    <result column="o_gprofit" property="oGprofit" jdbcType="REAL" />
-    <result column="o_addtime" property="oAddtime" jdbcType="TIMESTAMP" />
-    <result column="o_remark" property="oRemark" jdbcType="VARCHAR" />
-    <result column="o_executetime" property="oExecutetime" jdbcType="DATE"/>
-    <result column="p_id" property="pId" jdbcType="INTEGER"/>
-    <result column="o_state" property="oState" jdbcType="VARCHAR"/>
-    <result column="approval_sid" property="approvalSid" jdbcType="INTEGER"/>
-    <result column="sell_price" property="sellPrice" jdbcType="REAL"/>
-  </resultMap>
+
+    <resultMap id="BaseResultMap" type="com.zeyushen.springboot01.app.model.OrderInfoPojo">
+        <id column="o_id" jdbcType="INTEGER" property="oId" />
+        <result column="s_id" jdbcType="INTEGER" property="sId" />
+        <result column="g_id" jdbcType="VARCHAR" property="gId" />
+        <result column="c_id" jdbcType="INTEGER" property="cId" />
+        <result column="o_gnum" jdbcType="INTEGER" property="oGnum" />
+        <result column="o_money" jdbcType="REAL" property="oMoney" />
+        <result column="o_gprofit" jdbcType="REAL" property="oGprofit" />
+        <result column="o_addtime" jdbcType="TIMESTAMP" property="oAddtime" />
+        <result column="o_remark" jdbcType="VARCHAR" property="oRemark" />
+        <result column="o_executetime" jdbcType="DATE" property="oExecutetime" />
+        <result column="p_id" jdbcType="INTEGER" property="pId" />
+        <result column="o_state" jdbcType="VARCHAR" property="oState" />
+        <result column="approval_sid" jdbcType="INTEGER" property="approvalSid" />
+        <result column="sell_price" jdbcType="REAL" property="sellPrice" />
+    </resultMap>
   <sql id="Base_Column_List" >
     o_id, s_id, g_id, c_id, o_gnum, o_money, o_gprofit, o_addtime, o_remark,o_executetime,p_id,o_state,approval_sid,sell_price
   </sql>
@@ -68,53 +69,53 @@
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="oId != null" >
-                #{oId,jdbcType=INTEGER},
+                #{oId},
             </if>
             <if test="sId != null" >
-                #{sId,jdbcType=INTEGER},
+                #{sId},
             </if>
             <if test="gId != null" >
-                #{gId,jdbcType=VARCHAR},
+                #{gId},
             </if>
             <if test="cId != null" >
-                #{cId,jdbcType=INTEGER},
+                #{cId},
             </if>
             <if test="oGnum != null" >
-                #{oGnum,jdbcType=INTEGER},
+                #{oGnum},
             </if>
             <if test="oMoney != null" >
-                #{oMoney,jdbcType=REAL},
+                #{oMoney},
             </if>
             <if test="oGprofit != null" >
-                #{oGprofit,jdbcType=REAL},
+                #{oGprofit},
             </if>
             <if test="oAddtime != null" >
-                #{oAddtime,jdbcType=TIMESTAMP},
+                #{oAddtime},
             </if>
             <if test="oRemark != null" >
-                #{oRemark,jdbcType=VARCHAR},
+                #{oRemark},
             </if>
             <if test="oExecutetime!=null">
-                #{oExecutetime,jdbcType=DATE},
+                #{oExecutetime},
             </if>
             <if test="pId!=null">
-                #{pId,jdbcType="INTEGER"},
+                #{pId,},
             </if>
             <if test="oState!=null">
-                #{oState,jdbcType="VARCHAR"},
+                #{oState},
             </if>
             <if test="approvalSid!=null">
-                #{approvalSid,jdbcType="INTEGER"},
+                #{approvalSid},
             </if>
             <if test="sellPrice!=null">
-                #{sellPrice,jdbcType=REAL},
+                #{sellPrice},
             </if>
         </trim>
     </insert>
     <select id="getMyOrder" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select <include refid="Base_Column_List"/>
         from t_orderinfo
-        where s_id!=#{sId,jdbcType=INTEGER}
+        where s_id=(select s_id from t_user where u_name=#{uName,jdbcType=VARCHAR} )
     </select>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >

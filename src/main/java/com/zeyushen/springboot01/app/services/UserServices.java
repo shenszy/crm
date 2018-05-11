@@ -57,6 +57,11 @@ public class UserServices implements UserDetailsService {
         return staffServices.selectBySId(user.getsId()).getsTname();
     }
 
+    public Integer getSId(String userName){
+        User user = userMapper.selectByUserName(userName);
+        return user.getsId();
+    }
+
     public List<Map<String, Object>> getAll() {
         List<Map<String, Object>> mapList = new ArrayList<>();
         List<User> users = userMapper.getAll();

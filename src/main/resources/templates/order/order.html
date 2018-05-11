@@ -71,25 +71,25 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="allOrder:${allOrder}">
-                <td th:text="${allOrder.pId}"></td>
-                <td th:text="${allOrder.pTitle}"></td>
-                <td th:text="${allOrder.pType}"></td>
-                <td th:text="${#dates.format(allOrder.pSigningdate,'yyyy-MM-dd')}"></td>
-                <td th:text="${#dates.format(allOrder.pExecdate,'yyyy-MM-dd')}"></td>
-                <td th:text="${allOrder.cName}"></td>
-                <td th:text="${allOrder.sTName}"></td>
-                <td th:text="${#dates.format(allOrder.pEnddate,'yyyy-MM-dd')}"></td>
-                <td th:text="${allOrder.pExecuteinfo}"></td>
-                <td th:text="${allOrder.ctName}"></td>
-                <td><a th:href="${'/Pact/preview.html?filePath='+allOrder.pFilepath}" target="_blank" th:value=""></a></td>
-                <td th:text="${allOrder.pRemark}"></td>
-                <td><a>下载</a></td>
+            <tr th:each="myOrder:${myOrder}">
+                <td th:text="${myOrder.oId}"></td>
+                <td th:text="${myOrder.sName}"></td>
+                <td th:text="${myOrder.cName}"></td>
+                <td th:text="${#dates.format(myOrder.oAddtime,'yyyy-MM-dd')}"></td>
+                <td th:text="${#dates.format(myOrder.oExecutetime,'yyyy-MM-dd')}"></td>
+                <td><a th:href="${'/Pact/preview.html?filePath='+myOrder.PactFilePath}" target="_blank" th:text="${myOrder.pId}"></a></td>
+                <td th:text="${myOrder.gId}"></td>
+                <td th:text="${myOrder.oGnum}"></td>
+                <td th:text="${myOrder.sellPrice}"></td>
+                <td th:text="${myOrder.cost}"></td>
+                <td th:text="${myOrder.oMoney}"></td>
+                <td th:text="${myOrder.oGprofit}"></td>
+                <td th:text="${myOrder.oState}"></td>
                 <td>
                     <a href="javascript:void(0);"
-                       th:onclick="'onShowModal(\'/rder/getOne\','+${allOrder.pId}+')'">修改</a>&nbsp;&nbsp;
+                       th:onclick="'onShowModal(\'/rder/getOne\','+${myOrder.pId}+')'">修改</a>&nbsp;&nbsp;
                     <a href="javascript:void(0);"
-                       th:onclick="'deleteById(\'/order/delete.html\',this,'+${allOrder.pId}+')'">删除</a>
+                       th:onclick="'deleteById(\'/order/delete.html\',this,'+${myOrder.pId}+')'">删除</a>
                 </td>
             </tr>
             </tbody>
