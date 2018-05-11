@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="main_table">
+    <!--顶栏-->
+    <nav class="navbar navbar-default" style="margin: 0">
+        <div class="container-fluid">
+            <div>
+
+                <!--内容面板顶栏左侧   formID不能和其他页面重复-->
+                <form class="navbar-form navbar-left" role="search" id="staffChart_search_form}">
+
+                    <div class="form-group">
+                        <span>下拉框</span>
+                        <select class="form-control" name=>
+                            <option value="1">选择一</option>
+                            <option value="2">选择二</option>
+                            <option value="2">选择三</option>
+                        </select>
+                    </div>
+                </form>
+
+                <!--内容面板顶栏右侧-->
+                <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <!--表格主体-->
+    <div class="main_context_body container-fluid">
+        <div class="row-fluid">
+            <div class="col-md-6">
+                <div id="staff_chart_container_pie" style="width: 100%; margin: 0 auto"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="staff_chart_container_line" style="width: 100%; margin: 0 auto"></div>
+            </div>
+        </div>
+
+        <script language="JavaScript">
+            $(document).ready(function () {
+                var chart = {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                };
+                var title = {
+                    text: '员工销售饼状图'
+                };
+                var tooltip = {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                };
+                var plotOptions = {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
+                            style: {
+                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+                            }
+                        }
+                    }
+                };
+                var series = [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: [
+                        ['Firefox', 500],
+                        ['IE', 300],
+                        ['Chrome', 15],
+                        ['Safari', 80.5],
+                        ['Opera', 600],
+                        ['Others', 999]
+                    ]
+                }];
+
+
+                Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+                    return {
+                        radialGradient: {cx: 0.5, cy: 0.3, r: 0.7},
+                        stops: [
+                            [0, color],
+                            [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+                        ]
+                    };
+                });
+
+                var json = {};
+                json.chart = chart;
+                json.title = title;
+                json.tooltip = tooltip;
+                json.series = series;
+                json.plotOptions = plotOptions;
+                $('#staff_chart_container_pie').highcharts(json);
+            });
+        </script>
+
+        <script language="JavaScript">
+            $(document).ready(function () {
+                var title = {
+                    text: '城市平均气温'
+                };
+                var subtitle = {
+                    text: 'Source: runoob.com'
+                };
+                var xAxis = {
+                    categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+                };
+                var yAxis = {
+                    title: {
+                        text: 'Temperature (\xB0C)'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                };
+
+                var tooltip = {
+                    valueSuffix: '\xB0C'
+                }
+
+                var legend = {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                };
+
+                var series = [
+                    {
+                        name: 'Tokyo',
+                        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
+                            26.5, 23.3, 18.3, 13.9, 9.6]
+                    },
+                    {
+                        name: 'New York',
+                        data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8,
+                            24.1, 20.1, 14.1, 8.6, 2.5]
+                    },
+                    {
+                        name: 'London',
+                        data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0,
+                            16.6, 14.2, 10.3, 6.6, 4.8]
+                    }
+                ];
+
+                var json = {};
+
+                json.title = title;
+                json.subtitle = subtitle;
+                json.xAxis = xAxis;
+                json.yAxis = yAxis;
+                json.tooltip = tooltip;
+                json.legend = legend;
+                json.series = series;
+
+                $('#staff_chart_container_line').highcharts(json);
+            });
+        </script>
+
+
+    </div>
+</div>
