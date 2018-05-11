@@ -63,7 +63,8 @@ public class OrderController {
             addToDate=sdf.parse(addTime);
             execToDate=sdf.parse(executeTime);
         } catch (ParseException e) {
-            e.printStackTrace();
+            LOGGER.error("日期错误!");
+            return false;
         }
         order.setoAddtime(addToDate);
         order.setoExecutetime(execToDate);
