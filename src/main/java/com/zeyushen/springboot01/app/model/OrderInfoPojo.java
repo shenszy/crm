@@ -29,6 +29,16 @@ public class OrderInfoPojo {
 
     private String oState;
 
+    private Float sellPrice;
+
+    public Float getSellPrice() {
+        return sellPrice;
+    }
+
+    public void setSellPrice(Float sellPrice) {
+        this.sellPrice = sellPrice;
+    }
+
     public Date getoExecutetime() {
         return oExecutetime;
     }
