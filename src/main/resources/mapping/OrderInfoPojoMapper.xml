@@ -125,8 +125,8 @@
     <select id="getMyCheckOrder" resultMap="BaseResultMap" parameterType="java.lang.String">
         select <include refid="Base_Column_List"/>
         from t_orderinfo
-        where approval_sid=(select s_id from t_user where u_name=#{uName,jdbcType=VARCHAR} )
-        or approval_sid is null
+        where (approval_sid=(select s_id from t_user where u_name=#{uName,jdbcType=VARCHAR} )
+        or approval_sid is null)
         and o_id like concat('%',#{oId},'%')
         <if test="oState!=null">
             and o_state like concat(#{oState},'%')

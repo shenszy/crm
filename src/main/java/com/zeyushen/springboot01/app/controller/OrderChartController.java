@@ -64,9 +64,9 @@ public class OrderChartController {
     }
 
 
-    /**
+   /* *//**
      * 根据员工ID获取销售数据
-     */
+     *//*
     @GetMapping
     @ResponseBody
     public List<Map<String, Object>> getAllSaleByStaff(Integer id) {
@@ -75,9 +75,9 @@ public class OrderChartController {
     }
 
 
-    /**
+    *//**
      * 获取所有产品销售数据
-     */
+     *//*
     @GetMapping
     @ResponseBody
     public List<Map<String, Object>> getAllProductSale() {
@@ -85,13 +85,13 @@ public class OrderChartController {
         return null;
     }
 
-    /**
+    *//**
      * 根据产品ID获取销售数据
-     */
+     *//*
     @GetMapping
     @ResponseBody
     public List<Map<String, Object>> getAllSaleByProduct(Integer id) {
         //TODO
         return null;
-    }
+    }*/
 }

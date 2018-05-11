@@ -112,7 +112,7 @@
     </update>
 
   <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select  p_id,p_title,p_executeinfo,p_remark
+    select  p_id,p_title,p_executeinfo,p_remark,p_filepath
     from t_pactinfo
     where p_id = #{pId,jdbcType=INTEGER}
   </select>
