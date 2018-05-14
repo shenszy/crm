@@ -30,4 +30,6 @@ public interface OrderInfoPojoMapper {
     List<Map<String,Object>> getAllStaffSale();
 
     List<Map<String,Object>> getAllSaleByStaff(Integer id);
+
+    String getStateById(Integer id);
 }

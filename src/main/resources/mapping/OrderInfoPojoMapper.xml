@@ -152,12 +152,17 @@
     </select>
     <update id="updateOfState" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo">
         update t_orderinfo
-        set o_state=#{oState,jdbcType=VARCHAR},
+        set o_state=#{oState,jdbcType=VARCHAR}
         <if test="approvalSid!=null">
-            approval_sid=#{approvalSid}
+            ,approval_sid=#{approvalSid}
         </if>
         where o_id = #{oId,jdbcType=INTEGER}
     </update>
+
+    <select id="getStateById" resultType="java.lang.String" parameterType="java.lang.Integer">
+        select o_state
+        from t_orderinfo where o_id=#{oId}
+    </select>
 
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
         select

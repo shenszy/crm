@@ -152,4 +152,8 @@ public class OrderServices {
             return null;
         }
     }
+
+    public String getStateById(Integer id){
+        return orderInfoPojoMapper.getStateById(id);
+    }
 }
