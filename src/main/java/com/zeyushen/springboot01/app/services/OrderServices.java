@@ -1,5 +1,6 @@
 package com.zeyushen.springboot01.app.services;
 
+import com.sun.codemodel.internal.JBlock;
 import com.zeyushen.springboot01.app.mapper.CustomerInfoPojoMapper;
 import com.zeyushen.springboot01.app.mapper.GoodsPojoMapper;
 import com.zeyushen.springboot01.app.mapper.OrderInfoPojoMapper;
@@ -9,12 +10,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.NumberUtils;
 
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.Year;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service("orderServices")
 public class OrderServices {
@@ -130,9 +131,12 @@ public class OrderServices {
         return orderInfoPojoMapper.updateOfState(orderInfoPojo) == 1;
     }
 
-    public List<Map<String, Object>> getAllStaffSale() {
+    /**
+     * 所有员工的全部销售额
+     */
+    public List<Map<String, Object>> getAllStaffSale(Integer year) {
         try {
-            List<Map<String, Object>> mapList = orderInfoPojoMapper.getAllStaffSale();
+            List<Map<String, Object>> mapList = orderInfoPojoMapper.getAllStaffSale(year);
             return mapList;
         } catch (Exception e) {
             LOGGER.error(e.toString());
@@ -142,18 +146,94 @@ public class OrderServices {
 
     }
 
-    public List<Map<String, Object>> getAllSaleByStaff(Integer id) {
-        if (id == null) return null;
+    /**
+     * 所有员工的每月销售情况
+     */
+    public Map<String, Double[]> getAllSaleEveryMonth(Integer year) {
         try {
-            List<Map<String, Object>> mapList = orderInfoPojoMapper.getAllSaleByStaff(id);
-            return mapList;
+            List<Map<String, Object>> mapList = orderInfoPojoMapper.getAllStaffMonthSale(year);
+            //将不同的员工区分出来
+            Map<Object, List<Map<String, Object>>> m = mapList.stream().collect(Collectors.groupingBy(v -> v.get("name")));
+
+            Map<String, Double[]> result = new HashMap<>();
+            Integer now_month = Calendar.getInstance().get(Calendar.MONTH);
+            if (year != null && year != Calendar.getInstance().get(Calendar.YEAR)) {
+                now_month=11;
+            }
+            Integer finalNow_month = now_month;
+            m.forEach((k, v) -> {
+                Double[] sal = new Double[12];
+                result.put((String) k, sal);
+                for (int i = 0; i < finalNow_month + 1; i++) {
+                    sal[i] = 0.0;
+                }
+                v.forEach(vl -> {
+                    try {
+                        sal[Integer.parseInt((String) vl.get("month")) - 1] = Double.valueOf((Float) vl.get("money"));
+                    } catch (Exception e) {
+                        LOGGER.error(e.toString());
+                    }
+
+                });
+
+            });
+            return result;
         } catch (Exception e) {
             LOGGER.error(e.toString());
             return null;
         }
     }
 
-    public String getStateById(Integer id){
+    public String getStateById(Integer id) {
         return orderInfoPojoMapper.getStateById(id);
     }
+
+    public List<Map<String, Object>> getAllProductSale(Integer year) {
+        try {
+            return  orderInfoPojoMapper.getAllProductSale(year);
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+            return null;
+        }
+    }
+
+
+    /**
+     * 所有产品的每月销售情况
+     */
+    public Map<String, Double[]> getAllProductEveryMonth(Integer year) {
+        try {
+            List<Map<String, Object>> mapList = orderInfoPojoMapper.getAllProductMonthSale(year);
+            //将不同的产品区分出来
+            Map<Object, List<Map<String, Object>>> m = mapList.stream().collect(Collectors.groupingBy(v -> v.get("name")));
+
+            Map<String, Double[]> result = new HashMap<>();
+            Integer now_month = Calendar.getInstance().get(Calendar.MONTH);
+            if (year != null && year != Calendar.getInstance().get(Calendar.YEAR)) {
+                now_month=11;
+            }
+            Integer finalNow_month = now_month;
+            m.forEach((k, v) -> {
+                Double[] sal = new Double[12];
+                result.put((String) k, sal);
+                for (int i = 0; i < finalNow_month + 1; i++) {
+                    sal[i] = 0.0;
+                }
+                v.forEach(vl -> {
+                    try {
+                        sal[Integer.parseInt((String) vl.get("month")) - 1] = Double.valueOf((Float) vl.get("money"));
+                    } catch (Exception e) {
+                        LOGGER.error(e.toString());
+                    }
+
+                });
+
+            });
+            return result;
+        } catch (Exception e) {
+            LOGGER.error(e.toString());
+            return null;
+        }
+    }
+
 }

@@ -27,9 +27,16 @@ public interface OrderInfoPojoMapper {
 
     List<OrderInfoPojo> getMyCheckOrder(@Param("uName") String uName, @Param("oId")String oId,@Param("oState") String oState);
 
-    List<Map<String,Object>> getAllStaffSale();
 
-    List<Map<String,Object>> getAllSaleByStaff(Integer id);
+
+    //List<Map<String,Object>> getAllSaleByStaff(Integer id);
 
     String getStateById(Integer id);
+
+    List<Map<String,Object>> getAllStaffMonthSale(@Param("year") Integer year);
+
+    List<Map<String,Object>> getAllStaffSale(@Param("year") Integer year);
+
+    List<Map<String,Object>> getAllProductSale(@Param("year") Integer year);
+    List<Map<String,Object>> getAllProductMonthSale(@Param("year") Integer year);
 }

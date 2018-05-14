@@ -8,31 +8,21 @@
             <div>
 
                 <!--内容面板顶栏左侧   formID不能和其他页面重复-->
-                <form class="navbar-form navbar-left" role="search" id="productChart_search_form}">
+                <form class="navbar-form navbar-left" role="search" id="productChart_search_form">
 
                     <div class="form-group">
-                        <span>产品名称</span>
-                        <select class="form-control"  >
-                            <option value="0">所有</option>
-                            <option th:each="goods :${goodsList}" th:value="${goods.gId}" th:text="${goods.gName}">选择一</option>
+                        <span>年份选择:</span>
+                        <select class="form-control" name="year">
+                            <option >2018</option>
+                            <option >2017</option>
+                            <option >2016</option>
                         </select>
                     </div>
-                    <button type="button" class="btn  btn-default btn-md" style="margin-left: 30px"
-                            onclick="onSelect(this)">
-                        <i class="glyphicon glyphicon-search"></i>查询
-                    </button>
                 </form>
 
                 <!--内容面板顶栏右侧-->
                 <ul class="nav navbar-nav  navbar-right" style="padding-top: 10px;">
-                    <li>
-                        <div class="btn-group" style="margin-right: 10px">
-                            <button type="button" class="btn  btn-primary btn-md"
-                                    onclick="onShowModal('/productChart/add.html')"><!--弹出框URL-->
-                                <i class="glyphicon glyphicon-plus"></i>增加
-                            </button>
-                        </div>
-                    </li>
+
                 </ul>
 
             </div>
@@ -40,11 +30,110 @@
     </nav>
 
     <!--表格主体-->
-    <div class="main_context_body">
+    <div class="main_context_body container-fluid">
+        <div class="row-fluid">
+            <div class="col-md-6">
+                <div id="product_chart_container_pie" style="width: 100%; margin: 0 auto"></div>
+            </div>
+            <div class="col-md-6">
+                <div id="product_chart_container_line" style="width: 100%; margin: 0 auto"></div>
+            </div>
+        </div>
 
 
+        <script language="JavaScript">
+            function showProductChartPie(year) {
+                var data = getData("/orderChart/getAllProductSale",year);
+                console.log(data);
+                var chart = {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                };
+                var title = {text: '产品销售饼状图'};
+                var tooltip = {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                };
+                var plotOptions = {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
+                            style: {color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'}
+                        }
+                    }
+                };
+                var series = [{type: 'pie', name: '销售占比', data: data}];
+                var json = {};
+                json.chart = chart;
+                json.title = title;
+                json.tooltip = tooltip;
+                json.series = series;
+                json.plotOptions = plotOptions;
+                $('#product_chart_container_pie').html("");
+                $('#product_chart_container_pie').highcharts(json);
+            }
+        </script>
 
+        <script language="JavaScript">
+            function showProductChartLeg(year) {
+                //折现数据
+                var series = getData("/orderChart/getAllProductMonthSale",year);
+                var title = {
+                    text: '产品销售走势图'
+                };
+                var subtitle = {
+                    text: '显示各个产品每月销量'
+                };
+                var xAxis = {
+                    categories: ['一月', '二月', '三月', '四月', '五月', '六月',
+                        '七月', '八月', '九月', '十月', '十一月', '十二月']
+                };
+                var yAxis = {
+                    title: {
+                        text: '销量 (元)'
+                    },
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#808080'
+                    }]
+                };
+                var tooltip = {
+                    valueSuffix: '元'
+                };
+                var legend = {
+                    layout: 'vertical',
+                    align: 'right',
+                    verticalAlign: 'middle',
+                    borderWidth: 0
+                };
+
+
+                var json = {};
+
+                json.title = title;
+                json.subtitle = subtitle;
+                json.xAxis = xAxis;
+                json.yAxis = yAxis;
+                json.tooltip = tooltip;
+                json.legend = legend;
+                json.series = series;
+                $('#product_chart_container_line').highcharts(json);
+            }
+        </script>
 
 
     </div>
 </div>
+<script>
+    showProductChartPie();
+    showProductChartLeg();
+    $("#productChart_search_form").find("select").change(function () {
+        var year = $(this).val();
+        showProductChartPie({year:year});
+        showProductChartLeg({year:year});
+    })
+</script>

@@ -7,13 +7,20 @@
             <div>
 
                 <!--内容面板顶栏左侧   formID不能和其他页面重复-->
-                <form class="navbar-form navbar-left" role="search" id="staffChart_search_form}">
+                <form class="navbar-form navbar-left" role="search" id="staffChart_search_form">
 
                     <div class="form-group">
-                        <span>员工:</span>
-                        <select class="form-control" name=>
-                            <option value="0">选择一</option>
-                            <option th:each="staff :${staffList}" th:value="${staff.sId}" th:text="${staff.sTname}">选择一</option>
+                        <span>年份选择:</span>
+                        <select class="form-control" name="year">
+                            <option >2018</option>
+                            <option >2017</option>
+                            <option >2016</option>
+                            <option >2015</option>
+                            <option >2014</option>
+                            <option >2013</option>
+                            <option >2012</option>
+                            <option >2011</option>
+                            <option >2010</option>
                         </select>
                     </div>
                 </form>
@@ -39,13 +46,45 @@
         </div>
 
         <script language="JavaScript">
-            var data = getData("/orderChart/getAllStaffSale");
-            console.log(data);
-            showPie(data);
+            function showStaffChartPie(year) {
+                var data = getData("/orderChart/getAllStaffSale",year);
+                console.log(data);
+                var chart = {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false
+                };
+                var title = {text: '员工销售饼状图'};
+                var tooltip = {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                };
+                var plotOptions = {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: true,
+                            format: '<b>{point.name}%</b>: {point.percentage:.1f} %',
+                            style: {color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'}
+                        }
+                    }
+                };
+                var series = [{type: 'pie', name: '销售占比', data: data}];
+                var json = {};
+                json.chart = chart;
+                json.title = title;
+                json.tooltip = tooltip;
+                json.series = series;
+                json.plotOptions = plotOptions;
+                $('#staff_chart_container_pie').html("");
+                $('#staff_chart_container_pie').highcharts(json);
+            }
         </script>
 
         <script language="JavaScript">
-            $(document).ready(function () {
+            function showStaffChartLeg(year) {
+                //折现数据
+                var series = getData("/orderChart/getStaffSale",year);
                 var title = {
                     text: '销售走势图'
                 };
@@ -66,11 +105,9 @@
                         color: '#808080'
                     }]
                 };
-
                 var tooltip = {
                     valueSuffix: '元'
-                }
-
+                };
                 var legend = {
                     layout: 'vertical',
                     align: 'right',
@@ -78,28 +115,6 @@
                     borderWidth: 0
                 };
 
-                var series = [
-                    {
-                        name: 'Tokyo',
-                        data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2,
-                            26.5, 23.3, 18.3, 13.9, 9.6]
-                    },
-                    {
-                        name: 'New York',
-                        data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8,
-                            24.1, 20.1, 14.1, 8.6, 2.5]
-                    },
-                    {
-                        name: 'London',
-                        data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0,
-                            16.6, 14.2, 10.3, 6.6, 4.8]
-                    },
-                    {
-                        name: '我的天',
-                        data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8,
-                            24.1, 20.1, 14.1, 8.6, 2.5]
-                    }
-                ];
 
                 var json = {};
 
@@ -110,11 +125,19 @@
                 json.tooltip = tooltip;
                 json.legend = legend;
                 json.series = series;
-
                 $('#staff_chart_container_line').highcharts(json);
-            });
+            }
         </script>
 
 
     </div>
 </div>
+<script>
+    showStaffChartPie();
+    showStaffChartLeg();
+    $("#staffChart_search_form").find("select").change(function () {
+        var year = $(this).val()
+        showStaffChartPie({year:year});
+        showStaffChartLeg({year:year});
+    })
+</script>

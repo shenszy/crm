@@ -135,21 +135,30 @@
         </if>
     </select>
 
-    <select id="getAllStaffSale" resultType="map">
+    <select id="getAllStaffSale" resultType="map" parameterType="int">
         SELECT t.`s_id`,s_tname,money , profit ,num
-	        FROM ( SELECT s_id ,SUM(o_money) AS money ,SUM(o_gprofit)  AS profit,COUNT(*)
-		        AS num FROM t_orderinfo GROUP BY s_id) AS o ,
-	        t_staff AS t
+        FROM ( SELECT s_id ,SUM(o_money) AS money ,SUM(o_gprofit) AS profit,COUNT(*)
+        AS num FROM t_orderinfo WHERE
+            <if test="year == null">
+                DATE_FORMAT(o_addtime,'%Y') = DATE_FORMAT(NOW(),'%Y')
+            </if>
+            <if test="year != null">
+                DATE_FORMAT(o_addtime,'%Y') = #{year}
+            </if>
+            AND o_state NOT IN ('审核驳回','废弃','未审核')
+        GROUP BY s_id) AS o ,
+        t_staff AS t
         WHERE o.s_id=t.s_id
+
     </select>
 
-    <select id="getAllSaleByStaff" parameterType="java.lang.Integer" resultType="map">
+    <!--<select id="getAllSaleByStaff" parameterType="java.lang.Integer" resultType="map">
         SELECT t.`s_id`,s_tname,money , profit ,num
-           FROM  (SELECT s_id,SUM(o_money) AS money ,SUM(o_gprofit)  AS profit,COUNT(*)AS num   FROM t_orderinfo
-                  WHERE s_id = #{id}) o ,
-           t_staff t
+           FROM  (SELECT s_id,SUM(o_money) AS money ,SUM(o_gprofit)  AS profit,COUNT(*)
+                AS num   FROM t_orderinfo   WHERE s_id = #{id}) o ,
+           t_staff as t
         WHERE o.s_id=t.s_id
-    </select>
+    </select>-->
     <update id="updateOfState" parameterType="com.zeyushen.springboot01.app.model.OrderInfoPojo">
         update t_orderinfo
         set o_state=#{oState,jdbcType=VARCHAR}
@@ -169,6 +178,39 @@
         <include refid="Base_Column_List"/>
         from t_orderinfo
         where o_id = #{oId,jdbcType=INTEGER}
+    </select>
+    <select id="getAllStaffMonthSale" resultType="java.util.Map">
+        SELECT money,s_tname AS `name`,`month` FROM
+        (SELECT o_money AS money,s_id,DATE_FORMAT(o_addtime,'%m')AS MONTH FROM t_orderinfo
+        WHERE
+          <if test="year == null">DATE_FORMAT(o_addtime,'%Y') = DATE_FORMAT(NOW(),'%Y')</if>
+          <if test="year != null">DATE_FORMAT(o_addtime,'%Y') = #{year}</if>
+        AND (o_state NOT IN ('审核驳回','废弃','未审核')) ) AS o
+        LEFT JOIN t_staff
+        ON o.s_id=t_staff.s_id;
+    </select>
+
+    <select id="getAllProductSale" resultType="map" parameterType="int">
+        SELECT g_name AS `name`, money  FROM ( SELECT g_id,SUM(o_money) AS money ,SUM(o_gprofit) AS profit,COUNT(*)
+        AS num FROM t_orderinfo WHERE
+          <if test="year == null">DATE_FORMAT(o_addtime,'%Y') = DATE_FORMAT(NOW(),'%Y')</if>
+          <if test="year != null">DATE_FORMAT(o_addtime,'%Y') = #{year}</if>
+        AND o_state NOT IN ('审核驳回','废弃','未审核')
+        GROUP BY g_id) AS o ,
+        t_goods AS t
+        WHERE o.g_id=t.g_id
+
+    </select>
+    <select id="getAllProductMonthSale" resultType="java.util.Map" parameterType="int">
+ SELECT money,g_name AS `name`,`month` FROM
+        (SELECT o_money AS money,g_id,DATE_FORMAT(o_addtime,'%m')AS MONTH FROM t_orderinfo
+        WHERE
+          <if test="year == null">DATE_FORMAT(o_addtime,'%Y') = DATE_FORMAT(NOW(),'%Y')</if>
+          <if test="year != null">DATE_FORMAT(o_addtime,'%Y') = #{year}</if>
+        AND (o_state NOT IN ('审核驳回','废弃','未审核')) ) AS o
+        LEFT JOIN t_goods
+        ON o.g_id=t_goods.g_id;
+
     </select>
 
 

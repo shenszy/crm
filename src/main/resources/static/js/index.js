@@ -252,6 +252,7 @@ $(document).ready(function () {
         };
     });
 });
+
 /**同步获取数据*/
 function getData(url,data) {
     var res;

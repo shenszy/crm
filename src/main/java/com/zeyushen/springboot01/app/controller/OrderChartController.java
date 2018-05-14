@@ -52,9 +52,9 @@ public class OrderChartController {
      */
     @GetMapping("/getAllStaffSale")
     @ResponseBody
-    public List<List<Object>> getAllStaffSale() {
+    public List<List<Object>> getAllStaffSale(Integer year) {
         List<List<Object>> mapList = new ArrayList<>();
-        orderServices.getAllStaffSale().forEach(v->{
+        orderServices.getAllStaffSale(year).forEach(v->{
             List<Object> l = new ArrayList<>();
             l.add(v.get("s_tname"));
             l.add(v.get("money"));
@@ -63,19 +63,20 @@ public class OrderChartController {
         return  mapList;
     }
     /**
-     * 获取所有元工的销售数据
+     * 获取所有元工的每月销售数据
      */
     @GetMapping("/getStaffSale")
     @ResponseBody
-    public List<List<Object>> getStaffSale(Integer month,Integer sId) {
-        List<List<Object>> mapList = new ArrayList<>();
-        orderServices.getAllStaffSale().forEach(v->{
-            List<Object> l = new ArrayList<>();
-            l.add(v.get("s_tname"));
-            l.add(v.get("money"));
-            mapList.add(l);
+    public  List<Map> getStaffSale(Integer year) {
+        Map<String,Double[]> stringMap = orderServices.getAllSaleEveryMonth(year);
+        List<Map> mapArrayList= new ArrayList<>();
+        stringMap.forEach((k,v)->{
+            Map<String,Object> m  = new HashMap<>();
+            mapArrayList.add(m);
+            m.put("name",k);
+            m.put("data",v);
         });
-        return  mapList;
+        return  mapArrayList;
     }
 
    /* *//**
@@ -89,23 +90,39 @@ public class OrderChartController {
     }
 
 
-    *//**
+    */
+    /**
      * 获取所有产品销售数据
-     *//*
+     */
     @GetMapping("/getAllProductSale")
     @ResponseBody
-    public List<Map<String, Object>> getAllProductSale() {
-        //TODO
-        return null;
+    public List<List<Object>> getAllProductSale(Integer year) {
+        List<List<Object>> mapList = new ArrayList<>();
+        orderServices.getAllProductSale(year).forEach(v->{
+            List<Object> l = new ArrayList<>();
+            l.add(v.get("name"));
+            l.add(v.get("money"));
+            mapList.add(l);
+        });
+        return  mapList;
     }
 
-    *//**
-     * 根据产品ID获取销售数据
-     *//*
-    @GetMapping("/getAllSaleByProduct")
+    /**
+     * 获取所有产品每月销售数据
+     */
+    @GetMapping("/getAllProductMonthSale")
     @ResponseBody
-    public List<Map<String, Object>> getAllSaleByProduct(Integer id) {
-        //TODO
-        return null;
-    }*/
+    public List<Map>  getAllProductMonthSale(Integer year) {
+        Map<String,Double[]> stringMap = orderServices.getAllProductEveryMonth(year);
+        List<Map> productData= new ArrayList<>();
+        stringMap.forEach((k,v)->{
+            Map<String,Object> m  = new HashMap<>();
+            productData.add(m);
+            m.put("name",k);
+            m.put("data",v);
+        });
+        return  productData;
+
+    }
+
 }
