@@ -143,7 +143,7 @@
         WHERE o.s_id=t.s_id
     </select>
 
-    <select id="getAllSaleByStaff" parameterType="java.lang.Integer">
+    <select id="getAllSaleByStaff" parameterType="java.lang.Integer" resultType="map">
         SELECT t.`s_id`,s_tname,money , profit ,num
            FROM  (SELECT s_id,SUM(o_money) AS money ,SUM(o_gprofit)  AS profit,COUNT(*)AS num   FROM t_orderinfo
                   WHERE s_id = #{id}) o ,

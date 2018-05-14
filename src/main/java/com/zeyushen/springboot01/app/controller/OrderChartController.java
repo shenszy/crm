@@ -55,14 +55,28 @@ public class OrderChartController {
     public List<List<Object>> getAllStaffSale() {
         List<List<Object>> mapList = new ArrayList<>();
         orderServices.getAllStaffSale().forEach(v->{
-            List l = new ArrayList();
-            mapList.add(l);
+            List<Object> l = new ArrayList<>();
             l.add(v.get("s_tname"));
             l.add(v.get("money"));
+            mapList.add(l);
         });
         return  mapList;
     }
-
+    /**
+     * 获取所有元工的销售数据
+     */
+    @GetMapping("/getStaffSale")
+    @ResponseBody
+    public List<List<Object>> getStaffSale(Integer month,Integer sId) {
+        List<List<Object>> mapList = new ArrayList<>();
+        orderServices.getAllStaffSale().forEach(v->{
+            List<Object> l = new ArrayList<>();
+            l.add(v.get("s_tname"));
+            l.add(v.get("money"));
+            mapList.add(l);
+        });
+        return  mapList;
+    }
 
    /* *//**
      * 根据员工ID获取销售数据
