@@ -21,10 +21,7 @@ import org.springframework.security.web.access.expression.DefaultWebSecurityExpr
 import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter;
 import sun.security.provider.MD5;
 
-/**
- * @author 董文强
- * @Time 2018/5/3 14:12
- */
+
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final Logger LOGGER = LoggerFactory.getLogger(WebSecurityConfig.class);

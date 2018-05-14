@@ -17,10 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author 董文强
- * @Time 2018/5/3 14:15
- */
+
 @Service
 public class UserServices implements UserDetailsService {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServices.class);

@@ -14,10 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author 董文强
- * @Time 2018/5/10 14:33
- */
+
 @Controller
 @RequestMapping("/userManage")
 public class UserManageController {

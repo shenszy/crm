@@ -12,10 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
-/**
- * @author 董文强
- * @Time 2018/5/3 14:09
- */
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
