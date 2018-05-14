@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-/**
- * @author 董文强
- * @Time 2018/5/11 11:21
- */
+
 @Controller
 @RequestMapping("/order/auditOrder")
 public class AuditOrderController {

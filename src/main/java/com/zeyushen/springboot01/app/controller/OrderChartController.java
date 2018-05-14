@@ -17,10 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author 董文强
- * @Time 2018/5/11 14:46
- */
+
 @Controller
 @RequestMapping("/orderChart")
 public class OrderChartController {

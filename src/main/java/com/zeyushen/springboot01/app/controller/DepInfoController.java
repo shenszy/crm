@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -62,7 +63,7 @@ public class DepInfoController {
     }
 
     @RequestMapping("/alter.html")
-    public ModelAndView updateDepHtml(Integer id){
+    public ModelAndView updateDepHtml(Integer id ){
         ModelAndView mv=new ModelAndView("/filemanagement/dep/updateDep");
         mv.addObject("dep",depInfoServices.selectByPrimaryKey(id));
         return mv;

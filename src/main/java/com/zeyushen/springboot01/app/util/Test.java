@@ -6,10 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import sun.security.util.Password;
 
-/**
- * @author 董文强
- * @Time 2018/5/3 15:10
- */
+
 public class Test {
     private static final Logger LOGGER = LoggerFactory.getLogger(Test.class);
 
