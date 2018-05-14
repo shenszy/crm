@@ -50,6 +50,7 @@ public class FileController {
             OutputStream outputStream = response.getOutputStream();
             filePath=fileDir+filePath;
             filePath=filePath.replace("/file/template","/template");
+            filePath=filePath.replace("/file/pact","/pact");
             FileInputStream fileInputStream = new FileInputStream(filePath);
             FileCopyUtils.copy(fileInputStream,outputStream);
         }catch (Exception e){

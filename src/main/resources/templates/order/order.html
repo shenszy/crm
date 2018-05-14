@@ -25,6 +25,8 @@
                             <option>已审核</option>
                             <option>审核通过</option>
                             <option>审核驳回</option>
+                            <option>正在执行</option>
+                            <option>订单完成</option>
                             <option>废弃</option>
                         </select>
                     </div>
@@ -81,8 +83,12 @@
                        th:onclick="'deleteById(\'/order/updateOfState.html?state=审核通过&approvalSId='+${myOrder.approvalSId}+'\',this,'+${myOrder.oId}+',\'审核\')'">通过</a>
                     <a sec:authorize="hasRole('经理')" href="javascript:void(0);"
                        th:onclick="'deleteById(\'/order/updateOfState.html?state=审核驳回&approvalSId='+${myOrder.approvalSId}+'\',this,'+${myOrder.oId}+',\'审核\')'">驳回</a>
+                    <a sec:authorize="hasRole('经理')" href="javascript:void(0);"
+                       th:onclick="'deleteById(\'/order/executed.html\',this,'+${myOrder.oId}+',\'执行状态变更\')'">订单完成</a>
                     <a sec:authorize="hasRole('员工')" href="javascript:void(0);"
-                       th:onclick="'deleteById(\'/order/updateOfState.html\',this,'+${myOrder.oId}+')'">订单作废</a>
+                       th:onclick="'deleteById(\'/order/updateOfState.html\',this,'+${myOrder.oId}+',\'作废\')'">订单作废</a>
+                    <a sec:authorize="hasRole('员工')" href="javascript:void(0);"
+                       th:onclick="'deleteById(\'/order/executing.html\',this,'+${myOrder.oId}+',\'执行状态变更\')'">执行状态变更</a>
                 </td>
             </tr>
             </tbody>

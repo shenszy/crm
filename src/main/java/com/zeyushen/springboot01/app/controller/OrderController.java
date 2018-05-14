@@ -113,4 +113,40 @@ public class OrderController {
         return orderServices.updateOfState(order);
     }
 
+    //获取审核状态，若审核通过才可将状态变更为正在执行
+    @RequestMapping("/executing.html")
+    @ResponseBody
+    public boolean executing(Integer id){
+        if (id==null||id.equals("")){
+            return false;
+        }
+        String state=orderServices.getStateById(id);
+        if(state=="审核通过"||state.equals("审核通过")){
+            OrderInfoPojo order=new OrderInfoPojo();
+            order.setoId(id);
+            order.setoState("正在执行");
+            return orderServices.updateOfState(order);
+        }else {
+            return false;
+        }
+    }
+
+    //获取审核状态，若正在执行才可将状态变更为订单完成
+    @RequestMapping("/executed.html")
+    @ResponseBody
+    public boolean executed(Integer id){
+        if (id==null||id.equals("")){
+            return false;
+        }
+        String state=orderServices.getStateById(id);
+        if(state=="正在执行"||state.equals("正在执行")){
+            OrderInfoPojo order=new OrderInfoPojo();
+            order.setoId(id);
+            order.setoState("执行完成");
+            return orderServices.updateOfState(order);
+        }else {
+            return false;
+        }
+    }
+
 }
